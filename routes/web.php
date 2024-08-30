@@ -15,6 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route:get("/demo",function(){
-    echo "hlo";
+Route::get("/demo",function(){
+    echo "hlo rahul is don";
 });
