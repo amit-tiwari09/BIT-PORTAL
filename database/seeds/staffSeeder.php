@@ -24,7 +24,8 @@ class staffSeeder extends Seeder
                 'gender' => 'male',
                 'password' => Hash::make('password123'), 
                 'image'=>'demo',
-                'role' => 'admin',
+                'role' => 'principal',
+                'faculty'=>"all"
                 
             ],
             [
@@ -35,8 +36,9 @@ class staffSeeder extends Seeder
                 'DOB' => '1992-02-02',
                 'gender' => 'female',
                 'password' => Hash::make('password123'), 
-                'role' => 'user',
-                'image'=>'demo', 
+                'role' => 'hod',
+                'image'=>'HOD', 
+                'faculty'=>"computer"
                 
             ],
         ]);

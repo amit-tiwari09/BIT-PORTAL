@@ -25,6 +25,7 @@ class CreateStaffsTable extends Migration
             $table->string('role');
             $table->string('image');
             $table->timestamps();
+            $table->string("faculty");
         });
     }
 

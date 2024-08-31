@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::post("/login/check","StaffController@authenticate")->name('staff.login');
+
+Route::view("/login","frontend.forms.login");
