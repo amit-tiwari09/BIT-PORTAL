@@ -10,7 +10,16 @@ class StudentsController extends Controller
     public function index()
     {
         $students=student::all();
-      
-        return view('student',compact('students'));
+        return view('students.index',compact('students'));
+    }
+
+    public function create()
+    {
+        return view(' students.create');
+    }
+
+    public function store(Request $request)
+    {
+        dd($request->all());
     }
 }
