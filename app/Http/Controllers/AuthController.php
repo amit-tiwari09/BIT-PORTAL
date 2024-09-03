@@ -20,11 +20,11 @@ class AuthController extends Controller
 
         //check if user exists
 
-        $user = User::where('email', $request->email)->first();
-        if($user){
-            if (Hash::check($request->password, $user->password)) {
-                Auth::login($user);
-                return redirect()->route('product.index');
+        $student = student::where('email', $request->email)->first();
+        if($student){
+            if (Hash::check($request->password, $student->password)) {
+                Auth::login($student);
+                return redirect()->route('students.index');
             }
             $request->session()->flash('error', 'Check your email and passowrd');
             return redirect()->back();
@@ -50,7 +50,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ];
-       $isdone =  User::insert($data);
+       $isdone =  student::insert($data);
        if($isdone){
         Mail::to($request->email)->send(new welcomeMail($request->username, $request->name));
        }
