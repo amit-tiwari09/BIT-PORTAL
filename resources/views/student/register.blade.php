@@ -34,11 +34,6 @@
 <form action='{{ route("student.register")}}' method='POST'>
   @csrf
   <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Username</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='username'>
-  </div>
-
-  <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Name</label>
     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='name'>
   </div>
@@ -57,6 +52,36 @@
     <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
     <input type="password" class="form-control" id="exampleInputPassword1" name='password_confirmation'>
   </div>
+  
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Phone_no</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='phone_no'>
+  </div>
+
+  
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Address</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='address'>
+  </div>
+
+  
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">DOB</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='dob'>
+  </div>
+
+  
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Department</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='department'>
+  </div>
+
+  
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Faculty</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='faculty'>
+  </div>
+
   <button type="submit" class="btn btn-primary">Register</button>
 </form>
     

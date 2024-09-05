@@ -30,6 +30,4 @@ Route::post('student/login', 'StudentController@login');
 // Logout route
 Route::post('student/logout', 'StudentController@logout')->name('student.logout');
 
-// Dashboard route
-Route::get('student/dashboard', 'StudentController@dashboard')->name('student.dashboard')->middleware('auth');
 

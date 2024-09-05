@@ -100,21 +100,57 @@
 
         <!------------ students login form  ------------>
 
-        <form action="#" class="signup">
-          <div class="field">
-            <input type="text" placeholder="Email Address" required>
+        <form action="{{route('student.login')}}" method="POST" class="signup">
+
+        @csrf
+          <div class="field mrgn">
+            <input type="text" placeholder="Email Address" name="email" value="{{old('email')}}" required>
+            @if ($errors->has('email'))
+            <div class="alert">
+
+              @foreach ($errors->get('email') as $error)
+              <p>* {{ $error }}</p>
+              @endforeach
+
+            </div>
+            @endif
+ 
+            @if(session('UnvalidEmail'))
+            <div class="alert">
+              <p>* {{session('UnvalidEmail')}}</p>
+            </div>
+            @endif
           </div>
-          <div class="field">
-            <input type="password" placeholder="Password" required>
+
+
+          <div class="field  mrgn">
+            <input type="password" placeholder="Password" name="pass" value="{{old('pass')}}" required>
+            @if ($errors->has('pass'))
+            <div class="alert">
+              @foreach ($errors->get('pass') as $error)
+              <p> *{{ $error }}</p>
+              @endforeach
+            </div>
+            @endif
+
+            @if(session('WrongPass'))
+            <div class="alert">
+              <p>* {{session('WrongPass')}}</p>
+            </div>
+            @endif
+
           </div>
-          <div class="field">
-            <input type="password" placeholder="Confirm password" required>
-          </div>
+
+
+          <div class="pass-link"><a href="#">Forgot password?</a></div>
           <div class="field btn">
+
             <div class="btn-layer"></div>
-            <input type="submit" value="Signup">
+            <input type="submit" value="Login">
           </div>
+          <div class="signup-link">Not a student? <a href="">Signup now</a></div>
         </form>
+          
       </div>
     </div>
   </div>

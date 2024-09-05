@@ -1,3 +1,5 @@
+<!-- It is of student controller just for checking it is over here -->
+
 <?php
 
 namespace App\Http\Controllers;
@@ -9,12 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
-    // Show registration form
-    public function showRegistrationForm()
-    {
-        return view('student.register');
-    }
-
+   
     // Handle registration
     public function register(Request $request)
     {
@@ -22,7 +19,7 @@ class StudentController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:students',
             'password' => 'required|string|min:6|confirmed',
-
+            
         ]);
 
         Student::create([
@@ -35,10 +32,7 @@ class StudentController extends Controller
     }
 
     // Show login form
-    public function showLoginForm()
-    {
-        return view('student.login');
-    }
+   
 
     // Handle login
     public function login(Request $request)
@@ -47,9 +41,26 @@ class StudentController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
+         $student = student::where("email", $req->email)->first();
 
-       
-    }
+
+        if ($student) {
+
+            if (Hash::check($req->pass, $student->password)) {
+
+                Auth::login($student);
+                
+               
+            } else {
+                session()->flash("WrongPass", "The password is not correct");
+                return redirect()->back();
+            }
+        } else {
+            session()->flash("UnvalidEmail", "The email is not valid, please register");
+            return redirect()->back();
+
+      
+    }}
 
     // Handle logout
     public function logout()
@@ -57,11 +68,6 @@ class StudentController extends Controller
         Auth::logout();
         return redirect()->route('student.login');
     }
-
-    // Show dashboard with student data
-    public function dashboard()
-    {
-        $student = Auth::user();
-        return view('student.dashboard', compact('student'));
-    }
+   
 }
+
