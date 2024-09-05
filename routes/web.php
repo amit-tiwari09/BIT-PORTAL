@@ -16,6 +16,3 @@ Route::get('/', function () {
 });
 
 
-Route::get("/test",function(){
-    echo "testing is done";
-});
