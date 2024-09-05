@@ -123,7 +123,7 @@ input[type="radio"]{
   height: 100%;
   width: 100%;
   outline: none;
-  padding-left: 140px;
+  padding-left: 14px;
   border-radius: 15px;
   border-bottom-width: 2px;
   border: 1px solid lightgrey;
