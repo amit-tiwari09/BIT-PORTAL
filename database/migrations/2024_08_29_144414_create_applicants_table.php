@@ -20,8 +20,10 @@ class CreateApplicantsTable extends Migration
             $table->string('phone_no');
             $table->string('address');
             $table->date('dob');
-            $table->string('applicants_type')
-            $table->enum('gender', ['male', 'female', 'other']);
+            $table->string('applicants_type');
+            $table->string('gender');
+            $table->string('image');
+            
         });
     }
 

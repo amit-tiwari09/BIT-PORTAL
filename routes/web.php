@@ -15,7 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::view("/staffdashboard","backend.StaffDashboard.index");
 
-Route::get("/test",function(){
-    echo "testing is done";
-});
+Route::post("/login/check","StaffController@authenticate")->name('staff.login');
+
+Route::view("/login","frontend.forms.login");

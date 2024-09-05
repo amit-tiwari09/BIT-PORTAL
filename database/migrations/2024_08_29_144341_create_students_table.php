@@ -27,6 +27,7 @@ class CreateStudentsTable extends Migration
             $table->date('admission_date');
             $table->string('gender');
             $table->timestamps();
+            $table->string('image');
         });
     }
 
