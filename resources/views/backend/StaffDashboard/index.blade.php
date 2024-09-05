@@ -26,8 +26,8 @@
     
 	<link rel="stylesheet" href="{{asset('vendor/chartist/css/chartist.min.css')}}">
     <link href="{{asset('vendor/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet">
-	<link href="vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+	<link href="{{asset('vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/style.css')}}" rel="stylesheet">
 </head>
 <body>
 
@@ -54,7 +54,7 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="index.html" class="brand-logo">
+            <a href="{{asset('index.html')}}" class="brand-logo">
                 <svg class="logo-abbr" width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<rect class="svg-logo-rect"  width="54" height="54" rx="27" fill="url(#paint0_linear)"/>
 					<path  d="M23.7487 23.6736C23.7487 25.0896 22.5961 26.2416 21.1793 26.2416C19.764 26.2416 18.6124 25.0896 18.6124 23.6736C18.6124 22.2567 19.764 21.1041 21.1793 21.1041C22.5961 21.1041 23.7487 22.2567 23.7487 23.6736ZM32.8168 21.1042C31.4015 21.1042 30.2499 22.2569 30.2499 23.6737C30.2499 25.0897 31.4015 26.2417 32.8168 26.2417C34.2336 26.2417 35.3862 25.0897 35.3862 23.6737C35.3862 22.2569 34.2336 21.1042 32.8168 21.1042ZM26.0079 36.8042L26.0286 42.6348C24.5259 42.6975 23.4593 42.5364 23.4593 42.5364V36.8055C23.4593 36.2557 23.013 35.8094 22.4632 35.8094C21.9133 35.8094 21.4671 36.2557 21.4671 36.8055V42.0574C18.1887 40.9111 15.8626 38.1857 15.852 35.0374V27.7139C14.9984 26.5905 14.491 25.1903 14.491 23.6736C14.491 22.3807 14.8599 21.1726 15.4973 20.1483L15.4931 12.3799C15.6563 11.1516 16.7925 11.3617 16.7925 11.3617L23.1379 13.9239C24.3426 13.4452 25.6554 13.1819 27.0287 13.1819C28.3907 13.1819 29.6932 13.4411 30.8898 13.9127L37.2075 11.3617C37.2075 11.3617 38.3438 11.1516 38.5069 12.3799L38.5028 20.1486C39.1402 21.1729 39.5091 22.3809 39.5091 23.6736C39.5091 25.1893 39.0022 26.5886 38.1495 27.7117V35.1389C38.155 36.9361 37.4102 38.6757 36.0524 40.0375C36.0524 40.0375 34.7582 41.4527 32.533 42.1947V36.8055C32.533 36.2557 32.0874 35.8094 31.5369 35.8094C30.9871 35.8094 30.5408 36.2557 30.5408 36.8055V42.605C29.8565 42.6794 28.0202 42.6348 28.0202 42.6348L28.0001 36.8068C28.0008 36.257 27.5552 35.8101 27.0054 35.8094C27.0053 35.8094 26.1004 35.8061 26.0079 36.8042ZM25.8788 23.6736C25.8788 21.0829 23.7706 18.9752 21.1793 18.9752C18.5898 18.9752 16.4831 21.0829 16.4831 23.6736C16.4831 26.2642 18.5898 28.3719 21.1793 28.3719C23.7706 28.3719 25.8788 26.2642 25.8788 23.6736ZM27.8489 32.902L30.6503 30.0032C29.097 29.4697 27.8002 28.3799 26.999 26.9729C26.207 28.364 24.9304 29.4448 23.4006 29.9846L26.5748 32.9355C26.5748 32.9355 27.1871 33.4418 27.8489 32.902ZM37.5169 23.6736C37.5169 21.0829 35.4097 18.9752 32.8196 18.9752C30.2278 18.9752 28.1192 21.0829 28.1192 23.6736C28.1192 26.2642 30.2278 28.3719 32.8196 28.3719C35.4097 28.3719 37.5169 26.2642 37.5169 23.6736Z" fill="white"/>
@@ -118,7 +118,7 @@
 									<li class="active dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/1.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/1.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon"></span>
 											</div>
 											<div class="user_info">
@@ -130,7 +130,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/2.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/2.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon offline"></span>
 											</div>
 											<div class="user_info">
@@ -142,7 +142,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/3.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/3.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon"></span>
 											</div>
 											<div class="user_info">
@@ -154,7 +154,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/4.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/4.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon offline"></span>
 											</div>
 											<div class="user_info">
@@ -167,7 +167,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/5.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/5.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon offline"></span>
 											</div>
 											<div class="user_info">
@@ -179,7 +179,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/1.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/1.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon"></span>
 											</div>
 											<div class="user_info">
@@ -191,7 +191,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/2.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/2.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon offline"></span>
 											</div>
 											<div class="user_info">
@@ -204,7 +204,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/3.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/3.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon"></span>
 											</div>
 											<div class="user_info">
@@ -216,7 +216,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/4.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/4.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon offline"></span>
 											</div>
 											<div class="user_info">
@@ -229,7 +229,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/5.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/5.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon offline"></span>
 											</div>
 											<div class="user_info">
@@ -241,7 +241,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/1.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/1.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon"></span>
 											</div>
 											<div class="user_info">
@@ -253,7 +253,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/2.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/2.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon offline"></span>
 											</div>
 											<div class="user_info">
@@ -265,7 +265,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/3.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/3.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon"></span>
 											</div>
 											<div class="user_info">
@@ -278,7 +278,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/4.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/4.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon offline"></span>
 											</div>
 											<div class="user_info">
@@ -290,7 +290,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/5.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/5.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon offline"></span>
 											</div>
 											<div class="user_info">
@@ -324,7 +324,7 @@
 							<div class="card-body msg_card_body dz-scroll" id="DZ_W_Contacts_Body3">
 								<div class="d-flex justify-content-start mb-4">
 									<div class="img_cont_msg">
-										<img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+										<img src="{{asset('images/avatar/1.jpg')}}" class="rounded-circle user_img_msg" alt="">
 									</div>
 									<div class="msg_cotainer">
 										Hi, how are you samim?
@@ -337,12 +337,12 @@
 										<span class="msg_time_send">8:55 AM, today</span>
 									</div>
 									<div class="img_cont_msg">
-								<img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
+								<img src="{{asset('images/avatar/2.jpg')}}" class="rounded-circle user_img_msg" alt="">
 									</div>
 								</div>
 								<div class="d-flex justify-content-start mb-4">
 									<div class="img_cont_msg">
-										<img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+										<img src="{{asset('images/avatar/1.jpg')}}" class="rounded-circle user_img_msg" alt="">
 									</div>
 									<div class="msg_cotainer">
 										I am good too, thank you for your chat template
@@ -355,12 +355,12 @@
 										<span class="msg_time_send">9:05 AM, today</span>
 									</div>
 									<div class="img_cont_msg">
-								<img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
+								<img src="{{asset('images/avatar/2.jpg')}}" class="rounded-circle user_img_msg" alt="">
 									</div>
 								</div>
 								<div class="d-flex justify-content-start mb-4">
 									<div class="img_cont_msg">
-										<img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+										<img src="{{asset('images/avatar/1.jpg')}}" class="rounded-circle user_img_msg" alt="">
 									</div>
 									<div class="msg_cotainer">
 										I am looking for your next templates
@@ -373,12 +373,12 @@
 										<span class="msg_time_send">9:10 AM, today</span>
 									</div>
 									<div class="img_cont_msg">
-										<img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
+										<img src="{{asset('images/avatar/2.jpg')}}" class="rounded-circle user_img_msg" alt="">
 									</div>
 								</div>
 								<div class="d-flex justify-content-start mb-4">
 									<div class="img_cont_msg">
-										<img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+										<img src="{{asset('images/avatar/1.jpg')}}" class="rounded-circle user_img_msg" alt="">
 									</div>
 									<div class="msg_cotainer">
 										Bye, see you
@@ -387,7 +387,7 @@
 								</div>
 								<div class="d-flex justify-content-start mb-4">
 									<div class="img_cont_msg">
-										<img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+										<img src="{{asset('images/avatar/1.jpg')}}" class="rounded-circle user_img_msg" alt="">
 									</div>
 									<div class="msg_cotainer">
 										Hi, how are you samim?
@@ -400,12 +400,12 @@
 										<span class="msg_time_send">8:55 AM, today</span>
 									</div>
 									<div class="img_cont_msg">
-								<img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
+								<img src="{{asset('images/avatar/2.jpg')}}" class="rounded-circle user_img_msg" alt="">
 									</div>
 								</div>
 								<div class="d-flex justify-content-start mb-4">
 									<div class="img_cont_msg">
-										<img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+										<img src="{{asset('images/avatar/1.jpg')}}" class="rounded-circle user_img_msg" alt="">
 									</div>
 									<div class="msg_cotainer">
 										I am good too, thank you for your chat template
@@ -418,12 +418,12 @@
 										<span class="msg_time_send">9:05 AM, today</span>
 									</div>
 									<div class="img_cont_msg">
-								<img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
+								<img src="{{asset('images/avatar/2.jpg')}}" class="rounded-circle user_img_msg" alt="">
 									</div>
 								</div>
 								<div class="d-flex justify-content-start mb-4">
 									<div class="img_cont_msg">
-										<img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+										<img src="{{asset('images/avatar/1.jpg')}}" class="rounded-circle user_img_msg" alt="">
 									</div>
 									<div class="msg_cotainer">
 										I am looking for your next templates
@@ -436,12 +436,12 @@
 										<span class="msg_time_send">9:10 AM, today</span>
 									</div>
 									<div class="img_cont_msg">
-										<img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
+										<img src="{{asset('images/avatar/2.jpg')}}" class="rounded-circle user_img_msg" alt="">
 									</div>
 								</div>
 								<div class="d-flex justify-content-start mb-4">
 									<div class="img_cont_msg">
-										<img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+										<img src="{{asset('images/avatar/1.jpg')}}" class="rounded-circle user_img_msg" alt="">
 									</div>
 									<div class="msg_cotainer">
 										Bye, see you
@@ -597,7 +597,7 @@
                             <div class="dashboard_bar">
 								<div class="input-group search-area d-lg-inline-flex d-none me-5">
 								  <span class="input-group-text" id="header-search">
-										<a href="javascript:void(0);">
+										<a href="{{asset('javascript:void(0);')}}">
 											<i class="flaticon-381-search-2"></i>
 										</a>
 								  </span>
@@ -608,14 +608,14 @@
                         </div>
                         <ul class="navbar-nav header-right">
 							<li class="nav-item dropdown notification_dropdown">
-								  <a class="nav-link bell dz-theme-mode" href="javascript:void(0);">
+								  <a class="nav-link bell dz-theme-mode" href="{{asset('javascript:void(0);')}}">
 									<i id="icon-light" class="fas fa-sun"></i>
 									 <i id="icon-dark" class="fas fa-moon"></i>
 											
 								  </a>
 							</li>
 							<li class="nav-item dropdown notification_dropdown">
-                                <a class="nav-link  ai-icon" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
+                                <a class="nav-link  ai-icon" href="{{asset('javascript:void(0)')}}" role="button" data-bs-toggle="dropdown">
 									<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M25.4707 19.1862L23.3333 15.9802V11.6667C23.3333 9.19135 22.35 6.81738 20.5997 5.06704C18.8493 3.3167 16.4753 2.33337 14 2.33337C11.5246 2.33337 9.15066 3.3167 7.40033 5.06704C5.64999 6.81738 4.66666 9.19135 4.66666 11.6667V15.9802L2.52932 19.1862C2.41256 19.362 2.34562 19.5661 2.33561 19.7769C2.32559 19.9877 2.37288 20.1972 2.47245 20.3833C2.57201 20.5693 2.72013 20.7249 2.90106 20.8335C3.08199 20.9421 3.28897 20.9997 3.49999 21H24.5C24.711 20.9997 24.918 20.9421 25.0989 20.8335C25.2798 20.7249 25.428 20.5693 25.5275 20.3833C25.6271 20.1972 25.6744 19.9877 25.6644 19.7769C25.6544 19.5661 25.5874 19.362 25.4707 19.1862Z" fill="#A5A5A5"/>
 										<path d="M14 25.6666C15.0344 25.6675 16.0397 25.324 16.8572 24.6903C17.6748 24.0565 18.258 23.1686 18.515 22.1666H9.485C9.74197 23.1686 10.3252 24.0565 11.1428 24.6903C11.9603 25.324 12.9656 25.6675 14 25.6666Z" fill="#A5A5A5"/>
@@ -629,7 +629,7 @@
 											<li>
 												<div class="timeline-panel">
 													<div class="media me-2">
-														<img alt="image" width="50" src="images/avatar/1.jpg">
+														<img alt="image" width="50" src="{{asset('images/avatar/1.jpg')}}">
 													</div>
 													<div class="media-body">
 														<h6 class="mb-1">Dr sultads Send you Photo</h6>
@@ -662,7 +662,7 @@
 											 <li>
 												<div class="timeline-panel">
 													<div class="media me-2">
-														<img alt="image" width="50" src="images/avatar/1.jpg">
+														<img alt="image" width="50" src="{{asset('images/avatar/1.jpg')}}">
 													</div>
 													<div class="media-body">
 														<h6 class="mb-1">Dr sultads Send you Photo</h6>
@@ -694,11 +694,11 @@
 											</li>
 										</ul>
 									</div>
-                                    <a class="all-notification" href="javascript:void(0)">See all notifications <i class="ti-arrow-right"></i></a>
+                                    <a class="all-notification" href="{{asset('javascript:void(0)')}}">See all notifications <i class="ti-arrow-right"></i></a>
                                 </div>
                             </li>
 							<li class="nav-item dropdown notification_dropdown">
-                                <a class="nav-link" href="javascript:void(0)" data-bs-toggle="dropdown">
+                                <a class="nav-link" href="{{asset('javascript:void(0)')}}" data-bs-toggle="dropdown">
 									<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M2.33334 23.3333C2.33611 24.2607 2.70575 25.1493 3.36153 25.8051C4.01731 26.4609 4.90594 26.8305 5.83334 26.8333H12.8333V15.1666H2.33334V23.3333Z" fill="#A5A5A5"/>
 										<path d="M15.1667 26.8333H22.1667C23.0941 26.8305 23.9827 26.4609 24.6385 25.8051C25.2942 25.1493 25.6639 24.2607 25.6667 23.3333V15.1666H15.1667V26.8333Z" fill="#A5A5A5"/>
@@ -762,7 +762,7 @@
 								</div>
 							</li>
 							<li class="nav-item dropdown notification_dropdown">
-                                <a class="nav-link bell bell-link" href="javascript:void(0)">
+                                <a class="nav-link bell bell-link" href="{{asset('javascript:void(0)')}}">
                                     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M23.3334 9.33329V16.3333C23.3313 18.1892 22.5932 19.9685 21.2808 21.2808C19.9685 22.5931 18.1892 23.3313 16.3334 23.3333H9.33335C9.02393 23.3333 8.72719 23.4562 8.5084 23.675C8.2896 23.8938 8.16669 24.1905 8.16669 24.5C8.16669 24.8094 8.2896 25.1061 8.5084 25.3249C8.72719 25.5437 9.02393 25.6666 9.33335 25.6666H16.3334C18.8078 25.6638 21.1802 24.6795 22.9299 22.9298C24.6796 21.1801 25.6638 18.8078 25.6667 16.3333V9.33329C25.6667 9.02387 25.5438 8.72713 25.325 8.50833C25.1062 8.28954 24.8094 8.16663 24.5 8.16663C24.1906 8.16663 23.8939 8.28954 23.6751 8.50833C23.4563 8.72713 23.3334 9.02387 23.3334 9.33329Z" fill="#A5A5A5"/>
 										<path d="M16.3333 22.1667C17.8799 22.1649 19.3626 21.5497 20.4561 20.4562C21.5497 19.3626 22.1649 17.8799 22.1667 16.3334V8.16671C22.1649 6.62017 21.5497 5.1375 20.4561 4.04393C19.3626 2.95036 17.8799 2.3352 16.3333 2.33337H8.16668C6.62014 2.3352 5.13747 2.95036 4.0439 4.04393C2.95033 5.1375 2.33517 6.62017 2.33334 8.16671V16.3334C2.33517 17.8799 2.95033 19.3626 4.0439 20.4562C5.13747 21.5497 6.62014 22.1649 8.16668 22.1667H16.3333ZM9.11168 10.9832L10.603 13.0454L15.5408 8.47669C15.7681 8.26653 16.0695 8.15525 16.3788 8.16733C16.6881 8.17941 16.9799 8.31385 17.19 8.54109C17.4002 8.76833 17.5115 9.06974 17.4994 9.37903C17.4873 9.68831 17.3529 9.98013 17.1256 10.1903L11.2218 15.652C11.1007 15.7641 10.9571 15.8491 10.8006 15.9016C10.6442 15.954 10.4783 15.9727 10.3141 15.9563C10.1499 15.94 9.99103 15.889 9.84799 15.8067C9.70495 15.7244 9.58099 15.6127 9.48431 15.4789L7.22168 12.3503C7.04949 12.0993 6.98221 11.7909 7.0342 11.491C7.08619 11.1911 7.25333 10.9234 7.49996 10.745C7.74658 10.5666 8.05317 10.4916 8.35428 10.5361C8.65539 10.5806 8.92719 10.7411 9.11168 10.9832Z" fill="#A5A5A5"/>
@@ -772,7 +772,7 @@
 							</li>
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
-                                    <img src="images/profile/pic1.jpg" width="20" alt="" class="rounded-circle">
+                                    <img src="{{asset('images/profile/pic1.jpg')}}" width="20" alt="" class="rounded-circle">
 									<div class="header-info">
 										<span>Wiliam</span>
 										<small>Super Admin</small>
@@ -780,15 +780,15 @@
 									<i class="fa fa-caret-down ms-3 me-2 " aria-hidden="true"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="app-profile.html" class="dropdown-item ai-icon">
+                                    <a href="{{asset('app-profile.html')}}" class="dropdown-item ai-icon">
                                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                         <span class="ms-2">Profile </span>
                                     </a>
-                                    <a href="email-inbox.html" class="dropdown-item ai-icon">
+                                    <a href="{{asset('email-inbox.html')}}" class="dropdown-item ai-icon">
                                         <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" class="text-success" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                         <span class="ms-2">Inbox </span>
                                     </a>
-                                    <a href="page-login.html" class="dropdown-item ai-icon">
+                                    <a href="{{asset('page-login.html')}}" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                                         <span class="ms-2">Logout </span>
                                     </a>
@@ -817,150 +817,150 @@
         <div class="deznav">
             <div class="deznav-scroll">
 				<ul class="metismenu" id="menu">
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <li><a class="has-arrow ai-icon" href="{{asset('javascript:void()')}}" aria-expanded="false">
 							<i class="flaticon-025-dashboard"></i>
 							<span class="nav-text">Dashboard</span>
 						</a>
                         <ul aria-expanded="false">
-							<li><a href="index.html">Dashboard Light</a></li>
-							<li><a href="index-2.html">Dashboard Dark</a></li>
-							<li><a href="student.html">Students</a></li>
-							<li><a href="teachers.html">Teacher</a></li>
-							<li><a href="events.html">Events</a></li>
-							<li><a href="finance.html">Finance</a></li>
-							<li><a href="food.html">Food</a></li>
+							<li><a href="{{asset('index.html')}}">Dashboard Light</a></li>
+							<li><a href="{{asset('index-2.html')}}">Dashboard Dark</a></li>
+							<li><a href="{{asset('student.html')}}">Students</a></li>
+							<li><a href="{{asset('teachers.html')}}">Teacher</a></li>
+							<li><a href="{{asset('events.html')}}">Events</a></li>
+							<li><a href="{{asset('finance.html')}}">Finance</a></li>
+							<li><a href="{{asset('food.html')}}">Food</a></li>
 						</ul>
                     </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <li><a class="has-arrow ai-icon" href="{{asset('javascript:void()')}}" aria-expanded="false">
 						<i class="flaticon-050-info"></i>
 							<span class="nav-text">Apps</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="app-profile.html">Profile</a></li>
-							<li><a href="post-details.html">Post Details</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
+                            <li><a href="{{asset('app-profile.html')}}">Profile</a></li>
+							<li><a href="{{asset('post-details.html')}}">Post Details</a></li>
+                            <li><a class="has-arrow" href="{{asset('javascript:void()')}}" aria-expanded="false">Email</a>
                                 <ul aria-expanded="false">
-                                    <li><a href="email-compose.html">Compose</a></li>
-                                    <li><a href="email-inbox.html">Inbox</a></li>
-                                    <li><a href="email-read.html">Read</a></li>
+                                    <li><a href="{{asset('email-compose.html')}}">Compose</a></li>
+                                    <li><a href="{{asset('email-inbox.html')}}">Inbox</a></li>
+                                    <li><a href="{{asset('email-read.html')}}">Read</a></li>
                                 </ul>
                             </li>
-                            <li><a href="app-calender.html">Calendar</a></li>
-							<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Shop</a>
+                            <li><a href="{{asset('app-calender.html')}}">Calendar</a></li>
+							<li><a class="has-arrow" href="{{asset('javascript:void()')}}" aria-expanded="false">Shop</a>
                                 <ul aria-expanded="false">
-                                    <li><a href="ecom-product-grid.html">Product Grid</a></li>
-									<li><a href="ecom-product-list.html">Product List</a></li>
-									<li><a href="ecom-product-detail.html">Product Details</a></li>
-									<li><a href="ecom-product-order.html">Order</a></li>
-									<li><a href="ecom-checkout.html">Checkout</a></li>
-									<li><a href="ecom-invoice.html">Invoice</a></li>
-									<li><a href="ecom-customers.html">Customers</a></li>
+                                    <li><a href="{{asset('ecom-product-grid.html')}}">Product Grid</a></li>
+									<li><a href="{{asset('ecom-product-list.html')}}">Product List</a></li>
+									<li><a href="{{asset('ecom-product-detail.html')}}">Product Details</a></li>
+									<li><a href="{{asset('ecom-product-order.html')}}">Order</a></li>
+									<li><a href="{{asset('ecom-checkout.html')}}">Checkout</a></li>
+									<li><a href="{{asset('ecom-invoice.html')}}">Invoice</a></li>
+									<li><a href="{{asset('ecom-customers.html')}}">Customers</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <li><a class="has-arrow ai-icon" href="{{asset('javascript:void()')}}" aria-expanded="false">
 							<i class="flaticon-041-graph"></i>
 							<span class="nav-text">Charts</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="chart-flot.html">Flot</a></li>
-                            <li><a href="chart-morris.html">Morris</a></li>
-                            <li><a href="chart-chartjs.html">Chartjs</a></li>
-                            <li><a href="chart-chartist.html">Chartist</a></li>
-                            <li><a href="chart-sparkline.html">Sparkline</a></li>
-                            <li><a href="chart-peity.html">Peity</a></li>
+                            <li><a href="{{asset('chart-flot.html')}}">Flot</a></li>
+                            <li><a href="{{asset('chart-morris.html')}}">Morris</a></li>
+                            <li><a href="{{asset('chart-chartjs.html')}}">Chartjs</a></li>
+                            <li><a href="{{asset('chart-chartist.html')}}">Chartist</a></li>
+                            <li><a href="{{asset('chart-sparkline.html')}}">Sparkline</a></li>
+                            <li><a href="{{asset('chart-peity.html')}}">Peity</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <li><a class="has-arrow ai-icon" href="{{asset('javascript:void()')}}" aria-expanded="false">
 							<i class="flaticon-086-star"></i>
 							<span class="nav-text">Bootstrap</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="ui-accordion.html">Accordion</a></li>
-                            <li><a href="ui-alert.html">Alert</a></li>
-                            <li><a href="ui-badge.html">Badge</a></li>
-                            <li><a href="ui-button.html">Button</a></li>
-                            <li><a href="ui-modal.html">Modal</a></li>
-                            <li><a href="ui-button-group.html">Button Group</a></li>
-                            <li><a href="ui-list-group.html">List Group</a></li>
-                            <li><a href="ui-media-object.html">Media Object</a></li>
-                            <li><a href="ui-card.html">Cards</a></li>
-                            <li><a href="ui-carousel.html">Carousel</a></li>
-                            <li><a href="ui-dropdown.html">Dropdown</a></li>
-                            <li><a href="ui-popover.html">Popover</a></li>
-                            <li><a href="ui-progressbar.html">Progressbar</a></li>
-                            <li><a href="ui-tab.html">Tab</a></li>
-                            <li><a href="ui-typography.html">Typography</a></li>
-                            <li><a href="ui-pagination.html">Pagination</a></li>
-                            <li><a href="ui-grid.html">Grid</a></li>
+                            <li><a href="{{asset('ui-accordion.html')}}">Accordion</a></li>
+                            <li><a href="{{asset('ui-alert.html')}}">Alert</a></li>
+                            <li><a href="{{asset('ui-badge.html')}}">Badge</a></li>
+                            <li><a href="{{asset('ui-button.html')}}">Button</a></li>
+                            <li><a href="{{asset('ui-modal.html')}}">Modal</a></li>
+                            <li><a href="{{asset('ui-button-group.html')}}">Button Group</a></li>
+                            <li><a href="{{asset('ui-list-group.html')}}">List Group</a></li>
+                            <li><a href="{{asset('ui-media-object.html')}}">Media Object</a></li>
+                            <li><a href="{{asset('ui-card.html')}}">Cards</a></li>
+                            <li><a href="{{asset('ui-carousel.html')}}">Carousel</a></li>
+                            <li><a href="{{asset('ui-dropdown.html')}}">Dropdown</a></li>
+                            <li><a href="{{asset('ui-popover.html')}}">Popover</a></li>
+                            <li><a href="{{asset('ui-progressbar.html')}}">Progressbar</a></li>
+                            <li><a href="{{asset('ui-tab.html')}}">Tab</a></li>
+                            <li><a href="{{asset('ui-typography.html')}}">Typography</a></li>
+                            <li><a href="{{asset('ui-pagination.html')}}">Pagination</a></li>
+                            <li><a href="{{asset('ui-grid.html')}}">Grid</a></li>
 
                         </ul>
                     </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <li><a class="has-arrow ai-icon" href="{{asset('javascript:void()')}}" aria-expanded="false">
 							<i class="flaticon-045-heart"></i>
 							<span class="nav-text">Plugins</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="uc-select2.html">Select 2</a></li>
-                            <li><a href="uc-nestable.html">Nestedable</a></li>
-                            <li><a href="uc-noui-slider.html">Noui Slider</a></li>
-                            <li><a href="uc-sweetalert.html">Sweet Alert</a></li>
-                            <li><a href="uc-toastr.html">toastr</a></li>
-                            <li><a href="map-jqvmap.html">Jqv Map</a></li>
-							<li><a href="uc-lightgallery.html">Light Gallery</a></li>
+                            <li><a href="{{asset('uc-select2.html')}}">Select 2</a></li>
+                            <li><a href="{{asset('uc-nestable.html')}}">Nestedable</a></li>
+                            <li><a href="{{asset('uc-noui-slider.html')}}">Noui Slider</a></li>
+                            <li><a href="{{asset('uc-sweetalert.html')}}">Sweet Alert</a></li>
+                            <li><a href="{{asset('uc-toastr.html')}}">toastr</a></li>
+                            <li><a href="{{asset('map-jqvmap.html')}}">Jqv Map</a></li>
+							<li><a href="{{asset('uc-lightgallery.html')}}">Light Gallery</a></li>
                         </ul>
                     </li>
-                    <li><a href="widget-basic.html" class="ai-icon" aria-expanded="false">
+                    <li><a href="{{asset('widget-basic.html')}}" class="ai-icon" aria-expanded="false">
 							<i class="flaticon-013-checkmark"></i>
 							<span class="nav-text">Widget</span>
 						</a>
 					</li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <li><a class="has-arrow ai-icon" href="{{asset('javascript:void()')}}" aria-expanded="false">
 							<i class="flaticon-072-printer"></i>
 							<span class="nav-text">Forms</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="form-element.html">Form Elements</a></li>
-                            <li><a href="form-wizard.html">Wizard</a></li>
-                            <li><a href="form-editor-summernote.html">Summernote</a></li>
-                            <li><a href="form-pickers.html">Pickers</a></li>
-                            <li><a href="form-validation-jquery.html">Jquery Validate</a></li>
+                            <li><a href="{{asset('form-element.html')}}">Form Elements</a></li>
+                            <li><a href="{{asset('form-wizard.html')}}">Wizard</a></li>
+                            <li><a href="{{asset('form-editor-summernote.html')}}">Summernote</a></li>
+                            <li><a href="{{asset('form-pickers.html')}}">Pickers</a></li>
+                            <li><a href="{{asset('form-validation-jquery.html')}}">Jquery Validate</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <li><a class="has-arrow ai-icon" href="{{asset('javascript:void()')}}" aria-expanded="false">
 							<i class="flaticon-043-menu"></i>
 							<span class="nav-text">Table</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="table-bootstrap-basic.html">Bootstrap</a></li>
-                            <li><a href="table-datatable-basic.html">Datatable</a></li>
+                            <li><a href="{{asset('table-bootstrap-basic.html')}}">Bootstrap</a></li>
+                            <li><a href="{{asset('table-datatable-basic.html')}}">Datatable</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <li><a class="has-arrow ai-icon" href="{{asset('javascript:void()')}}" aria-expanded="false">
 							<i class="flaticon-022-copy"></i>
 							<span class="nav-text">Pages</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="page-register.html">Register</a></li>
-                            <li><a href="page-login.html">Login</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
+                            <li><a href="{{asset('page-register.html')}}">Register</a></li>
+                            <li><a href="{{asset('page-login.html')}}">Login</a></li>
+                            <li><a class="has-arrow" href="{{asset('javascript:void()')}}" aria-expanded="false">Error</a>
                                 <ul aria-expanded="false">
-                                    <li><a href="page-error-400.html">Error 400</a></li>
-                                    <li><a href="page-error-403.html">Error 403</a></li>
-                                    <li><a href="page-error-404.html">Error 404</a></li>
-                                    <li><a href="page-error-500.html">Error 500</a></li>
-                                    <li><a href="page-error-503.html">Error 503</a></li>
+                                    <li><a href="{{asset('page-error-400.html')}}">Error 400</a></li>
+                                    <li><a href="{{asset('page-error-403.html')}}">Error 403</a></li>
+                                    <li><a href="{{asset('page-error-404.html')}}">Error 404</a></li>
+                                    <li><a href="{{asset('page-error-500.html')}}">Error 500</a></li>
+                                    <li><a href="{{asset('page-error-503.html')}}">Error 503</a></li>
                                 </ul>
                             </li>
-                            <li><a href="page-lock-screen.html">Lock Screen</a></li>
+                            <li><a href="{{asset('page-lock-screen.html')}}">Lock Screen</a></li>
                         </ul>
                     </li>
                 </ul>
 				<div class="drum-box">
-					<img src="images/ellipse5.png" alt="">
+					<img src="{{asset('images/ellipse5.png')}}" alt="">
 					<p class="fs-18 font-w500 mb-4">Auto Generate Admission Report</p>
-					<a class="" href="javascript:void(0);"><i class="fa fa-long-arrow-right"></i>
+					<a class="" href="{{asset('javascript:void(0);')}}"><i class="fa fa-long-arrow-right"></i>
 					</a>
 				</div>
 				<div class="copyright">
@@ -1000,7 +1000,7 @@
 							<a class="dropdown-item" href="#">July 27th - Auguts 27th, 2021</a>
 						</div>
 					</div>	
-					<a href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#addOrderModal" class="btn btn-primary btn-rounded mb-3"><i class="fa fa-user-plus me-3"></i>New Admission</a>
+					<a href="{{asset('javascript:void(0);')}}"  data-bs-toggle="modal" data-bs-target="#addOrderModal" class="btn btn-primary btn-rounded mb-3"><i class="fa fa-user-plus me-3"></i>New Admission</a>
 					<!-- Add Order -->
 					<div class="modal fade" id="addOrderModal">
 						<div class="modal-dialog modal-dialog-centered" role="document">
@@ -1125,9 +1125,9 @@
 													<svg  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="12" cy="5" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="19" r="2"></circle></g></svg>
 												</div>
 												<div class="dropdown-menu dropdown-menu-end">
-													<a class="dropdown-item" href="javascript:void(0);">View Detail</a>
-													<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-													<a class="dropdown-item" href="javascript:void(0);">Delete</a>
+													<a class="dropdown-item" href="{{asset('javascript:void(0);')}}">View Detail</a>
+													<a class="dropdown-item" href="{{asset('javascript:void(0);')}}">Edit</a>
+													<a class="dropdown-item" href="{{asset('javascript:void(0);')}}">Delete</a>
 												</div>
 											</div>
 										</div>
@@ -1193,9 +1193,9 @@
 												<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="12" cy="5" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="19" r="2"></circle></g></svg>
 											</div>
 											<div class="dropdown-menu dropdown-menu-end">
-												<a class="dropdown-item" href="javascript:void(0);">View Detail</a>
-												<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-												<a class="dropdown-item" href="javascript:void(0);">Delete</a>
+												<a class="dropdown-item" href="{{asset('javascript:void(0);')}}">View Detail</a>
+												<a class="dropdown-item" href="{{asset('javascript:void(0);')}}">Edit</a>
+												<a class="dropdown-item" href="{{asset('javascript:void(0);')}}">Delete</a>
 											</div>
 										</div>
 									</div>
@@ -1216,9 +1216,9 @@
 												<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#A5A5A5" cx="12" cy="5" r="2"></circle><circle fill="#A5A5A5" cx="12" cy="12" r="2"></circle><circle fill="#A5A5A5" cx="12" cy="19" r="2"></circle></g></svg>
 											</div>
 											<div class="dropdown-menu dropdown-menu-end">
-												<a class="dropdown-item" href="javascript:void(0);">View Detail</a>
-												<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-												<a class="dropdown-item" href="javascript:void(0);">Delete</a>
+												<a class="dropdown-item" href="{{asset('javascript:void(0);')}}">View Detail</a>
+												<a class="dropdown-item" href="{{asset('javascript:void(0);')}}">Edit</a>
+												<a class="dropdown-item" href="{{asset('javascript:void(0);')}}">Delete</a>
 											</div>
 										</div>
 									</div>
@@ -1230,10 +1230,10 @@
 														<td>
 															<div class="d-flex align-items-center intuition-profile">
 																<div class="me-sm-4 me-2">
-																	<img src="images/profile/small/pic1.jpg" class="rounded-circle" alt="" width="64">
+																	<img src="{{asset('images/profile/small/pic1.jpg')}}" class="rounded-circle" alt="" width="64">
 																</div>
 																<div class="info">
-																	<h5 class=" mb-0"><a class="text-black" href="events.html">Dawud Khan</a></h5>
+																	<h5 class=" mb-0"><a class="text-black" href="{{asset('events.html')}}">Dawud Khan</a></h5>
 																	<span class="">ID 12314125</span>
 																</div>
 															</div>
@@ -1258,10 +1258,10 @@
 														<td>
 															<div class="d-flex align-items-center intuition-profile">
 																<div class="me-sm-4 me-2">
-																	<img src="images/profile/small/pic2.jpg" class="rounded-circle" alt="" width="64">
+																	<img src="{{asset('images/profile/small/pic2.jpg')}}" class="rounded-circle" alt="" width="64">
 																</div>
 																<div class="info">
-																	<h5 class=" mb-0"><a class="text-black" href="events.html">Helena Khan</a></h5>
+																	<h5 class=" mb-0"><a class="text-black" href="{{asset('events.html')}}">Helena Khan</a></h5>
 																	<span class="">ID 12314125</span>
 																</div>
 															</div>
@@ -1286,10 +1286,10 @@
 														<td>
 															<div class="d-flex align-items-center intuition-profile">
 																<div class="me-sm-4 me-2">
-																	<img src="images/profile/small/pic3.jpg" class="rounded-circle" alt="" width="64">
+																	<img src="{{asset('images/profile/small/pic3.jpg')}}" class="rounded-circle" alt="" width="64">
 																</div>
 																<div class="info">
-																	<h5 class=" mb-0"><a class="text-black" href="events.html">Peter Jim</a></h5>
+																	<h5 class=" mb-0"><a class="text-black" href="{{asset('events.html')}}">Peter Jim</a></h5>
 																	<span class="">ID 12314125</span>
 																</div>
 															</div>
@@ -1314,10 +1314,10 @@
 														<td>
 															<div class="d-flex align-items-center intuition-profile">
 																<div class="me-sm-4 me-2">
-																	<img src="images/profile/small/pic4.jpg" class="rounded-circle" alt="" width="64">
+																	<img src="{{asset('images/profile/small/pic4.jpg')}}" class="rounded-circle" alt="" width="64">
 																</div>
 																<div class="info">
-																	<h5 class=" mb-0"><a class="text-black" href="events.html">Melinda Truth</a></h5>
+																	<h5 class=" mb-0"><a class="text-black" href="{{asset('events.html')}}">Melinda Truth</a></h5>
 																	<span class="">ID 12314125</span>
 																</div>
 															</div>
@@ -1342,10 +1342,10 @@
 														<td>
 															<div class="d-flex align-items-center intuition-profile">
 																<div class="me-sm-4 me-2">
-																	<img src="images/profile/small/pic5.jpg" class="rounded-circle" alt="" width="64">
+																	<img src="{{asset('images/profile/small/pic5.jpg')}}" class="rounded-circle" alt="" width="64">
 																</div>
 																<div class="info">
-																	<h5 class=" mb-0"><a class="text-black" href="events.html">Hawkins Jr.</a></h5>
+																	<h5 class=" mb-0"><a class="text-black" href="{{asset('events.html')}}">Hawkins Jr.</a></h5>
 																	<span class="">ID 12314125</span>
 																</div>
 															</div>
@@ -1370,10 +1370,10 @@
 														<td>
 															<div class="d-flex align-items-center intuition-profile">
 																<div class="me-sm-4 me-2">
-																	<img src="images/profile/small/pic6.jpg" class="rounded-circle" alt="" width="64">
+																	<img src="{{asset('images/profile/small/pic6.jpg')}}" class="rounded-circle" alt="" width="64">
 																</div>
 																<div class="info">
-																	<h5 class=" mb-0"><a class="text-black" href="events.html">Louis</a></h5>
+																	<h5 class=" mb-0"><a class="text-black" href="{{asset('events.html')}}">Louis</a></h5>
 																	<span class="">ID 12314125</span>
 																</div>
 															</div>
@@ -1415,10 +1415,10 @@
 									<div class="loadmore-content height800 dz-scroll" id="DietMenusContent">
 										<div class="card-body border-bottom">
 											<div class="media mb-3">
-												<img class="rounded" src="images/card/pic11.jpg" style="width:100%;" alt="">
+												<img class="rounded" src="{{asset('images/card/pic11.jpg')}}" style="width:100%;" alt="">
 											</div>
 											<div class="info">
-												<h5 class="text-black mb-3"><a href="ecom-product-detail.html" class="text-black">Spinach with Roasted Crab</a></h5>
+												<h5 class="text-black mb-3"><a href="{{asset('ecom-product-detail.html')}}" class="text-black">Spinach with Roasted Crab</a></h5>
 												<div class="d-flex justify-content-between align-items-center">
 													<h4 class="font-w600 fs-16 mb-0 text-primary text-uppercase">For Breakfast</h4>
 													<div class="d-flex align-items-center">	
@@ -1435,10 +1435,10 @@
 										</div>
 										<div class="card-body border-bottom">
 											<div class="media mb-3">
-												<img class="rounded" src="images/card/pic12.jpg" style="width:100%;" alt="">
+												<img class="rounded" src="{{asset('images/card/pic12.jpg')}}" style="width:100%;" alt="">
 											</div>
 											<div class="info">
-												<h5 class="text-black mb-3"><a href="ecom-product-detail.html" class="text-black">Chicken Teriyaki Khas Haji Muhidin Malang</a></h5>
+												<h5 class="text-black mb-3"><a href="{{asset('ecom-product-detail.html')}}" class="text-black">Chicken Teriyaki Khas Haji Muhidin Malang</a></h5>
 												<div class="d-flex justify-content-between align-items-center">
 													<h4 class="font-w600 mb-0 fs-16 text-primary text-uppercase">For Breakfast</h4>
 													
@@ -1456,10 +1456,10 @@
 										</div>
 										<div class="card-body border-bottom">
 											<div class="media mb-3">
-												<img class="rounded" src="images/card/pic11.jpg" style="width:100%;" alt="">
+												<img class="rounded" src="{{asset('images/card/pic11.jpg')}}" style="width:100%;" alt="">
 											</div>
 											<div class="info">
-												<h5 class="text-black mb-3"><a href="ecom-product-detail.html" class="text-black">Fried Chicken Roll Extra Spiciy with Mozarella</a></h5>
+												<h5 class="text-black mb-3"><a href="{{asset('ecom-product-detail.html')}}" class="text-black">Fried Chicken Roll Extra Spiciy with Mozarella</a></h5>
 												<div class="d-flex justify-content-between align-items-center">
 													<h4 class="font-w600 mb-0 fs-16 text-primary text-uppercase">For Breakfast</h4>
 													
@@ -1477,7 +1477,7 @@
 										</div>
 									</div>
 									<div class="card-footer style-1 text-center border-0 pt-0 pb-5">
-										<a class="text-primary dz-load-more fa fa-chevron-down" id="DietMenus" href="javascript:void(0);" rel="ajax/food-menu-list.html">
+										<a class="text-primary dz-load-more fa fa-chevron-down" id="DietMenus" href="{{asset('javascript:void(0);')}}" rel="ajax/food-menu-list.html">
 										</a>
 									</div>
 								</div>				
@@ -1495,70 +1495,70 @@
 											<div class="card-body loadmore-content  dz-scroll height pb-4 pt-0" id="recentActivitiesContent">
 												<div class="d-flex py-sm-3 py-1 align-items-center">
 													<span class=" me-3">
-														<img src="images/student/pic1.jpg" alt="" class="rounded-circle" width="50">
+														<img src="{{asset('images/student/pic1.jpg')}}" alt="" class="rounded-circle" width="50">
 													</span>
 													<div>
-														<h6 class="font-w600 fs-18 mb-0"><a href="student.html" class="text-black">Melinda Moss</a></h6>
+														<h6 class="font-w600 fs-18 mb-0"><a href="{{asset('student.html')}}" class="text-black">Melinda Moss</a></h6>
 														<span class="fs-14">VII-AB</span>
 													</div>													
 												</div>
 												<div class="d-flex py-sm-3 py-1 align-items-center">
 													<span class=" me-3">
-														<img src="images/student/pic2.jpg" alt="" class="rounded-circle" width="50">
+														<img src="{{asset('images/student/pic2.jpg')}}" alt="" class="rounded-circle" width="50">
 													</span>
 													<div>
-														<h6 class="font-w600 fs-18 mb-0"><a href="student.html" class="text-black">Melinda Moss</a></h6>
+														<h6 class="font-w600 fs-18 mb-0"><a href="{{asset('student.html')}}" class="text-black">Melinda Moss</a></h6>
 														<span class="fs-14">VII-AB</span>
 													</div>													
 												</div>
 												<div class="d-flex py-sm-3 py-1 align-items-center">
 													<span class="me-3">
-														<img src="images/student/pic3.jpg" alt="" class="rounded-circle" width="50">
+														<img src="{{asset('images/student/pic3.jpg')}}" alt="" class="rounded-circle" width="50">
 													</span>
 													<div>
-														<h6 class="font-w600 fs-18 mb-0"><a href="student.html" class="text-black">Melinda Moss</a></h6>
+														<h6 class="font-w600 fs-18 mb-0"><a href="{{asset('student.html')}}" class="text-black">Melinda Moss</a></h6>
 														<span class="fs-14">VII-AB</span>
 													</div>													
 												</div>
 												<div class="d-flex py-sm-3 py-1 align-items-center">
 													<span class="me-3">
-														<img src="images/student/pic4.jpg" alt="" class="rounded-circle" width="50">
+														<img src="{{asset('images/student/pic4.jpg')}}" alt="" class="rounded-circle" width="50">
 													</span>
 													<div>
-														<h6 class="font-w600 fs-18 mb-0"><a href="student.html" class="text-black">Melinda Moss</a></h6>
+														<h6 class="font-w600 fs-18 mb-0"><a href="{{asset('student.html')}}" class="text-black">Melinda Moss</a></h6>
 														<span class="fs-14">VII-AB</span>
 													</div>													
 												</div>
 												<div class="d-flex py-sm-3 py-1 align-items-center">
 													<span class="me-3">
-														<img src="images/student/pic5.jpg" alt="" class="rounded-circle" width="50">
+														<img src="{{asset('images/student/pic5.jpg')}}" alt="" class="rounded-circle" width="50">
 													</span>
 													<div>
-														<h6 class="font-w600 fs-18 mb-0"><a href="student.html" class="text-black">Melinda Moss</a></h6>
+														<h6 class="font-w600 fs-18 mb-0"><a href="{{asset('student.html')}}" class="text-black">Melinda Moss</a></h6>
 														<span class="fs-14">VII-AB</span>
 													</div>													
 												</div>
 												<div class="d-flex py-sm-3 py-1 align-items-center">
 													<span class="me-3">
-														<img src="images/student/pic3.jpg" alt="" class="rounded-circle" width="50">
+														<img src="{{asset('images/student/pic3.jpg')}}" alt="" class="rounded-circle" width="50">
 													</span>
 													<div>
-														<h6 class="font-w600 fs-18 mb-0"><a href="student.html" class="text-black">Melinda Moss</a></h6>
+														<h6 class="font-w600 fs-18 mb-0"><a href="{{asset('student.html')}}" class="text-black">Melinda Moss</a></h6>
 														<span class="fs-14">VII-AB</span>
 													</div>													
 												</div>
 												<div class="d-flex py-sm-3 py-1 align-items-center">
 													<span class="me-3">
-														<img src="images/student/pic5.jpg" alt="" class="rounded-circle" width="50">
+														<img src="{{asset('images/student/pic5.jpg')}}" alt="" class="rounded-circle" width="50">
 													</span>
 													<div>
-														<h6 class="font-w600 fs-18 mb-0"><a href="student.html" class="text-black">Melinda Moss</a></h6>
+														<h6 class="font-w600 fs-18 mb-0"><a href="{{asset('student.html')}}" class="text-black">Melinda Moss</a></h6>
 														<span class="fs-14">VII-AB</span>
 													</div>													
 												</div>
 											</div>	
 											<div class="card-footer  border-0 pt-0 text-center">
-												<a href="javascript:void(0);" class=" btn-block btn-primary btn ">View 240 More</a>
+												<a href="{{asset('javascript:void(0);')}}" class=" btn-block btn-primary btn ">View 240 More</a>
 											</div>
 										</div>	
 										
@@ -1603,17 +1603,17 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="vendor/global/global.min.js"></script>
-	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>	
-	<script src="vendor/bootstrap-datetimepicker/js/moment.js"></script>
-	<script src="vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-	<script src="vendor/peity/jquery.peity.min.js"></script>
+    <script src="{{asset('vendor/global/global.min.js')}}"></script>
+	<script src="{{asset('vendor/bootstrap-select/dist/js/bootstrap-select.min.js')}}"></script>	
+	<script src="{{asset('vendor/bootstrap-datetimepicker/js/moment.js')}}"></script>
+	<script src="{{asset('vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
+	<script src="{{asset('vendor/peity/jquery.peity.min.js')}}"></script>
 	<!-- Apex Chart -->
-	<script src="vendor/apexchart/apexchart.js"></script>
+	<script src="{{asset('vendor/apexchart/apexchart.js')}}"></script>
 	<!-- Dashboard 1 -->
-	<script src="js/dashboard/dashboard-1.js"></script>
-     <script src="js/custom.min.js"></script>
-	<script src="js/deznav-init.js"></script>
+	<script src="{{asset('js/dashboard/dashboard-1.js')}}"></script>
+     <script src="{{asset('js/custom.min.js')}}"></script>
+	<script src="{{asset('js/deznav-init.js')}}"></script>
 	
     
 </body>
