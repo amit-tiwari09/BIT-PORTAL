@@ -15,20 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/students','StudentsController@index')->name('students.index')->middleware('auth');
-Route::get('/students/create','StudentsController@create')->name('students.create');
-Route::post('/students/store','StudentsController@store')->name('students.store');
-Route::get('/students/delete/{id}','StudentsController@delete')->name('students.delete');
-Route::get('/students/edit/{id}','StudentsController@edit')->name('students.edit');
-Route::post('/students/update/{id}','StudentsController@update')->name('students.update');
 
+Route::post("/login/check","StaffController@authenticate")->name('staff.login');
 
-Auth::routes();
+Route::view("/login","frontend.forms.login");
+// Registration routes
+Route::get('student/register', 'StudentController@showRegistrationForm')->name('student.register');
+Route::post('student/register', 'StudentController@register');
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Login routes
+Route::get('student/login', 'StudentController@showLoginForm')->name('student.login');
+Route::post('student/login', 'StudentController@login');
 
-Route::view('/login', 'customeauth.login')->name('login');
-Route::post('/login/check', 'AuthController@login')->name('login.check');
-Route::view('/register', 'customeauth.register')->name('register');
-Route::post('/register/store', 'AuthController@register')->name('register.store');
+// Logout route
+Route::post('student/logout', 'StudentController@logout')->name('student.logout');
+
+// Dashboard route
+Route::get('student/dashboard', 'StudentController@dashboard')->name('student.dashboard')->middleware('auth');
 

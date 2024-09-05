@@ -31,7 +31,7 @@
 </div>
 @endif
  
-<form action='{{ route("register.store")}}' method='POST'>
+<form action='{{ route("student.register")}}' method='POST'>
   @csrf
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Username</label>

@@ -2,9 +2,14 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class staff extends Model
+class Staff extends Authenticatable
 {
+
+    use Notifiable;
     protected $guarded = ["id"];
+    protected $table = 'staffs';
 }

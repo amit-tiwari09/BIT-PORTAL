@@ -23,6 +23,7 @@ class CreateApplicantsTable extends Migration
             $table->string('applicants_type');
             $table->string('gender');
             $table->string('image');
+            
         });
     }
 

@@ -29,6 +29,8 @@ class StudentsTableSeeder extends Seeder
                 'admission_date' => '2018-08-20',
                 'image'=>'demo',
                 'gender' => 'female',
+                'faculty'=>'computer'
+                
                
             ],
             [
@@ -44,6 +46,7 @@ class StudentsTableSeeder extends Seeder
                 'admission_date' => '2017-09-15',
                 'gender' => 'male',
                 'image'=>'demo', 
+                'faculty'=>'civil'
                 
             ]]
             );
