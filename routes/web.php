@@ -1,22 +1,27 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::view("/staffdashboard","backend.StaffDashboard.index");
 
-Route::post("/login/check","StaffController@authenticate")->name('staff.login');
+///// login and logout form
+Route::view("/login","frontend.forms.login")->name('login');
+Route::post('/logout','StaffController@logout')->name('logout');
 
-Route::view("/login","frontend.forms.login");
+// Authentication request 
+Route::post("/staff/login/","StaffController@authenticate")->name('staff.login');
+
+// all the routes for authenticated staffs 
+Route::middleware("staff")->group(function(){
+    Route::view("/staffdashboard","backend.StaffDashboard.index")->name('staffdashboard');
+    Route::get("/dashboard","StaffController@ShowProfile")->name("app.profile");
+});
+
+
+
+
+
