@@ -19,16 +19,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- Favicons Icon -->
-	<link rel="icon" type="image/png" sizes="16x16" href="{{asset('')}}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{{asset('images/favicon.png')}}">
 
 	<!-- Page Title Here -->
 	<title>Principl Dashboard</title>
 
 
 	<link rel="stylesheet" href="{{asset('vendor/chartist/css/chartist.min.css')}}">
-	<link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-	<link href="vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
+	<link href="{{asset('vendor/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet">
+	<link href="{{asset('vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
+	<link href="{{asset('css/style.css')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -144,7 +144,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/2.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/2.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon offline"></span>
 											</div>
 											<div class="user_info">
@@ -156,7 +156,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/3.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/3.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon"></span>
 											</div>
 											<div class="user_info">
@@ -168,7 +168,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/4.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/4.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon offline"></span>
 											</div>
 											<div class="user_info">
@@ -181,7 +181,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/5.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/5.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon offline"></span>
 											</div>
 											<div class="user_info">
@@ -193,7 +193,7 @@
 									<li class="dz-chat-user">
 										<div class="d-flex bd-highlight">
 											<div class="img_cont">
-												<img src="images/avatar/1.jpg" class="rounded-circle user_img" alt="">
+												<img src="{{asset('images/avatar/1.jpg')}}" class="rounded-circle user_img" alt="">
 												<span class="online_icon"></span>
 											</div>
 											<div class="user_info">
@@ -1688,17 +1688,17 @@
         Scripts
     ***********************************-->
 	<!-- Required vendors -->
-	<script src="vendor/global/global.min.js"></script>
-	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-	<script src="vendor/bootstrap-datetimepicker/js/moment.js"></script>
-	<script src="vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-	<script src="vendor/peity/jquery.peity.min.js"></script>
+	<script src="{{asset('vendor/global/global.min.js')}}"></script>
+	<script src="{{asset('vendor/bootstrap-select/dist/js/bootstrap-select.min.js')}}"></script>
+	<script src="{{asset('vendor/bootstrap-datetimepicker/js/moment.js')}}"></script>
+	<script src="{{asset('vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
+	<script src="{{asset('vendor/peity/jquery.peity.min.js')}}"></script>
 	<!-- Apex Chart -->
-	<script src="vendor/apexchart/apexchart.js"></script>
+	<script src="{{asset('vendor/apexchart/apexchart.js')}}"></script>
 	<!-- Dashboard 1 -->
-	<script src="js/dashboard/dashboard-1.js"></script>
-	<script src="js/custom.min.js"></script>
-	<script src="js/deznav-init.js"></script>
+	<script src="{{asset('js/dashboard/dashboard-1.js')}}"></script>
+	<script src="{{asset('js/custom.min.js')}}"></script>
+	<script src="{{asset('js/deznav-init.js')}}"></script>
 
 
 </body>
