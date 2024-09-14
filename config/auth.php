@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'staffs',
         ],
+        'student' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -78,6 +82,11 @@ return [
         'staffs' => [
              'driver' => 'eloquent',
             'model' => App\Staff::class,
+        ],
+
+        'students' => [  // Custom student provider
+            'driver' => 'eloquent',
+            'model' => App\Student::class,  // Make sure you have the Student model
         ],
     ],
 

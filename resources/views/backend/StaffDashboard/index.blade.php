@@ -22,7 +22,9 @@
 	<link rel="icon" type="image/png" sizes="16x16" href="{{asset('images/favicon.png')}}">
 
 	<!-- Page Title Here -->
-	<title>Principl Dashboard</title>
+	<title>
+		staffDashboard
+	</title>
 
 
 	<link rel="stylesheet" href="{{asset('vendor/chartist/css/chartist.min.css')}}">
@@ -845,7 +847,7 @@
 										</svg>
 										<span class="ms-2">Inbox </span>
 									</a>
-									<form action="{{route('logout')}}" method="POST" class="dropdown-item ai-icon">
+									 <form action="{{ route('logout') }}" method="POST" class="dropdown-item ai-icon">
 										@csrf
 										<svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 											<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -853,7 +855,9 @@
 											<line x1="21" y1="12" x2="9" y2="12"></line>
 										</svg>
 										<button type="submit" class="ms-2">Logout </span>
-									</form>
+									</form> 
+
+									
 								</div>
 							</li>
 							<li class="nav-item lenguage-btn">
@@ -1062,7 +1066,10 @@
 							<a class="dropdown-item" href="#">July 27th - Auguts 27th, 2021</a>
 						</div>
 					</div>
-					<a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#addOrderModal" class="btn btn-primary btn-rounded mb-3"><i class="fa fa-user-plus me-3"></i>New Admission</a>
+					<form action="{{route('applicants.details')}}" method="POST">
+						@csrf
+						<button type="submit" data-bs-toggle="modal" data-bs-target="#addOrderModal" class="btn btn-primary btn-rounded mb-3"><i class="fa fa-user-plus me-3"></i>New Applicants</button>
+					</form>
 					<!-- Add Order -->
 					<div class="modal fade" id="addOrderModal">
 						<div class="modal-dialog modal-dialog-centered" role="document">

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Staff;
 use App\Student;
+use App\Applicant;
 
 class StaffController extends Controller
 {
@@ -35,15 +36,23 @@ class StaffController extends Controller
                             return redirect()->route('staffdashboard')
                              ->with('staffcount', $staffcount)
                              ->with('studentcount', $studentcount)
+                             ->with('dashname', "HOD ")
                              ->with('staff', $staff);
 
                         case 'principal':
-                            return redirect()->route('principal.dashboard')
-                                ->with('staff', $staff);
+                            $staffcount = Staff::count();
+                            
+                            $studentcount = Student::count();
+                            return redirect()->route('staffdashboard')
+                             ->with('staffcount', $staffcount)
+                             ->with('studentcount', $studentcount)
+                             ->with('dashname', "Princiapl")
+                             ->with('staff', $staff);
 
                         case 'teacher':
-                            return redirect()->route('teacher.dashboard')
-                                ->with('staff', $staff);
+                            return redirect()->route('staffdashboard')
+                                ->with('staff', $staff)
+                                -with('dashname','teacher');
 
                         default:
                             return redirect()->route('login')->withErrors('Unknown role');
@@ -68,7 +77,49 @@ class StaffController extends Controller
         // return view("backend.StaffDashboard.AppProfile",compact('staff'));
         dd(Auth::check());
     }
+    
 
+    public function apllicantsDetails(){
+        $applicants = Applicant::all();
+        return view("backend.StaffDashboard.applicants",compact('applicants'));
+    }
+
+    public function viewApplicant($id) {
+        $applicant = Applicant::findOrFail($id);
+        // resources\views\backend\StaffDashboard\applicantView.blade.php
+        return view('backend.StaffDashboard.applicantView', compact('applicant'));
+    }
+    
+    public function approveApplicant($id) {
+        $applicant = Applicant::findOrFail($id);
+        
+        // Generate a random password
+        // $password = Str::random(10);
+    
+        // Move to staff table
+        Staff::create([
+            'name' => $applicant->name,
+            'email' => $applicant->email,
+            // 'password' => Hash::make($password),
+            'phone_no' => $applicant->phone_no,
+            'address' => $applicant->address,
+            'dob' => $applicant->dob,
+            'gender' => $applicant->gender,
+            'department' => $applicant->department,
+            'subject' => $applicant->subject,
+            'experience' => $applicant->experience,
+            'resume_path' => $applicant->resume_path,
+        ]);
+    
+        // Send email with password
+        // Mail::to($applicant->email)->send(new ApplicantApprovedMail($password));
+    
+        // Delete from applicants table
+        $applicant->delete();
+    
+        return redirect()->route('admin.dashboard')->with('success', 'Applicant approved and moved to staff.');
+    }
+    
 
 
     public function logout(Request $request)
