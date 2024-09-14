@@ -23,27 +23,27 @@
 
     <!-- Perfect Scrollbar -->
     <link type="text/css"
-        href="assets/vendor/perfect-scrollbar.css"
+        href="{{asset('assets/vendor/perfect-scrollbar.css')}}"
         rel="stylesheet">
 
     <!-- Material Design Icons -->
     <link type="text/css"
-        href="assets/css/material-icons.css"
+        href="{{asset('assets/css/material-icons.css')}}"
         rel="stylesheet">
 
     <!-- Font Awesome Icons -->
     <link type="text/css"
-        href="assets/css/fontawesome.css"
+        href="{{asset('assets/css/fontawesome.css')}}"
         rel="stylesheet">
 
     <!-- Preloader -->
     <link type="text/css"
-        href="assets/vendor/spinkit.css"
+        href="{{asset('assets/vendor/spinkit.css')}}"
         rel="stylesheet">
 
     <!-- App CSS -->
     <link type="text/css"
-        href="assets/css/app.css"
+        href="{{asset('assets/css/app.css')}}"
         rel="stylesheet">
 
 </head>
@@ -97,7 +97,7 @@
                         <!-- Brand -->
                         <a href="student-dashboard.html"
                             class="navbar-brand">
-                            <img src="assets/images/logo/white.svg"
+                            <img src="{{asset('assets/images/logo/white.svg')}}"
                                 class="mr-2"
                                 alt="LearnPlus" />
                             <span class="d-none d-xs-md-block">LearnPlus</span>
@@ -163,7 +163,7 @@
                                                 </span>
                                                 <span class="d-flex">
                                                     <span class="avatar avatar-xs mr-2">
-                                                        <img src="assets/images/people/110/woman-5.jpg"
+                                                        <img src="{{asset('assets/images/people/110/woman-5.jpg')}}"
                                                             alt="people"
                                                             class="avatar-img rounded-circle">
                                                     </span>
@@ -184,7 +184,7 @@
                                                 </span>
                                                 <span class="d-flex">
                                                     <span class="avatar avatar-xs mr-2">
-                                                        <img src="assets/images/people/110/woman-5.jpg"
+                                                        <img src="{{asset('assets/images/people/110/woman-5.jpg')}}"
                                                             alt="people"
                                                             class="avatar-img rounded-circle">
                                                     </span>
@@ -267,7 +267,7 @@
                                 <a class="nav-link dropdown-toggle"
                                     data-toggle="dropdown"
                                     href="#"
-                                    role="button"><img src="assets/images/people/50/guy-6.jpg"
+                                    role="button"><img src="{{asset('assets/images/people/50/guy-6.jpg')}}"
                                         alt="Avatar"
                                         class="rounded-circle"
                                         width="40"></a>
@@ -388,7 +388,7 @@
                                             <div class="d-flex align-items-center">
                                                 <a href="student-take-course.html"
                                                     class="avatar avatar-4by3 avatar-sm mr-3">
-                                                    <img src="assets/images/gulp.png"
+                                                    <img src="{{asset('assets/images/gulp.png')}}"
                                                         alt="course"
                                                         class="avatar-img rounded">
                                                 </a>
@@ -428,7 +428,7 @@
                                             <div class="d-flex align-items-center">
                                                 <a href="student-take-course.html"
                                                     class="avatar avatar-4by3 avatar-sm mr-3">
-                                                    <img src="assets/images/vuejs.png"
+                                                    <img src="{{asset('assets/images/vuejs.png')}}"
                                                         alt="course"
                                                         class="avatar-img rounded">
                                                 </a>
@@ -468,7 +468,7 @@
                                             <div class="d-flex align-items-center">
                                                 <a href="student-take-course.html"
                                                     class="avatar avatar-4by3 avatar-sm mr-3">
-                                                    <img src="assets/images/nodejs.png"
+                                                    <img src="{{asset('assets/images/nodejs.png')}}"
                                                         alt="course"
                                                         class="avatar-img rounded">
                                                 </a>
@@ -639,7 +639,7 @@
                                                         </a>
                                                         <a href="student-profile.html"
                                                             class="forum-thread-user">
-                                                            <img src="assets/images/people/50/guy-1.jpg"
+                                                            <img src="{{asset('assets/images/people/50/guy-1.jpg')}}"
                                                                 alt=""
                                                                 width="20"
                                                                 class="rounded-circle">
@@ -668,7 +668,7 @@
                                                         </a>
                                                         <a href="student-profile.html"
                                                             class="forum-thread-user">
-                                                            <img src="assets/images/people/50/guy-2.jpg"
+                                                            <img src="{{asset('assets/images/people/50/guy-2.jpg')}}"
                                                                 alt=""
                                                                 width="20"
                                                                 class="rounded-circle">
@@ -697,7 +697,7 @@
                                                         </a>
                                                         <a href="student-profile.html"
                                                             class="forum-thread-user">
-                                                            <img src="assets/images/people/50/woman-1.jpg"
+                                                            <img src="{{asset('assets/images/people/50/woman-1.jpg')}}"
                                                                 alt=""
                                                                 width="20"
                                                                 class="rounded-circle">
@@ -1149,42 +1149,42 @@
     </div>
 
     <!-- jQuery -->
-    <script src="assets/vendor/jquery.min.js"></script>
+    <script src="{{asset('assets/vendor/jquery.min.js')}}"></script>
 
     <!-- Bootstrap -->
-    <script src="assets/vendor/popper.min.js"></script>
-    <script src="assets/vendor/bootstrap.min.js"></script>
+    <script src="{{asset('assets/vendor/popper.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/bootstrap.min.js')}}"></script>
 
     <!-- Perfect Scrollbar -->
-    <script src="assets/vendor/perfect-scrollbar.min.js"></script>
+    <script src="{{asset('assets/vendor/perfect-scrollbar.min.js')}}"></script>
 
     <!-- MDK -->
-    <script src="assets/vendor/dom-factory.js"></script>
-    <script src="assets/vendor/material-design-kit.js"></script>
+    <script src="{{asset('assets/vendor/dom-factory.js')}}"></script>
+    <script src="{{asset('assets/vendor/material-design-kit.js')}}"></script>
 
     <!-- App JS -->
-    <script src="assets/js/app.js"></script>
+    <script src="{{asset('assets/js/app.js')}}"></script>
 
     <!-- Highlight.js -->
-    <script src="assets/js/hljs.js"></script>
+    <script src="{{asset('assets/js/hljs.js')}}"></script>
 
     <!-- App Settings (safe to remove) -->
-    <script src="assets/js/app-settings.js"></script>
+    <script src="{{asset('assets/js/app-settings.js')}}"></script>
 
     <!-- Global Settings -->
-    <script src="assets/js/settings.js"></script>
+    <script src="{{asset('assets/js/settings.js')}}"></script>
 
     <!-- Moment.js -->
-    <script src="assets/vendor/moment.min.js"></script>
-    <script src="assets/vendor/moment-range.js"></script>
+    <script src="{{asset('assets/vendor/moment.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/moment-range.js')}}"></script>
 
     <!-- Chart.js -->
-    <script src="assets/vendor/Chart.min.js"></script>
-    <script src="assets/js/chartjs.js"></script>
+    <script src="{{asset('assets/vendor/Chart.min.js')}}"></script>
+    <script src="{{asset('assets/js/chartjs.js')}}"></script>
 
     <!-- Student Dashboard Page JS -->
     <!-- <script src="assets/js/chartjs-rounded-bar.js"></script> -->
-    <script src="assets/js/page.student-dashboard.js"></script>
+    <script src="{{asset('assets/js/page.student-dashboard.js')}}"></script>
 
 </body>
 
