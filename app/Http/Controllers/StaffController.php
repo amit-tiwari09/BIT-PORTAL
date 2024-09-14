@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use App\Staff;
 use App\Student;
 use App\Applicant;
+use Illuminate\Support\Facades\DB;
+use App\Helpers\RegistrationHelper;
+use App\Mail\ApprovedMail;
+
+
+ 
 
 class StaffController extends Controller
 {
@@ -34,25 +42,25 @@ class StaffController extends Controller
                             $staffcount = Staff::count();
                             $studentcount = Student::count();
                             return redirect()->route('staffdashboard')
-                             ->with('staffcount', $staffcount)
-                             ->with('studentcount', $studentcount)
-                             ->with('dashname', "HOD ")
-                             ->with('staff', $staff);
+                                ->with('staffcount', $staffcount)
+                                ->with('studentcount', $studentcount)
+                                ->with('dashname', "HOD ")
+                                ->with('staff', $staff);
 
                         case 'principal':
                             $staffcount = Staff::count();
-                            
+
                             $studentcount = Student::count();
                             return redirect()->route('staffdashboard')
-                             ->with('staffcount', $staffcount)
-                             ->with('studentcount', $studentcount)
-                             ->with('dashname', "Princiapl")
-                             ->with('staff', $staff);
+                                ->with('staffcount', $staffcount)
+                                ->with('studentcount', $studentcount)
+                                ->with('dashname', "Princiapl")
+                                ->with('staff', $staff);
 
                         case 'teacher':
                             return redirect()->route('staffdashboard')
                                 ->with('staff', $staff)
-                                -with('dashname','teacher');
+                                - with('dashname', 'teacher');
 
                         default:
                             return redirect()->route('login')->withErrors('Unknown role');
@@ -77,48 +85,80 @@ class StaffController extends Controller
         // return view("backend.StaffDashboard.AppProfile",compact('staff'));
         dd(Auth::check());
     }
-    
 
-    public function apllicantsDetails(){
+
+    public function apllicantsDetails()
+    {
         $applicants = Applicant::all();
-        return view("backend.StaffDashboard.applicants",compact('applicants'));
+        return view("backend.StaffDashboard.applicants", compact('applicants'));
     }
 
-    public function viewApplicant($id) {
+    public function viewApplicant($id)
+    {
         $applicant = Applicant::findOrFail($id);
         // resources\views\backend\StaffDashboard\applicantView.blade.php
         return view('backend.StaffDashboard.applicantView', compact('applicant'));
     }
+   
     
-    public function approveApplicant($id) {
-        $applicant = Applicant::findOrFail($id);
-        
-        // Generate a random password
-        // $password = Str::random(10);
-    
-        // Move to staff table
-        Staff::create([
+    public function approveApplicant($id)
+{
+    // Fetch the applicant
+    $applicant = Applicant::findOrFail($id);
+
+    // Generate a random password
+    $password = Str::random(8);
+
+    if ($applicant->applicant_type === 'student') {
+        // Generate registration number using helper
+        $registrationNo = RegistrationHelper::generateRegistrationNumber($applicant->department);
+
+        // Move the data to the students table
+        Student::create([
             'name' => $applicant->name,
             'email' => $applicant->email,
-            // 'password' => Hash::make($password),
+            'password' => Hash::make($password),
             'phone_no' => $applicant->phone_no,
             'address' => $applicant->address,
             'dob' => $applicant->dob,
-            'gender' => $applicant->gender,
             'department' => $applicant->department,
+            'previous_education' => $applicant->previous_education,
+            'marks' => $applicant->marks,
+            'graduation_year' => $applicant->graduation_year,
+            'registration_no' => $registrationNo,
+            'faculty' => $applicant->department,
+            'admission_date' => now(),
+            'certificate_path' => $applicant->certificate_path,
+            'tc_path' => $applicant->tc_path,
+            'cc_path' => $applicant->cc_path,
+            'image' => $applicant->image ?? null,
+            'marksheet_path' => $applicant->marksheet_path,
+        ]);
+    } elseif ($applicant->applicant_type === 'staff') {
+        // Move the data to the staff table
+        Staff::create([
+            'name' => $applicant->name,
+            'email' => $applicant->email,
+            'password' => Hash::make($password),
+            'phone_no' => $applicant->phone_no,
+            'address' => $applicant->address,
+            'dob' => $applicant->dob,
             'subject' => $applicant->subject,
             'experience' => $applicant->experience,
-            'resume_path' => $applicant->resume_path,
+            'resume_path' => $applicant->resume_path, // Resume path
         ]);
-    
-        // Send email with password
-        // Mail::to($applicant->email)->send(new ApplicantApprovedMail($password));
-    
-        // Delete from applicants table
-        $applicant->delete();
-    
-        return redirect()->route('admin.dashboard')->with('success', 'Applicant approved and moved to staff.');
     }
+
+    // Delete the applicant from the applicants table
+    $applicant->delete();
+
+    // Send email with generated password using ApprovedMail Mailable
+    Mail::to($applicant->email)->send(new ApprovedMail($applicant->email, $password));
+
+    // Redirect back to the admin page with a success message
+    return redirect()->route('staffdashboard');
+}
+
     
 
 
@@ -136,4 +176,9 @@ class StaffController extends Controller
 
         return redirect()->route('login');
     }
+
+
+
+
+   
 }

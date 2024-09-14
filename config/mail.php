@@ -7,29 +7,27 @@ return [
     | Mail Driver
     |--------------------------------------------------------------------------
     |
-    | Laravel supports both SMTP and PHP's "mail" function as drivers for the
-    | sending of e-mail. You may specify which one you're using throughout
-    | your application here. By default, Laravel is setup for SMTP mail.
+    | Laravel supports various drivers for sending emails. The default driver is
+    | set to 'smtp' which is suitable for most use cases including Mailtrap.
     |
     | Supported: "smtp", "sendmail", "mailgun", "mandrill", "ses",
     |            "sparkpost", "postmark", "log", "array"
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => env('MAIL_MAILER', 'smtp'),
 
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Address
     |--------------------------------------------------------------------------
     |
-    | Here you may provide the host address of the SMTP server used by your
-    | applications. A default option is provided that is compatible with
-    | the Mailgun mail service which will provide reliable deliveries.
+    | Here you can provide the host address of the SMTP server used by your
+    | application. By default, it is set to a Mailtrap host.
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => env('MAIL_HOST', 'smtp.mailtrap.io'),
 
     /*
     |--------------------------------------------------------------------------
@@ -37,12 +35,11 @@ return [
     |--------------------------------------------------------------------------
     |
     | This is the SMTP port used by your application to deliver e-mails to
-    | users of the application. Like the host we have set this value to
-    | stay compatible with the Mailgun e-mail application by default.
+    | users of the application. The default value is set for Mailtrap.
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+    'port' => env('MAIL_PORT', 2525),
 
     /*
     |--------------------------------------------------------------------------
@@ -51,13 +48,13 @@ return [
     |
     | You may wish for all e-mails sent by your application to be sent from
     | the same address. Here, you may specify a name and address that is
-    | used globally for all e-mails that are sent by your application.
+    | used globally for all e-mails sent by your application.
     |
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'example@example.com'),
+        'name' => env('MAIL_FROM_NAME', 'BIT Organization'),
     ],
 
     /*
@@ -66,7 +63,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you may specify the encryption protocol that should be used when
-    | the application send e-mail messages. A sensible default using the
+    | the application sends e-mail messages. A sensible default using the
     | transport layer security protocol should provide great security.
     |
     */
@@ -79,7 +76,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | If your SMTP server requires a username for authentication, you should
-    | set it here. This will get used to authenticate with your server on
+    | set it here. This will be used to authenticate with your server on
     | connection. You may also set the "password" value below this one.
     |
     */

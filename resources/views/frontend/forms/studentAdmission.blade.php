@@ -232,6 +232,10 @@
                 <input type="date" name="dob" id="dob" required>
             </div>
             <div>
+        <label for="previous_education">Applicant_type:</label>
+        <input type="text" name="applicant_type" value="staff" id="previous_education" readonly>
+    </div>
+            <div>
                 <label for="gender">Gender:</label>
                 <select name="gender" id="gender" required>
                     <option value="male">Male</option>

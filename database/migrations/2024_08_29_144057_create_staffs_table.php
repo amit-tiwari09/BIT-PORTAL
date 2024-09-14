@@ -17,15 +17,17 @@ class CreateStaffsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone_no');
-            $table->string('address');
-            $table->date('DOB');
-            $table->string("gender");
             $table->string('password');
-            $table->string('role');
-            $table->string('image');
+            $table->string('phone_no');
+            $table->text('address');
+            $table->date('dob');
+            $table->enum('gender', ['male', 'female', 'other']);
+            $table->string('subject');
+            $table->integer('experience');
+            $table->string('resume_path')->nullable(); // Resume path
+            $table->string('image')->nullable(); // Profile picture
             $table->timestamps();
-            $table->string("faculty");
+            
         });
     }
 

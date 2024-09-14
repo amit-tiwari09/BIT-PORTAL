@@ -42,7 +42,8 @@ class applicantController extends Controller
                 // Generate a unique file name
                 $fileName = time() . '-' . $request->file($field)->getClientOriginalName();
                 // Store the file in the public/images folder
-                $path = $request->file($field)->storeAs('public/images', $fileName);
+                
+                $path = $request->file($field)->move(public_path('pictures'), $fileName);
                 // Save the file name for the applicant
                 $filePaths[$field . '_path'] = $fileName;
             }

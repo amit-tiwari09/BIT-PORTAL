@@ -23,15 +23,21 @@ class StudentsTableSeeder extends Seeder
                 'phone_no' => '1234567890',
                 'address' => '123 Oak Street, City, Country',
                 'dob' => '2000-05-15',
-                'department' => 'Computer Science',
+                'department' => 'Computer', // Must match the enum values
+                'previous_education' => 'High School', // Example value
+                'marks' => 85.75, // Example value with decimal
+                'graduation_year' => 2018, // Example year
                 'registration_no' => Str::random(10), 
                 'faculty' => 'Engineering',
                 'admission_date' => '2018-08-20',
-                'image'=>'demo',
+                'image' => 'demo',
                 'gender' => 'female',
-                'faculty'=>'computer'
-                
-               
+                'certificate_path' => null, // Or provide a path if available
+                'tc_path' => null, // Or provide a path if available
+                'cc_path' => null, // Or provide a path if available
+                'marksheet_path' => null, // Or provide a path if available
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'name' => 'Bob Williams',
@@ -40,15 +46,22 @@ class StudentsTableSeeder extends Seeder
                 'phone_no' => '0987654321',
                 'address' => '456 Pine Street, City, Country',
                 'dob' => '1999-03-10',
-                'department' => 'Electrical Engineering',
+                'department' => 'Electrical', // Must match the enum values
+                'previous_education' => 'High School', // Example value
+                'marks' => 78.50, // Example value with decimal
+                'graduation_year' => 2017, // Example year
                 'registration_no' => Str::random(10), 
                 'faculty' => 'Engineering',
                 'admission_date' => '2017-09-15',
+                'image' => 'demo',
                 'gender' => 'male',
-                'image'=>'demo', 
-                'faculty'=>'civil'
-                
-            ]]
-            );
-    }
+                'certificate_path' => null, // Or provide a path if available
+                'tc_path' => null, // Or provide a path if available
+                'cc_path' => null, // Or provide a path if available
+                'marksheet_path' => null, // Or provide a path if available
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+        ]);
+    }        
 }

@@ -19,15 +19,25 @@ class CreateStudentsTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('phone_no');
-            $table->string('address');
+            $table->text('address');
             $table->date('dob');
-            $table->string('department');
+            $table->enum('gender', ['male', 'female', 'other']);
+            $table->enum('department', ['Computer', 'Mechanical', 'Electrical', 'Electronics', 'Civil']);
+            $table->string('previous_education');
+            $table->decimal('marks', 5, 2);
+            $table->year('graduation_year');
             $table->string('registration_no')->unique();
             $table->string('faculty');
             $table->date('admission_date');
-            $table->string('gender');
+            $table->string('image')->nullable(); // Assuming this is for the profile picture
             $table->timestamps();
-            $table->string('image');
+            
+            // Fields for document paths
+            $table->string('certificate_path')->nullable();
+            $table->string('tc_path')->nullable();
+            $table->string('cc_path')->nullable();
+            $table->string('marksheet_path')->nullable();
+            
         });
     }
 

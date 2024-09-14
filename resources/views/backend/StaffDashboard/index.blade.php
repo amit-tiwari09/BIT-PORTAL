@@ -1068,7 +1068,7 @@
 					</div>
 					<form action="{{route('applicants.details')}}" method="POST">
 						@csrf
-						<button type="submit" data-bs-toggle="modal" data-bs-target="#addOrderModal" class="btn btn-primary btn-rounded mb-3"><i class="fa fa-user-plus me-3"></i>New Applicants</button>
+						<button type="submit" data-bs-toggle="modal"  class="btn btn-primary btn-rounded mb-3"><i class="fa fa-user-plus me-3"></i>New Applicants</button>
 					</form>
 					<!-- Add Order -->
 					<div class="modal fade" id="addOrderModal">

@@ -27,7 +27,8 @@ Route::middleware("staff")->group(function(){
     Route::get("/dashboard","StaffController@ShowProfile")->name("app.profile");
     Route::post("/applicants","StaffController@apllicantsDetails")->name('applicants.details');
     Route::get('/admin/view/{id}','StaffController@viewApplicant')->name('admin.view');
-    Route::post('/admin/approve/{id}','StaffController@approveApplicant')->name('admin.approve');
+    Route::post('/applicant/approve/{id}','StaffController@approveApplicant')->name('applicant.approve');
+
 
 });
 
