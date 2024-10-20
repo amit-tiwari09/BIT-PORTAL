@@ -14,5 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StudentsTableSeeder::class);
     
         $this->call(staffSeeder::class);
+        $this->call(SiteSettingsSeeder::class);
+        $this->call(NavLinkSeeder::class);
     }
 }

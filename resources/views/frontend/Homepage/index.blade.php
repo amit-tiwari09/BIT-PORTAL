@@ -1,1731 +1,599 @@
-<!doctype html>
-<html dir="rtl" class="no-js" lang="zxx">
+<!DOCTYPE html>
+<html lang="en">
 
-<style>
-   .tp-header-btn button {
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 6px;
-    padding: 7px 24px 9px;
-    color: var(--tp-common-white);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    -webkit-transition: all 0.3s 0s ease-out;
-    -moz-transition: all 0.3s 0s ease-out;
-    -ms-transition: all 0.3s 0s ease-out;
-    -o-transition: all 0.3s 0s ease-out;
-    transition: all 0.3s 0s ease-out;
-}
-</style>
-<!-- Mirrored from html.hixstudio.net/acadia-prev/acadia-rtl/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Sep 2024 12:07:05 GMT -->
+<!-- Mirrored from themes.3rdwavemedia.com/college-green/bs5/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Oct 2024 07:57:53 GMT -->
 
 <head>
-   <meta charset="utf-8">
-   <meta http-equiv="x-ua-compatible" content="ie=edge">
-   <title>Acadia - University & Online Course HTML5 Template</title>
-   <meta name="description" content="">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>College Green - Responsive Website Template for Education</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{{asset('assets/favicon.ico')}}">
 
-   <!-- Place favicon.ico in the root directory -->
-   <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/img/logo/favicon.png')}}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel='stylesheet' type='text/css'>
 
-   <!-- CSS here -->
-   <link rel="stylesheet" href="assets/css/bootstrap.css">
-   <link rel="stylesheet" href="assets/css/animate.css">
-   <link rel="stylesheet" href="assets/css/slick.css">
-   <link rel="stylesheet" href="assets/css/swiper-bundle.css">
-   <link rel="stylesheet" href="assets/css/hover-reveal.css">
-   <link rel="stylesheet" href="assets/css/magnific-popup.css">
-   <link rel="stylesheet" href="assets/css/font-awesome-pro.css">
-   <link rel="stylesheet" href="assets/css/spacing.css">
-   <link rel="stylesheet" href="assets/css/main.css">
-   <link rel="stylesheet" href="rtl.css">
+    <!-- FontAwesome JS -->
+    <script defer src="{{ asset('assets/fontawesome/js/all.js') }}"></script>
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="{{ asset('assets/css/theme-1.css') }}">
+
+
 </head>
 
-<body>
+<body class="home-page">
+    <div class="wrapper">
+        <!-- ******HEADER****** -->
+        <header class="header">
+            <div class="top-bar d-none d-lg-block">
+                <div class="container">
+                    <div class="row">
+                        <ul class="social-icons col-md-6 col-12">
+                            <ul style="display: flex; list-style: none; padding: 0; height:50px;">
+                                @foreach($socialMediaLinks as $link)
+                                <li style="margin-right: 10px;">
+                                    <a href="{{ $link->url }}">
+                                        <img src="{{ asset('pictures/' . $link->image) }}" alt="{{ $link->name }}" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
+                                    </a>
+                                </li>
+                                @endforeach
+                            </ul>
 
-   <!-- pre loader area start -->
-   <div id="loading">
-      <div id="loading-center">
-         <div id="loading-center-absolute">
-            <!-- loading content here -->
-            <div class="tp-preloader-content">
-               <div class="tp-preloader-logo">
-                  <div class="tp-preloader-circle">
-                     <svg width="190" height="190" viewBox="0 0 380 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle stroke="#D9D9D9" cx="190" cy="190" r="180" stroke-width="6" stroke-linecap="round">
-                        </circle>
-                        <circle stroke="red" cx="190" cy="190" r="180" stroke-width="6" stroke-linecap="round"></circle>
-                     </svg>
-                  </div>
-                  <img src="assets/img/logo/preloader/preloader-icon.png" alt="">
-               </div>
-               <p class="tp-preloader-subtitle">Loading...</p>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- pre loader area end -->
 
-   <!-- back to top start -->
-   <div class="back-to-top-wrapper">
-      <button id="back_to_top" type="button" class="back-to-top-btn">
-         <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11 6L6 1L1 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-               stroke-linejoin="round" />
-         </svg>
-      </button>
-   </div>
-   <!-- back to top end -->
+                        </ul><!--//social-icons-->
+                        @if (!auth()->guard('staff')->check() && !auth()->guard('student')->check())
+                        <form class="col-md-6 col-12 search-form" action="{{route('login')}}" method="GET">
+                            <button type="submit" class="btn btn-theme">LOGIN</button>
+                        </form>
+                        @endif
 
-   <!-- search area start -->
-   <div class="tp-search-area">
-      <div class="tp-search-inner p-relative">
-         <div class="tp-search-close">
-            <button class="tp-search-close-btn">
-               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path class="path-1" d="M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                  <path class="path-2" d="M1 1L11 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-               </svg>
-            </button>
-         </div>
-         <div class="container">
-            <div class="row">
-               <div class="tp-search-wrapper">
-                  <div class="col-lg-9">
-                     <div class="tp-search-content">
-                        <div class="search p-relative">
-                           <input type="text" class="search-input" placeholder="What are you looking for?">
-                           <button class="tp-search-icon">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                                 <path d="M13.3989 13.4001L16.9989 17.0001" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                 <path d="M15.3999 8.2001C15.3999 4.22366 12.1764 1.00012 8.19997 1.00012C4.22354 1.00012 1 4.22366 1 8.2001C1 12.1765 4.22354 15.4001 8.19997 15.4001C12.1764 15.4001 15.3999 12.1765 15.3999 8.2001Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-                              </svg>
-                           </button>
+                    </div><!--//row-->
+                </div>
+            </div><!--//to-bar-->
+            <div class="header-main container">
+                <div class="row justify-content-center justify-content-lg-between">
+                    <h1 class="logo mb-0 col-auto text-center text-lg-start">
+                        <a href="{{route('home')}}"><img src="{{ asset('pictures/' . $settings['logo']) }}" alt="Logo" style="width: 50px; height: 50px;"></a>
+                    </h1>
+                    <div class="info d-none d-lg-flex col-auto flex-column align-items-end">
+
+                        <ul class="menu-top d-none d-lg-block">
+                            @foreach($navLinks as $link)
+                            <li><a href="{{ $link->value }}">{{ $link->key }}</a></li>
+                            @endforeach
+                        </ul><!--//menu-top-->
+
+                        <div class="contact d-none d-lg-block">
+                            <p class="phone">
+                                <i class="fas fa-phone"></i>
+                                <a href="tel:{{ $settings['contact'] ?? '' }}">Call us today {{ $settings['contact'] ?? '' }}</a>
+                            </p>
+
+                            <p class="email">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:{{ $settings['email'] ?? '' }}">{{ $settings['email'] ?? '' }}</a>
+                            </p>
+
+                        </div><!--//contact-->
+                    </div><!--//info-->
+                </div><!--//row-->
+            </div><!--//header-main-->
+        </header><!--//header-->
+
+        <!-- ******NAV****** -->
+        <div class="main-nav-wrapper">
+            <div class="container">
+                <nav class="main-nav navbar navbar-expand-lg" role="navigation">
+                    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button><!--//nav-toggle-->
+                    <div class="navbar-toggler-label d-lg-none">MENU</div>
+
+                    <div class="navbar-collapse collapse" id="navbar-collapse">
+
+                        <ul class="nav navbar-nav">
+                            @foreach($navLinks as $link)
+                            <!-- If the link is a dropdown, handle it differently -->
+                            @if($link->dropdown_items && is_array($link->dropdown_items))
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ $link->key }} <i class="fas fa-angle-down"></i>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @foreach($link->dropdown_items as $dropdownItem)
+                                    <a class="dropdown-item" href="{{ $dropdownItem['value'] }}">{{ $dropdownItem['key'] }}</a>
+                                    @endforeach
+                                </div><!--//dropdown-menu-->
+                            </li>
+                            @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ $link->value }}">{{ $link->key }}</a>
+                            </li>
+                            @endif
+                            @endforeach
+                        </ul><!--//nav-->
+
+                        <form class="mobile-search-form d-lg-none mb-3" role="search">
+                            <div class="row gx-0">
+                                <div class="col-10">
+                                    <input type="text" class="form-control" placeholder="Search the site...">
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-theme">Go on</button>
+                                </div>
+                            </div>
+                        </form><!--//mobile-search-form-->
+                    </div><!--//navabr-collapse-->
+
+                </nav><!--//main-nav-->
+            </div><!--//container-->
+        </div><!--//main-nav-container-->
+
+        <!-- ******CONTENT****** -->
+        <div class="content container">
+            <div id="promo-carousel" class="promo-carousel carousel slide">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#promo-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#promo-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#promo-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#promo-carousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                </div>
+                <div class="carousel-inner slides">
+                    <div class="carousel-item slide-1 active">
+                        <div class="carousel-caption text-start">
+                            <span class="main">Join College Green Online</span>
+                            <br />
+                            <span class="secondary">Choose from over 100 online and offline courses</span>
                         </div>
-                        <div class="tp-search-course-wrap">
-                           <h3 class="tp-search-course-title">OUR TOP Program</h3>
-                           <div class="row">
-                              <div class="col-xl-3 col-lg-4 col-sm-6">
-                                 <div class="tp-search-course-item mb-30">
-                                    <div class="tp-search-course-thumb mb-5">
-                                       <a href="course-details-2.html"><img src="assets/img/course/search/search-1.jpg" alt=""></a>
-                                    </div>
-                                    <div class="tp-search-course-content">
-                                       <div class="tp-search-course-star">
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                       </div>
-                                       <h4 class="tp-search-course-item-title"><a href="course-details-2.html">Affiliate marketing</a></h4>
-                                       <div class="tp-search-course-price">
-                                          <span>$86.00</span>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-xl-3 col-lg-4 col-sm-6">
-                                 <div class="tp-search-course-item mb-30">
-                                    <div class="tp-search-course-thumb mb-5">
-                                       <a href="course-details-2.html"><img src="assets/img/course/search/search-2.jpg" alt=""></a>
-                                    </div>
-                                    <div class="tp-search-course-content">
-                                       <div class="tp-search-course-star">
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                       </div>
-                                       <h4 class="tp-search-course-item-title"><a href="course-details-2.html">Java Program</a></h4>
-                                       <div class="tp-search-course-price">
-                                          <span>$66.00</span>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-xl-3 col-lg-4 col-sm-6">
-                                 <div class="tp-search-course-item mb-30">
-                                    <div class="tp-search-course-thumb mb-5">
-                                       <a href="course-details-2.html"><img src="assets/img/course/search/search-3.jpg" alt=""></a>
-                                    </div>
-                                    <div class="tp-search-course-content">
-                                       <div class="tp-search-course-star">
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                       </div>
-                                       <h4 class="tp-search-course-item-title"><a href="course-details-2.html">Modern design</a></h4>
-                                       <div class="tp-search-course-price">
-                                          <span>$56.00</span>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-xl-3 col-lg-4 col-sm-6">
-                                 <div class="tp-search-course-item mb-30">
-                                    <div class="tp-search-course-thumb mb-5">
-                                       <a href="course-details-2.html"><img src="assets/img/course/search/search-4.jpg" alt=""></a>
-                                    </div>
-                                    <div class="tp-search-course-content">
-                                       <div class="tp-search-course-star">
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
-                                                <path d="M8.392 6.22064C8.25546 6.35273 8.19273 6.54377 8.22383 6.73113L8.69249 9.32043C8.73203 9.53989 8.63924 9.76198 8.45526 9.88881C8.27497 10.0204 8.0351 10.0362 7.83847 9.93092L5.50362 8.71521C5.42243 8.67205 5.33229 8.6489 5.24003 8.64627H5.09717C5.04761 8.65363 4.99911 8.66942 4.95483 8.69363L2.61946 9.91513C2.50401 9.97302 2.37327 9.99354 2.24516 9.97302C1.93308 9.91408 1.72484 9.61725 1.77598 9.30412L2.24516 6.71481C2.27627 6.52588 2.21353 6.33379 2.077 6.19959L0.173374 4.3576C0.0141682 4.2034 -0.0411849 3.97184 0.0315649 3.76291C0.102206 3.5545 0.282499 3.4024 0.500222 3.3682L3.12027 2.98875C3.31954 2.96822 3.49456 2.84718 3.58418 2.66824L4.73869 0.305243C4.7661 0.252615 4.80142 0.204197 4.84413 0.163147L4.89157 0.126307C4.91635 0.0989408 4.94482 0.0763107 4.97645 0.0578909L5.03391 0.0368396L5.12353 0H5.34547C5.54368 0.0205249 5.71818 0.138938 5.80938 0.315768L6.97918 2.66824C7.06352 2.84034 7.22747 2.9598 7.41673 2.98875L10.0368 3.3682C10.2582 3.39977 10.4432 3.55239 10.5165 3.76291C10.5856 3.97395 10.526 4.20551 10.3636 4.3576L8.392 6.22064Z" fill="#FFB21D" />
-                                             </svg>
-                                          </span>
-                                       </div>
-                                       <h4 class="tp-search-course-item-title"><a href="course-details-2.html">English course</a></h4>
-                                       <div class="tp-search-course-price">
-                                          <span>$36.00</span>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+                    </div>
+
+
+
+                </div>
+
+
+                <button class="carousel-control-prev d-none d-lg-inline-block" type="button" data-bs-target="#promo-carousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next d-none d-lg-inline-block" type="button" data-bs-target="#promo-carousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-         </div>
-      </div>
-   </div>
-   <!-- search area end -->
+            <section class="promo box box-dark">
+                <div class="row gx-5 justify-content-between align-content-center">
+                    <div class="col-lg-9 col-12 mb-2 mb-lg-0">
+                        <h1 class="section-heading">Why College Green</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed bibendum orci eget nulla mattis, quis viverra tellus porta. Donec vitae neque ut velit eleifend commodo. Maecenas turpis odio, placerat eu lorem ut, suscipit commodo augue. </p>
+                    </div>
+                    <div class="col-lg-3 col-12 mb-2">
+                        <a class="btn btn-cta" href="#"><i class="fas fa-play-circle"></i>Apply Now</a>
+                    </div>
+                </div><!--//row-->
+            </section><!--//promo-->
+            <section class="news">
+                <h1 class="section-heading text-highlight"><span class="line">Latest News</span></h1>
+                <div class="carousel-controls">
+                    <a class="prev" href="#news-carousel" data-bs-slide="prev"><i class="fas fa-caret-left"></i></a>
+                    <a class="next" href="#news-carousel" data-bs-slide="next"><i class="fas fa-caret-right"></i></a>
+                </div><!--//carousel-controls-->
+                <div class="section-content ">
+                    <div id="news-carousel" class="news-carousel carousel slide">
+                        <div class="carousel-inner">
+                            <div class="item carousel-item active">
+                                <div class="row">
+                                    <div class="col-lg-4 col-12 news-item">
+                                        <h2 class="title"><a href="news-single.html">Phasellus scelerisque metus</a></h2>
+                                        <img class="thumb" src="assets/images/news/news-thumb-1.jpg" alt="" />
+                                        <p>Suspendisse purus felis, porttitor quis sollicitudin sit amet, elementum et tortor. Praesent lacinia magna in malesuada vestibulum. Pellentesque urna libero.</p>
+                                        <a class="read-more" href="news-single.html">Read more<i class="fas fa-chevron-right"></i></a>
+                                    </div><!--//news-item-->
+                                    <div class="col-lg-4 col-12 news-item">
+                                        <h2 class="title"><a href="news-single.html">Morbi at vestibulum turpis</a></h2>
+                                        <p>Nam feugiat erat vel neque mollis, non vulputate erat aliquet. Maecenas ac leo porttitor, semper risus condimentum, cursus elit. Vivamus vitae libero tellus.</p>
+                                        <a class="read-more" href="news-single.html">Read more<i class="fas fa-chevron-right"></i></a>
+                                        <img class="thumb" src="assets/images/news/news-thumb-2.jpg" alt="" />
+                                    </div><!--//news-item-->
+                                    <div class="col-lg-4 col-12 news-item">
+                                        <h2 class="title"><a href="news-single.html">Aliquam id iaculis urna</a></h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam bibendum mauris eget sapien consectetur pellentesque. Proin elementum tristique euismod. </p>
+                                        <a class="read-more" href="news-single.html">Read more<i class="fas fa-chevron-right"></i></a>
+                                        <img class="thumb" src="assets/images/news/news-thumb-3.jpg" alt="" />
+                                    </div><!--//news-item-->
+                                </div><!--//row-->
+                            </div><!--//item-->
+                            <div class="item carousel-item">
+                                <div class="row">
+                                    <div class="col-lg-4 col-12 news-item">
+                                        <h2 class="title"><a href="news-single.html">Phasellus scelerisque metus</a></h2>
+                                        <img class="thumb" src="assets/images/news/news-thumb-4.jpg" alt="" />
+                                        <p>Suspendisse purus felis, porttitor quis sollicitudin sit amet, elementum et tortor. Praesent lacinia magna in malesuada vestibulum. Pellentesque urna libero.</p>
+                                        <a class="read-more" href="news-single.html">Read more<i class="fas fa-chevron-right"></i></a>
+                                    </div><!--//news-item-->
+                                    <div class="col-lg-4 col-12 news-item">
+                                        <h2 class="title"><a href="news-single.html">Morbi at vestibulum turpis</a></h2>
+                                        <p>Nam feugiat erat vel neque mollis, non vulputate erat aliquet. Maecenas ac leo porttitor, semper risus condimentum, cursus elit. Vivamus vitae libero tellus.</p>
+                                        <a class="read-more" href="news-single.html">Read more<i class="fas fa-chevron-right"></i></a>
+                                        <img class="thumb" src="assets/images/news/news-thumb-5.jpg" alt="" />
+                                    </div><!--//news-item-->
+                                    <div class="col-lg-4 col-12 news-item">
+                                        <h2 class="title"><a href="news-single.html">Aliquam id iaculis urna</a></h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam bibendum mauris eget sapien consectetur pellentesque. Proin elementum tristique euismod. </p>
+                                        <a class="read-more" href="news-single.html">Read more<i class="fas fa-chevron-right"></i></a>
+                                        <img class="thumb" src="assets/images/news/news-thumb-6.jpg" alt="" />
+                                    </div><!--//news-item-->
+                                </div><!--//row-->
+                            </div><!--//item-->
+                        </div><!--//carousel-inner-->
+                    </div><!--//news-carousel-->
+                </div><!--//section-content-->
+            </section><!--//news-->
+            <div class="row cols-wrapper">
+                <div class="col-12 col-lg-6 col-xl-3">
+                    <section class="events">
+                        <h1 class="section-heading text-highlight"><span class="line">Events</span></h1>
+                        <div class="section-content">
+                            <div class="event-item">
+                                <p class="date-label">
+                                    <span class="month">FEB</span>
+                                    <span class="date-number">18</span>
+                                </p>
+                                <div class="details">
+                                    <h2 class="title">Open Day</h2>
+                                    <p class="time"><i class="far fa-clock"></i>10:00am - 18:00pm</p>
+                                    <p class="location"><i class="fas fa-map-marker-alt"></i>East Campus</p>
+                                </div><!--//details-->
+                            </div><!--event-item-->
+                            <div class="event-item">
+                                <p class="date-label">
+                                    <span class="month">SEP</span>
+                                    <span class="date-number">06</span>
+                                </p>
+                                <div class="details">
+                                    <h2 class="title">E-learning at College Green</h2>
+                                    <p class="time"><i class="far fa-clock"></i>10:00am - 16:00pm</p>
+                                    <p class="location"><i class="fas fa-map-marker-alt"></i>Learning Center</p>
+                                </div><!--//details-->
+                            </div><!--event-item-->
+                            <div class="event-item">
+                                <p class="date-label">
+                                    <span class="month">JUN</span>
+                                    <span class="date-number">23</span>
+                                </p>
+                                <div class="details">
+                                    <h2 class="title">Career Fair</h2>
+                                    <p class="time"><i class="far fa-clock"></i>09:45am - 16:00pm</p>
+                                    <p class="location"><i class="fas fa-map-marker-alt"></i>Library</p>
+                                </div><!--//details-->
+                            </div><!--event-item-->
+                            <div class="event-item">
+                                <p class="date-label">
+                                    <span class="month">May</span>
+                                    <span class="date-number">17</span>
+                                </p>
+                                <div class="details">
+                                    <h2 class="title">Science Seminar</h2>
+                                    <p class="time"><i class="far fa-clock"></i>14:00pm - 18:00pm</p>
+                                    <p class="location"><i class="fas fa-map-marker-alt"></i>Library</p>
+                                </div><!--//details-->
+                            </div><!--event-item-->
+                            <div class="event-item">
+                                <p class="date-label">
+                                    <span class="month">Apr</span>
+                                    <span class="date-number">26</span>
+                                </p>
+                                <div class="details">
+                                    <h2 class="title">PTA Meeting</h2>
+                                    <p class="time"><i class="far fa-clock"></i>15:30pm - 16:30pm</p>
+                                    <p class="location"><i class="fas fa-map-marker-alt"></i>Library</p>
+                                </div><!--//details-->
+                            </div><!--event-item-->
+                            <a class="read-more" href="events.html">All events<i class="fas fa-chevron-right"></i></a>
+                        </div><!--//section-content-->
+                    </section><!--//events-->
+                </div><!--//col-->
+                <div class="col-12 col-lg-6 col-xl-6">
+                    <section class="course-finder">
+                        <h1 class="section-heading text-highlight"><span class="line">Course Finder</span></h1>
+                        <div class="section-content">
+                            <form class="course-finder-form" action="#" method="get">
+                                <div class="row gx-0 gx-lg-2">
+                                    <div class="col-12 col-xl-auto col-subject mb-3">
+                                        <select class="form-select subject">
+                                            <option>Choose a subject area</option>
+                                            <option>Accounting & Finance</option>
+                                            <option>Biological Sciences</option>
+                                            <option>Business Studies</option>
+                                            <option>Computer Science</option>
+                                            <option>Creative Arts & Media</option>
+                                            <option>Drama</option>
+                                            <option>Education</option>
+                                            <option>Engineering</option>
+                                            <option>Film Studies</option>
+                                            <option>Fitness Training</option>
+                                            <option>Hospitality</option>
+                                            <option>History</option>
+                                            <option>International Relations</option>
+                                            <option>Law</option>
+                                            <option>Mathematics</option>
+                                            <option>Music</option>
+                                            <option>Physics</option>
+                                            <option>Religion</option>
+                                            <option>Social Science</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-10 col-xl-auto col-keywords mb-3">
+                                        <input class="form-control" type="text" placeholder="Search keywords" />
+                                    </div>
+                                    <div class="col-auto col-submit-btn mb-3">
+                                        <button type="submit" class="btn btn-theme"><i class="fas fa-search m-0"></i></button>
+                                    </div>
+                                </div>
+                            </form><!--//course-finder-form-->
+                            <a class="read-more" href="courses.html">View all our courses<i class="fas fa-chevron-right"></i></a>
+                        </div><!--//section-content-->
+                    </section><!--//course-finder-->
+                    <section class="video">
+                        <h1 class="section-heading text-highlight"><span class="line">Video Tour</span></h1>
+                        <div class="carousel-controls">
+                            <a class="prev" href="#videos-carousel" data-bs-slide="prev"><i class="fas fa-caret-left"></i></a>
+                            <a class="next" href="#videos-carousel" data-bs-slide="next"><i class="fas fa-caret-right"></i></a>
+                        </div><!--//carousel-controls-->
+                        <div class="section-content">
+                            <div id="videos-carousel" class="videos-carousel carousel slide">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item item active">
+                                        <div class="ratio ratio-16x9 mb-3">
+                                            <iframe class="embed-responsive-item" src="http://www.youtube.com/embed/r9LelXa3U_I?rel=0&amp;wmode=transparent" frameborder="0" allowfullscreen=""></iframe>
+                                        </div>
+                                    </div><!--//item-->
+                                    <div class="carousel-item item">
+                                        <div class="ratio ratio-16x9 mb-3">
+                                            <iframe class="embed-responsive-item" src="http://www.youtube.com/embed/RcGyVTAoXEU?rel=0&amp;wmode=transparent" frameborder="0" allowfullscreen=""></iframe>
+                                        </div>
+                                    </div><!--//item-->
+                                    <div class="carousel-item item">
+                                        <div class="ratio ratio-16x9 mb-3">
+                                            <iframe class="embed-responsive-item" src="http://www.youtube.com/embed/Ks-_Mh1QhMc?rel=0&amp;wmode=transparent" frameborder="0" allowfullscreen=""></iframe>
+                                        </div>
+                                    </div><!--//item-->
+                                </div><!--//carousel-inner-->
+                            </div><!--//videos-carousel-->
+                            <p class="description">Video desc goes here aenean feugiat a diam tempus sodales. Quisque lorem nulla, ultrices imperdiet malesuada at, suscipit vel lorem.</p>
+                        </div><!--//section-content-->
+                    </section><!--//video-->
+                </div><!--//col-->
+                <div class="col-12 col-xl-3">
+                    <section class="links">
+                        <h1 class="section-heading text-highlight"><span class="line">Quick Links</span></h1>
+                        <div class="section-content">
+                            <ul class="custom-list-style ps-0 mb-0">
+                                <li><a href="#"><i class="fas fa-caret-right"></i>E-learning Portal</a></li>
+                                <li><a href="#"><i class="fas fa-caret-right"></i>Gallery</a></li>
+                                <li><a href="#"><i class="fas fa-caret-right"></i>Job Vacancies</a></li>
+                                <li class="mb-0"><a href="#"><i class="fas fa-caret-right"></i>Contact</a></li>
+                            </ul>
+                        </div><!--//section-content-->
+                    </section><!--//links-->
+                    <section class="testimonials">
+                        <h1 class="section-heading text-highlight"><span class="line"> Testimonials</span></h1>
+                        <div class="carousel-controls">
+                            <a class="prev" href="#testimonials-carousel" data-bs-slide="prev"><i class="fas fa-caret-left"></i></a>
+                            <a class="next" href="#testimonials-carousel" data-bs-slide="next"><i class="fas fa-caret-right"></i></a>
+                        </div><!--//carousel-controls-->
+                        <div class="section-content">
+                            <div id="testimonials-carousel" class="testimonials-carousel carousel slide">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item item active">
+                                        <blockquote class="quote">
+                                            <p><i class="fas fa-quote-left"></i>I’m very happy interdum eget ipsum. Nunc pulvinar ut nulla eget sollicitudin. In hac habitasse platea dictumst. Integer mattis varius ipsum, posuere posuere est porta vel. Integer metus ligula, blandit ut fermentum a, rhoncus in ligula. Duis luctus.</p>
+                                        </blockquote>
+                                        <div class="source">
+                                            <p class="people"><span class="name">Marissa Spencer</span><br /><span class="title">Curabitur commodo</span></p>
+                                            <img class="profile" src="assets/images/testimonials/profile-1.png" alt="" />
+                                        </div>
+                                    </div><!--//item-->
+                                    <div class="carousel-item item">
+                                        <blockquote class="quote">
+                                            <p><i class="fas fa-quote-left"></i>
+                                                I'm very pleased commodo gravida ultrices. Sed massa leo, aliquet non velit eu, volutpat vulputate odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse porttitor metus eros, ut fringilla nulla auctor a.</p>
+                                        </blockquote>
+                                        <div class="source">
+                                            <p class="people"><span class="name">Marco Antonio</span><br /><span class="title"> Gravida ultrices</span></p>
+                                            <img class="profile" src="assets/images/testimonials/profile-2.png" alt="" />
+                                        </div>
+                                    </div><!--//item-->
+                                    <div class="carousel-item item">
+                                        <blockquote class="quote">
+                                            <p><i class="fas fa-quote-left"></i>
+                                                I'm delighted commodo gravida ultrices. Sed massa leo, aliquet non velit eu, volutpat vulputate odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse porttitor metus eros, ut fringilla nulla auctor a.</p>
+                                        </blockquote>
+                                        <div class="source">
+                                            <p class="people"><span class="name">Kate White</span><br /><span class="title"> Gravida ultrices</span></p>
+                                            <img class="profile" src="assets/images/testimonials/profile-3.png" alt="" />
+                                        </div>
+                                    </div><!--//item-->
 
+                                </div><!--//carousel-inner-->
+                            </div><!--//testimonials-carousel-->
+                        </div><!--//section-content-->
+                    </section><!--//testimonials-->
+                </div><!--//col-->
+            </div><!--//cols-wrapper-->
+            <section class="awards">
+                <div id="awards-carousel" class="awards-carousel carousel slide" data-bs-ride="carousel" data-bs-interval="10000">
 
-   <!-- header-area-start -->
-   <header class="header-area tp-header-transparent p-relative">
-      <div class="tp-header-top theme-bg">
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-6">
-                  <div class="tp-heder-info d-flex justify-content-center justify-content-lg-start align-items-center">
-                     <div class="tp-header-info-item d-none d-md-block">
-                        <span><a href="#"><i class="fa-brands fa-facebook-f"></i></a>7500k Followers</span>
-                     </div>
-                     <div class="tp-header-info-item">
-                        <span>
-                           <a href="tel:0123456789"><i><img src="assets/img/icon/calling.svg" alt="phone-img"></i> +(402) 763 282 46</a>
-                        </span>
-                     </div>
-                     <div class="tp-header-info-item">
-                        <div class="header-bottom__lang">
-                           <ul>
-                              <li>
-                                 <a id="header-bottom__lang-toggle" href="javascript:void(0)">
-                                    <span><img src="assets/img/flag/flag-1.png" alt="">English</span>
-                                    <span>
-                                       <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M1.15067 0.653687C1.33329 0.4674 1.61907 0.450465 1.82045 0.602881L1.87814 0.653687L6 4.85839L10.1219 0.653687C10.3045 0.4674 10.5903 0.450465 10.7916 0.602881L10.8493 0.653687C11.032 0.839974 11.0486 1.13148 10.8991 1.3369L10.8493 1.39575L6.36374 5.97131C6.18111 6.1576 5.89534 6.17454 5.69396 6.02212L5.63626 5.97131L1.15067 1.39575C0.949778 1.19084 0.949778 0.858603 1.15067 0.653687Z" fill="white" stroke="white" stroke-width="0.5" />
-                                       </svg>
+                    <div class="carousel-inner my-5">
+                        <div class="carousel-item item active">
+                            <ul class="logos row">
+
+                                <li class="col-md-2 col-4">
+                                    <a href="#"><img src="assets/images/awards/award1.png" alt="" /></a>
+                                </li>
+                                <li class="col-md-2 col-4">
+                                    <a href="#"><img src="assets/images/awards/award2.png" alt="" /></a>
+                                </li>
+                                <li class="col-md-2 col-4">
+                                    <a href="#"><img src="assets/images/awards/award3.png" alt="" /></a>
+                                </li>
+                                <li class="col-md-2 col-4">
+                                    <a href="#"><img src="assets/images/awards/award4.png" alt="" /></a>
+                                </li>
+                                <li class="col-md-2 col-4">
+                                    <a href="#"><img src="assets/images/awards/award5.png" alt="" /></a>
+                                </li>
+                                <li class="col-md-2 col-4">
+                                    <a href="#"><img src="assets/images/awards/award6.png" alt="" /></a>
+                                </li>
+                            </ul><!--//slides-->
+                        </div><!--//item-->
+
+                        <div class="carousel-item item">
+                            <ul class="logos row">
+                                <li class="col-md-2 col-4">
+                                    <img src="assets/images/awards/award7.png" alt="" />
+                                </li>
+                                <li class="col-md-2 col-4">
+                                    <img src="assets/images/awards/award6.png" alt="" />
+                                </li>
+                                <li class="col-md-2 col-4">
+                                    <img src="assets/images/awards/award5.png" alt="" />
+                                </li>
+                                <li class="col-md-2 col-4">
+                                    <img src="assets/images/awards/award4.png" alt="" />
+                                </li>
+                                <li class="col-md-2 col-4">
+                                    <img src="assets/images/awards/award3.png" alt="" />
+                                </li>
+                                <li class="col-md-2 col-4">
+                                    <img src="assets/images/awards/award2.png" alt="" />
+                                </li>
+                            </ul><!--//slides-->
+                        </div><!--//item-->
+                    </div><!--//carousel-inner-->
+
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#awards-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#awards-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+
+                    </div><!--//carousel-indicators-->
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- ******FOOTER****** -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col col-lg-3 col-12 about">
+                        <div class="footer-col-inner">
+                            <h3>About</h3>
+                            <ul>
+                                <li><a href="about.html"><i class="fas fa-caret-right"></i>About us</a></li>
+                                <li><a href="contact.html"><i class="fas fa-caret-right"></i>Contact us</a></li>
+                                <li><a href="privacy.html"><i class="fas fa-caret-right"></i>Privacy policy</a></li>
+                                <li><a href="terms-and-conditions.html"><i class="fas fa-caret-right"></i>Terms & Conditions</a></li>
+                            </ul>
+                        </div><!--//footer-col-inner-->
+                    </div><!--//foooter-col-->
+                    <div class="footer-col col-lg-6 col-12 mt-4 mt-lg-0 newsletter">
+                        <div class="footer-col-inner">
+                            <h3>Join our mailing list</h3>
+                            <p>Subscribe to get our weekly newsletter delivered directly to your inbox</p>
+                            <form class="subscribe-form">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Enter your email" />
+                                </div>
+                                <input class="btn btn-theme btn-subscribe" type="submit" value="Subscribe">
+                            </form>
+
+                        </div><!--//footer-col-inner-->
+                    </div><!--//foooter-col-->
+                    <div class="footer-col col-lg-3 col-12 mt-4 mt-lg-0 contact">
+                        <div class="footer-col-inner">
+                            <h3>Contact us</h3>
+                            <div class="row">
+                                <p class="adr  col-lg-12 col-md-4 col-12">
+                                    <i class="fas fa-map-marker-alt float-start"></i>
+                                    <span class="adr-group float-start">
+                                        <span class="street-address">College Green</span><br>
+                                        <span class="region">56 College Green Road</span><br>
+                                        <span class="postal-code">12345-1234</span><br>
+                                        <span class="country-name">USA</span>
                                     </span>
-                                 </a>
-                                 <ul class="header-bottom__lang-submenu">
-                                    <li>
-                                       <a href="#">Arabic</a>
-                                    </li>
-                                    <li>
-                                       <a href="#">Spanish</a>
-                                    </li>
-                                    <li>
-                                       <a href="#">Mandarin</a>
-                                    </li>
-                                 </ul>
-                              </li>
-                           </ul>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-6 col-md-6 d-none d-lg-block">
-                  <div class="tp-header-right-list d-flex justify-content-md-end">
-                     <a href="#">Campus</a>
-                     <a href="#">Students</a>
-                     <a href="#"> Staffs</a>
-                     <a href="#"> Alumni </a>
-                     <a href="#">Help Desk</a>
-                  </div>
-               </div>
+                                </p>
+                                <p class="tel col-lg-12 col-md-4 col-12"><i class="fas fa-phone"></i>0800 123 4567</p>
+                                <p class="email col-lg-12 col-md-4 col-12"><i class="fas fa-envelope"></i><a href="#">enquires@website.com</a></p>
+                            </div>
+                        </div><!--//footer-col-inner-->
+                    </div><!--//foooter-col-->
+                </div>
             </div>
-         </div>
-      </div>
-      <div id="header-sticky" class="tp-header-mob-space tp-header-1">
-         <div class="container">
-            <div class="row align-items-center">
-               <div class="col-xxl-2 col-xl-2 col-lg-6 col-md-6 col-6">
-                  <div class="tp-header-logo-1 tp-header-logo">
-                     <a href="index.html">
-                        <img class="logo-1" src="assets/img/logo/logo.png" alt="logo">
-                        <img class="logo-2" src="assets/img/logo/logo-black-1.png" alt="logo">
-                     </a>
-                  </div>
-               </div>
-               <div class="col-xxl-8 col-xl-7 d-none d-xl-block">
-                  <div class="main-menu text-end">
-                     <nav class="tp-main-menu-content">
-                        <ul>
-                           <li class="has-dropdown tp-static">
-                              <a class="tp-static" href="index.html">Home</a>
-                              <div class="tp-megamenu-main">
-                                 <div class="megamenu-demo-conteiner p-relative">
-                                    <div class="row tp-gx-20">
-                                       <div class="col-xl-3 col-md-6 col-12">
-                                          <div class="tp-megamenu-home-item text-center p-relative mb-30">
-                                             <div class="tp-megamenu-home-thumb">
-                                                <a href="index.html"><img src="assets/img/menu/home-1.jpg" alt=""></a>
-                                             </div>
-                                             <h4 class="tp-megamenu-home-title"><a class="red" href="index.html">University Classic</a></h4>
-                                          </div>
-                                       </div>
-                                       <div class="col-xl-3 col-md-6 col-12">
-                                          <div class="tp-megamenu-home-item text-center p-relative mb-30">
-                                             <div class="tp-megamenu-home-thumb">
-                                                <a href="index-2.html"><img src="assets/img/menu/home-2.jpg" alt=""></a>
-                                             </div>
-                                             <h4 class="tp-megamenu-home-title"><a class="red" href="index-2.html">Online Course</a></h4>
-                                          </div>
-                                       </div>
-                                       <div class="col-xl-3 col-md-6 col-12">
-                                          <div class="tp-megamenu-home-item text-center p-relative mb-30">
-                                             <div class="tp-megamenu-home-thumb">
-                                                <a href="index-3.html"><img src="assets/img/menu/home-3.jpg" alt=""></a>
-                                             </div>
-                                             <h4 class="tp-megamenu-home-title"><a class="red" href="index-3.html">Kids Education</a></h4>
-                                          </div>
-                                       </div>
-                                       <div class="col-xl-3 col-md-6 col-12">
-                                          <div class="tp-megamenu-home-item text-center p-relative mb-30">
-                                             <div class="tp-megamenu-home-thumb">
-                                                <a href="index-5.html"><img src="assets/img/menu/home-4.jpg" alt=""></a>
-                                             </div>
-                                             <h4 class="tp-megamenu-home-title"><a class="red" href="index-5.html">Gym Coaching</a></h4>
-                                          </div>
-                                       </div>
-                                       <div class="col-xl-3 col-md-6 col-12">
-                                          <div class="tp-megamenu-home-item text-center p-relative mb-30">
-                                             <div class="tp-megamenu-home-thumb">
-                                                <a href="index-4.html"><img src="assets/img/menu/home-5.jpg" alt=""></a>
-                                             </div>
-                                             <h4 class="tp-megamenu-home-title"><a class="red" href="index-4.html">High School</a></h4>
-                                          </div>
-                                       </div>
-                                       <div class="col-xl-3 col-md-6 col-12">
-                                          <div class="tp-megamenu-home-item text-center p-relative mb-30">
-                                             <div class="tp-megamenu-home-thumb">
-                                                <a href="shop.html"><img src="assets/img/menu/shop.jpg" alt=""></a>
-                                             </div>
-                                             <h4 class="tp-megamenu-home-title"><a class="red" href="shop.html">Books Shop</a></h4>
-                                          </div>
-                                       </div>
-                                       <div class="col-xl-3 col-md-6 col-12">
-                                          <div class="tp-megamenu-home-item text-center p-relative mb-30">
-                                             <div class="tp-megamenu-home-thumb">
-                                                <img src="assets/img/menu/coming-soon-1.jpg" alt="">
-                                             </div>
-                                             <h4 class="tp-megamenu-home-title">Coming Soon</h4>
-                                          </div>
-                                       </div>
-                                       <div class="col-xl-3 col-md-6 col-12">
-                                          <div class="tp-megamenu-home-item text-center p-relative mb-30">
-                                             <div class="tp-megamenu-home-thumb">
-                                                <img src="assets/img/menu/coming-soon-2.jpg" alt="">
-                                             </div>
-                                             <h4 class="tp-megamenu-home-title">Coming Soon</h4>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </li>
-                           <li class="has-dropdown">
-                              <a href="about.html">Academics</a>
-                              <div class="tp-megamenu-main">
-                                 <div class="megamenu-demo-small p-relative">
-                                    <div class="tp-megamenu-small-content">
-                                       <div class="row tp-gx-50">
-                                          <div class="col-xl-6">
-                                             <div class="tp-megamenu-list">
-                                                <a href="university-admission-overview.html">Overview</a>
-                                                <a href="university-program.html">Undergraduate</a>
-                                                <a href="university-program.html">Graduate Program</a>
-                                                <a href="university-program.html">Schools</a>
-                                             </div>
-                                          </div>
-                                          <div class="col-xl-6">
-                                             <div class="tp-megamenu-list">
-                                                <a href="course-with-filter.html">Online Education</a>
-                                                <a href="course-with-filter.html">Off- campus learning</a>
-                                                <a href="university-leadership.html">Faculty</a>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="tp-megamenu-small-cta-wrap d-none d-xl-block">
-                                       <div class="row">
-                                          <div class="col-xl-12">
-                                             <div class="tp-megamenu-small-cta d-flex">
-                                                <div class="tp-megamenu-small-cta-thumb">
-                                                   <img src="assets/img/cta/menu-cta-shape.png" alt="">
-                                                </div>
-                                                <h4 class="tp-megamenu-small-cta-title">All signature programs</h4>
-                                                <div class="tp-megamenu-small-cta-btn">
-
-                                                   <a class="tp-btn" href="university-application-form.html">Apply now</a>
-
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </li>
-                           <li class="has-dropdown">
-                              <a href="#">Admissions</a>
-                              <ul class="tp-submenu">
-                                 <li><a href="university-admission-overview.html">Overview</a></li>
-                                 <li><a href="university-apply.html">How to Apply</a></li>
-                                 <li><a href="university-tuition-fees.html">Tuition & Fees</a></li>
-                                 <li><a href="university-financial.html">Financial Aid</a></li>
-                                 <li><a href="university-deadlines.html">Dates & Deadlines </a></li>
-                                 <li><a href="university-schedule.html">Schedule a Tour</a></li>
-                              </ul>
-                           </li>
-                           <li class="has-dropdown tp-static">
-                              <a class="tp-static" href="#">Pages</a>
-                              <div class="tp-megamenu-main">
-                                 <div class="megamenu-demo-fullwidth p-relative">
-                                    <div class="row">
-                                       <div class="col-xl-8 col-lg-12">
-                                          <div class="tp-megamenu-fullwidth-list-wrapper">
-                                             <div class="row tp-gx-90">
-                                                <div class="col-xl-3 ">
-                                                   <div class="tp-megamenu-fullwidth-list">
-                                                      <h4 class="tp-megamenu-fullwidth-title">About</h4>
-                                                      <ul>
-                                                         <li><a href="about.html">About Us</a></li>
-                                                         <li><a href="university-about.html">University About</a></li>
-                                                         <li><a href="university-campus.html">Campus</a></li>
-                                                         <li><a href="university-mission.html">Mission & Values</a></li>
-                                                         <li><a href="university-history.html">History</a></li>
-                                                         <li><a href="university-leadership.html">Our Leadership</a></li>
-                                                      </ul>
-                                                   </div>
-                                                </div>
-                                                <div class="col-xl-6 ">
-                                                   <div class="tp-megamenu-fullwidth-list ">
-                                                      <h4 class="tp-megamenu-fullwidth-title">Get started</h4>
-                                                      <div class="tp-megamenu-fullwidth-list-wrap">
-                                                         <div class="row">
-                                                            <div class="col-xl-6 col-12">
-                                                               <ul>
-                                                                  <li><a href="event.html">Events</a></li>
-                                                                  <li><a href="event-details.html">Event Details</a></li>
-                                                                  <li><a href="instructor.html">Instructor</a></li>
-                                                                  <li><a href="my-profile.html">Profile</a></li>
-                                                                  <li><a href="become-instructor.html">Become a Instructor</a></li>
-                                                                  <li><a href="up-coming.html">Maintenance</a></li>
-                                                               </ul>
-                                                            </div>
-                                                            <div class="col-xl-6 col-12">
-                                                               <ul>
-                                                                  <li><a href="contact.html">Contact Us</a></li>
-                                                                  <li><a href="membership-plans.html">Membership plans</a></li>
-                                                                  <li><a href="faq.html">FAQs</a></li>
-                                                                  <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                                                                  <li><a href="error.html">404 Page</a></li>
-                                                               </ul>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="col-xl-3 ">
-                                                   <div class="tp-megamenu-fullwidth-list">
-                                                      <h4 class="tp-megamenu-fullwidth-title">Shop page</h4>
-                                                      <ul>
-                                                         <li><a href="shop-grid.html">Shop</a></li>
-                                                         <li><a href="shop-details.html">Single Product</a></li>
-                                                         <li><a href="cart.html">Cart Page</a></li>
-                                                         <li><a href="wishlist.html">Wishlist page</a></li>
-                                                         <li><a href="my-account.html">My Account</a></li>
-                                                         <li><a href="login.html">Login & Register</a></li>
-                                                      </ul>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-xl-4 col-lg-12">
-                                          <div class="tp-megamenu-fullwidth-item-wrap d-none d-xl-block">
-                                             <div class="row">
-                                                <div class="col-lg-12">
-                                                   <div class="tp-megamenu-fullwidth-item d-flex justify-content-between align-items-center mb-8">
-                                                      <div class="tp-megamenu-fullwidth-content blue">
-                                                         <h4 class="tp-megamenu-fullwidth-content-title">Online <br> Learning Platforms</h4>
-                                                         <a class="tp-btn" href="course-with-filter.html">All Course <span><svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
-                                                                  <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                               </svg></span></a>
-                                                      </div>
-                                                      <div class="tp-megamenu-fullwidth-content-thumb">
-                                                         <img src="assets/img/shape/menu-shape-1.png" alt="">
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                   <div class="tp-megamenu-fullwidth-item bg d-flex justify-content-between align-items-center">
-                                                      <div class="tp-megamenu-fullwidth-content">
-                                                         <h4 class="tp-megamenu-fullwidth-content-title">Accelerated <br> Degree Programs</h4>
-                                                         <a class="tp-btn" href="university-program.html">All Programs <span><svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
-                                                                  <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                               </svg></span></a>
-                                                      </div>
-                                                      <div class="tp-megamenu-fullwidth-content-thumb">
-                                                         <img src="assets/img/shape/menu-shape-2.png" alt="">
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </li>
-                           <li class="has-dropdown">
-                              <a href="blog-stories.html">Blog</a>
-                              <ul class="tp-submenu">
-                                 <li><a href="blog-stories.html">Blog</a></li>
-                                 <li><a href="blog-stories-sidebar.html">Blog Grid</a></li>
-                                 <li><a href="blog-list.html">Blog List</a></li>
-                                 <li><a href="blog-standard.html">Blog Standard</a></li>
-                                 <li><a href="blog-details.html">Blog Details</a></li>
-                                 <li><a href="blog-full-width.html">Blog Details Full Width</a></li>
-                              </ul>
-                           </li>
-                        </ul>
-                     </nav>
-                  </div>
-               </div>
-               <div class="col-xxl-2 col-xl-3 col-lg-6 col-md-6 col-6">
-                  <div class="tp-header-contact d-flex align-items-center justify-content-end">
-                     <div class="tp-header-serach">
-                        <button class="tp-search-open-btn">
-                           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M7.22221 13.4444C10.6586 13.4444 13.4444 10.6586 13.4444 7.22221C13.4444 3.78578 10.6586 1 7.22221 1C3.78578 1 1 3.78578 1 7.22221C1 10.6586 3.78578 13.4444 7.22221 13.4444Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                              <path d="M15.0004 15L11.6171 11.6167" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                           </svg>
-                        </button>
-                     </div>
-                     <div class="tp-header-btn d-none d-md-block ml-30">
-                        <form action="{{route('login')}}">
-                         
-                        <button type="submit">Login </button>
-                        <!-- <a href="university-application-form.html">Apply </a> -->
-                        </form>
-                     </div>
-                     <div class="tp-header-bar d-xl-none ml-30">
-                        <button class="offcanvas-open-btn"><i class="fa-solid fa-bars"></i></button>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </header>
-   <!-- header-area-end -->
+        </div><!--//footer-content-->
+        <div class="bottom-bar">
+            <div class="container">
+                <div class="row">
+                    <small class="copyright col-lg-6 col-12">Copyright @ <a href="#">yourwebsite.com</a></small>
+                    <ul class="social float-end col-lg-6 col-12">
+                        <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                        <li class="row-end"><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                    </ul><!--//social-->
+                </div><!--//row-->
+            </div><!--//container-->
+        </div><!--//bottom-bar-->
+    </footer><!--//footer-->
 
 
-   <!-- offcanvas area start -->
-   <div class="offcanvas__area">
-      <div class="offcanvas__wrapper">
-         <div class="offcanvas__close">
-            <button class="offcanvas__close-btn offcanvas-close-btn">
-               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M1 1L11 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-               </svg>
-            </button>
-         </div>
-         <div class="offcanvas__content">
-            <div class="offcanvas__top mb-90 d-flex justify-content-between align-items-center">
-               <div class="offcanvas__logo tp-header-logo">
-                  <a href="index.html">
-                     <img src="assets/img/logo/logo-black.png" alt="logo">
-                  </a>
-               </div>
-            </div>
-            <div class="offcanvas-main">
-               <div class="offcanvas-content">
-                  <h3 class="offcanvas-title">Hello There!</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit, </p>
-               </div>
-               <div class="tp-main-menu-mobile d-xl-none"></div>
-               <div class="offcanvas-gallery">
-                  <div class="row gx-2">
-                     <div class="col-md-3 col-3">
-                        <div class="offcanvas-gallery-img fix">
-                           <a href="#"><img src="assets/img/menu/offcanvas/offcanvas-1.jpg" alt=""></a>
-                        </div>
-                     </div>
-                     <div class="col-md-3 col-3">
-                        <div class="offcanvas-gallery-img fix">
-                           <a href="#"><img src="assets/img/menu/offcanvas/offcanvas-2.jpg" alt=""></a>
-                        </div>
-                     </div>
-                     <div class="col-md-3 col-3">
-                        <div class="offcanvas-gallery-img fix">
-                           <a href="#"><img src="assets/img/menu/offcanvas/offcanvas-3.jpg" alt=""></a>
-                        </div>
-                     </div>
-                     <div class="col-md-3 col-3">
-                        <div class="offcanvas-gallery-img fix">
-                           <a href="#"><img src="assets/img/menu/offcanvas/offcanvas-4.jpg" alt=""></a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="offcanvas-contact">
-                  <h3 class="offcanvas-title sm">Information</h3>
+    <!-- *****CONFIGURE STYLE (REMOVE ON YOUR PRODUCTION SITE)****** -->
+    <div id="config-panel" class="config-panel config-panel-hide d-none d-lg-block">
+        <div class="panel-inner">
+            <a id="config-trigger" class="config-trigger" href="#"><i class="fas fa-cog mx-auto"></i></a>
+            <h5 class="panel-title">Choose Color</h5>
+            <ul id="color-options" class="list-unstyled list-inline">
+                <li class="theme-1 active list-inline-item"><a data-style="assets/css/theme-1.css" data-logo="assets/images/logo.png" href="#"></a></li>
+                <li class="theme-2 list-inline-item"><a data-style="assets/css/theme-2.css" data-logo="assets/images/logo-green.png" href="#"></a></li>
+                <li class="theme-3 list-inline-item"><a data-style="assets/css/theme-3.css" data-logo="assets/images/logo-purple.png" href="#"></a></li>
+                <li class="theme-4 list-inline-item"><a data-style="assets/css/theme-4.css" data-logo="assets/images/logo-red.png" href="#"></a></li>
+            </ul><!--//color-options-->
+            <a id="config-close" class="close" href="#"><i class="fas fa-times-circle"></i></a>
+        </div><!--//panel-inner-->
+    </div><!--//configure-panel-->
 
-                  <ul>
-                     <li><a href="tel:1245654">+ 4 20 7700 1007</a></li>
-                     <li><a href="mailto:hello@acadia.com">hello@acadia.com</a></li>
-                     <li><a href="#">Avenue de Roma 158b, Lisboa</a></li>
-                  </ul>
-               </div>
-               <div class="offcanvas-social">
-                  <h3 class="offcanvas-title sm">Follow Us</h3>
-                  <ul>
-                     <li>
-                        <a href="#">
-                           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M11.25 1.5H4.75C2.95507 1.5 1.5 2.95507 1.5 4.75V11.25C1.5 13.0449 2.95507 14.5 4.75 14.5H11.25C13.0449 14.5 14.5 13.0449 14.5 11.25V4.75C14.5 2.95507 13.0449 1.5 11.25 1.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                              <path d="M10.6016 7.5907C10.6818 8.13166 10.5894 8.68414 10.3375 9.16955C10.0856 9.65497 9.68711 10.0486 9.19862 10.2945C8.71014 10.5404 8.15656 10.6259 7.61663 10.5391C7.0767 10.4522 6.57791 10.1972 6.19121 9.81055C5.80451 9.42385 5.54959 8.92506 5.46271 8.38513C5.37583 7.8452 5.46141 7.29163 5.70728 6.80314C5.95315 6.31465 6.34679 5.91613 6.83221 5.66425C7.31763 5.41238 7.87011 5.31998 8.41107 5.4002C8.96287 5.48202 9.47372 5.73915 9.86817 6.1336C10.2626 6.52804 10.5197 7.0389 10.6016 7.5907Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                              <path d="M11.5742 4.42578H11.5842" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                           </svg>
-                        </a>
-                     </li>
-                     <li>
-                        <a href="#">
-                           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M2.50589 12.7494C4.57662 16.336 9.16278 17.5648 12.7494 15.4941C14.2113 14.65 15.2816 13.388 15.8962 11.9461C16.7895 9.85066 16.7208 7.37526 15.4941 5.25063C14.2674 3.12599 12.1581 1.82872 9.89669 1.55462C8.34063 1.366 6.71259 1.66183 5.25063 2.50589C1.66403 4.57662 0.435172 9.16278 2.50589 12.7494Z" stroke="currentColor" stroke-width="1.5"></path>
-                              <path d="M12.7127 15.4292C12.7127 15.4292 12.0086 10.4867 10.5011 7.87559C8.99362 5.26451 5.28935 2.57155 5.28935 2.57155M5.68449 15.6124C6.79553 12.2606 12.34 8.54524 16.3975 9.43537M12.311 2.4082C11.1953 5.72344 5.75732 9.38453 1.71875 8.58915" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                           </svg>
-                        </a>
-                     </li>
-                     <li>
-                        <a href="#">
-                           <svg width="18" height="11" viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M1 5.5715H6.33342C7.62867 5.5715 8.61917 6.56199 8.61917 7.85725C8.61917 9.15251 7.62867 10.143 6.33342 10.143H1.76192C1.30477 10.143 1 9.83823 1 9.38108V1.76192C1 1.30477 1.30477 1 1.76192 1H5.5715C6.86676 1 7.85725 1.99049 7.85725 3.28575C7.85725 4.58101 6.86676 5.5715 5.5715 5.5715H1Z" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10"></path>
-                              <path d="M10.9062 7.09454H17.0016C17.0016 5.41832 15.6301 4.04688 13.9539 4.04688C12.2777 4.04688 10.9062 5.41832 10.9062 7.09454ZM10.9062 7.09454C10.9062 8.77076 12.2777 10.1422 13.9539 10.1422H15.2492" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
-                              <path d="M16.1125 1.44434H11.668" stroke="currentColor" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
-                           </svg>
-                        </a>
-                     </li>
-                     <li>
-                        <a href="#">
-                           <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M12.75 13H5.25C3 13 1.5 11.5 1.5 9.25V4.75C1.5 2.5 3 1 5.25 1H12.75C15 1 16.5 2.5 16.5 4.75V9.25C16.5 11.5 15 13 12.75 13Z" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
-                              <path d="M8.70676 5.14837L10.8006 6.40465C11.5543 6.90716 11.5543 7.66093 10.8006 8.16344L8.70676 9.41972C7.86923 9.92224 7.19922 9.50348 7.19922 8.5822V6.06964C7.19922 4.98086 7.86923 4.64585 8.70676 5.14837Z" fill="currentColor"></path>
-                           </svg>
-                        </a>
-                     </li>
-                  </ul>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="body-overlay"></div>
-   <!-- offcanvas area end -->
+    <!-- Javascript -->
+    <!-- Popper.js -->
+    <script type="text/javascript" src="{{ asset('assets/plugins/popper.min.js') }}"></script>
 
-   <main>
+    <!-- Bootstrap JS -->
+    <script type="text/javascript" src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
-      <!-- hero-area-start -->
-      <section class="tp-hero-area">
-         <div class="swiper tp-slider-active">
-            <div class="swiper-wrapper">
-               <div class="swiper-slide">
-                  <div class="tp-hero-item">
-                     <div class="container">
-                        <div class="row">
-                           <div class="col-xxl-9 col-lg-11">
-                              <div class="tp-hero-wrapper">
-                                 <span class="tp-hero-subtitle">Be apart of our history</span>
-                                 <h2 class="tp-hero-title">Landmark to Create the Future.</h2>
-                                 <div class="tp-hero-btn">
-                                    <a class="tp-btn" href="{{route('admmisionStudent')}}">
-                                       Enroll Now
-                                       <span>
-                                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                             <path d="M1 7H13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                             <path d="M7 1L13 7L7 13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                          </svg>
-                                       </span>
-                                    </a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="tp-hero-bg" data-background="assets/img/hero/hero-bg-1.jpg"></div>
-                  </div>
-               </div>
-               <div class="swiper-slide">
-                  <div class="tp-hero-item">
-                     <div class="container">
-                        <div class="row">
-                           <div class="col-xxl-9 col-lg-11">
-                              <div class="tp-hero-wrapper">
-                                 <span class="tp-hero-subtitle">Be apart of our history</span>
-                                 <h2 class="tp-hero-title">Education to Create the Future.</h2>
-                                 <div class="tp-hero-btn">
-                                    <a class="tp-btn"  href="{{route('admmisionStudent')}}">
-                                       Enroll Now
-                                       <span>
-                                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                             <path d="M1 7H13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                             <path d="M7 1L13 7L7 13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                          </svg>
-                                       </span>
-                                    </a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="tp-hero-bg" data-background="assets/img/hero/hero-bg-2.jpg"></div>
-                  </div>
-               </div>
-               <div class="swiper-slide">
-                  <div class="tp-hero-item">
-                     <div class="container">
-                        <div class="row">
-                           <div class="col-xxl-9 col-lg-11">
-                              <div class="tp-hero-wrapper">
-                                 <span class="tp-hero-subtitle">Be apart of our history</span>
-                                 <h2 class="tp-hero-title">Discipline to Create the Future.</h2>
-                                 <div class="tp-hero-btn">
-                                    <a class="tp-btn" href="university-program.html">
-                                       Enroll Now
-                                       <span>
-                                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                             <path d="M1 7H13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                             <path d="M7 1L13 7L7 13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                          </svg>
-                                       </span>
-                                    </a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="tp-hero-bg" data-background="assets/img/hero/hero-bg-3.jpg"></div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- hero-area-end -->
+    <!-- Vanilla Back To Top -->
+    <script src="{{ asset('assets/plugins/vanilla-back-to-top.min.js') }}"></script>
 
+    <!-- Main JS -->
+    <script type="text/javascript" src="{{ asset('assets/js/main.js') }}"></script>
 
-      <!-- service-area-start -->
-      <section class="service-area tp-service-bg" data-background="assets/img/bg/services-bg.jpg">
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-3 col-md-6">
-                  <div class="tp-service-item text-center mb-40 wow fadeInUp" data-wow-delay=".3s">
-                     <div class="tp-service-wrap">
-                        <div class="tp-service-icon">
-                           <span><img src="assets/img/icon/service/service-icon-1.svg" alt="service-icon"></span>
-                        </div>
-                        <h4 class="tp-service-title"><a href="university-about.html">Why study at <br> Acadia?</a></h4>
-                        <div class="tp-service-btn">
-                           <a href="university-about.html"><span><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 6H11" stroke="#161613" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M6 1L11 6L6 11" stroke="#161613" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg></span>
-                           </a>
-                        </div>
-                     </div>
-                     <div class="tp-service-content">
-                        <p>We have students coming from different backgrounds,cultures, & nationalities as well.</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-3 col-md-6">
-                  <div class="tp-service-item text-center mb-40 wow fadeInUp" data-wow-delay=".5s">
-                     <div class="tp-service-wrap">
-                        <div class="tp-service-icon">
-                           <span><img src="assets/img/icon/service/service-icon-2.svg" alt="service-icon"></span>
-                        </div>
-                        <h4 class="tp-service-title"><a href="university-requirements.html">Certification <br> Guarantee</a></h4>
-                        <div class="tp-service-btn">
-                           <a href="university-requirements.html"><span><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 6H11" stroke="#161613" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M6 1L11 6L6 11" stroke="#161613" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg></span>
-                           </a>
-                        </div>
-                     </div>
-                     <div class="tp-service-content">
-                        <p>We have students coming from different backgrounds,cultures, & nationalities as well.</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-3 col-md-6">
-                  <div class="tp-service-item text-center mb-40 wow fadeInUp" data-wow-delay=".7s">
-                     <div class="tp-service-wrap">
-                        <div class="tp-service-icon">
-                           <span><img src="assets/img/icon/service/service-icon-3.svg" alt="service-icon"></span>
-                        </div>
-                        <h4 class="tp-service-title"><a href="university-admission-overview.html">Graduate <br> Admissions</a></h4>
-                        <div class="tp-service-btn">
-                           <a href="university-admission-overview.html"><span><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 6H11" stroke="#161613" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M6 1L11 6L6 11" stroke="#161613" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg></span>
-                           </a>
-                        </div>
-                     </div>
-                     <div class="tp-service-content">
-                        <p>We have students coming from different backgrounds,cultures, & nationalities as well.</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-3 col-md-6">
-                  <div class="tp-service-item text-center mb-40 wow fadeInUp" data-wow-delay=".9s">
-                     <div class="tp-service-wrap">
-                        <div class="tp-service-icon">
-                           <span><img src="assets/img/icon/service/service-icon-4.svg" alt="service-icon"></span>
-                        </div>
-                        <h4 class="tp-service-title"><a href="university-tuition-fees.html">Scholarships <br> & fees</a></h4>
-                        <div class="tp-service-btn">
-                           <a href="university-tuition-fees.html"><span><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 6H11" stroke="#161613" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M6 1L11 6L6 11" stroke="#161613" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg></span>
-                           </a>
-                        </div>
-                     </div>
-                     <div class="tp-service-content">
-                        <p>We have students coming from different backgrounds,cultures, & nationalities as well.</p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-lg-12">
-                  <div class="tp-service-all text-center">
-                     <span>Trusted by the worlds <a href="university-about.html">Best University <svg width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M1 6H11" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                              <path d="M6 1L11 6L6 11" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                           </svg></a>
-                     </span>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="tp-service-shape">
-            <div class="tp-service-shape-1 wow bounceIn" data-wow-duration="1.5s" data-wow-delay=".4s">
-               <img src="assets/img/shape/service/services-shape-1.png" alt="service-shape">
-            </div>
-         </div>
-      </section>
-      <!-- service-area-end -->
-
-
-      <!-- about-area-start -->
-      <section class="about-area tp-about-bg grey-bg pt-105">
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-6">
-                  <div class="tp-about-wrap mb-60 wow fadeInLeft" data-wow-delay=".3s">
-                     <div class="tp-about-thumb-wrapper">
-                        <div class="tp-about-thumb-1">
-                           <img src="assets/img/about/about-thumb-1.jpg" alt="">
-                        </div>
-                        <div class="tp-about-thumb-2">
-                           <img src="assets/img/about/about-thumb-2.jpg" alt="">
-                        </div>
-                     </div>
-                     <div class="tp-about-shape">
-                        <div class="tp-about-shape-1">
-                           <img src="assets/img/about/about-shape-1.jpg" alt="">
-                        </div>
-                        <div class="tp-about-shape-2">
-                           <img src="assets/img/about/about-shape-2.jpg" alt="">
-                        </div>
-                     </div>
-                     <div class="tp-about-exprience">
-                        <div class="tp-about-exprience-text d-flex">
-                           <h3 class="tp-about-exprience-count">
-                              <span data-purecounter-duration="1" data-purecounter-end="27" class="purecounter">27</span>
-                           </h3>
-                           <p>Years of <br> Experience</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-6">
-                  <div class="tp-about-wrapper mb-60 wow fadeInRight" data-wow-delay=".3s">
-                     <div class="tp-section mb-40">
-                        <h5 class="tp-section-subtitle">About Our University</h5>
-                        <h3 class="tp-section-title mb-30">A few words <br> about the
-                           <span> University <svg width="180" height="13" viewBox="0 0 180 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M173.163 12.3756C97.1838 -3.8242 30.6496 5.67799 7.32494 12.2553C5.30414 12.8252 2.43544 12.6722 0.917529 11.9135C-0.600387 11.1549 -0.192718 10.0779 1.82808 9.50807C27.5427 2.25675 98.002 -7.60121 177.683 9.38783C179.881 9.85641 180.65 10.9051 179.402 11.7301C178.154 12.5552 175.361 12.8442 173.163 12.3756Z" fill="currentColor" />
-                              </svg>
-                           </span>
-                        </h3>
-                        <p>Our community is being called to reimagine the future. As the <br> only university where a renowned design school comes together <br> with premier colleges, we are making learning more relevant <br> and transformational.</p>
-                     </div>
-                     <div class="tp-about-list">
-                        <div class="tp-about-list-item d-flex align-items-center mb-35">
-                           <div class="tp-about-list-icon">
-                              <span><img src="assets/img/icon/about/about-icon-1.svg" alt="about-icon"></span>
-                           </div>
-                           <div class="tp-about-list-content">
-                              <h5 class="tp-about-list-title">Building Trust</h5>
-                              <p>We are committed to <br> building trust</p>
-                           </div>
-                        </div>
-                        <div class="tp-about-list-item d-flex align-items-center mb-35">
-                           <div class="tp-about-list-icon">
-                              <span><img src="assets/img/icon/about/about-icon-2.svg" alt="about-icon"></span>
-                           </div>
-                           <div class="tp-about-list-content">
-                              <h5 class="tp-about-list-title">Trusted by Students</h5>
-                              <p>Most trusted & recommended <br> by students</p>
-                           </div>
-                        </div>
-                        <div class="tp-about-btn pt-10">
-                           <a class="tp-btn tp-btn-sm" href="university-apply.html">Book an Appointment
-                              <span>
-                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 7H13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M7 1L13 7L7 13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg>
-                              </span>
-                           </a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- about-area-end -->
-
-
-      <!-- counter-area-start -->
-      <section class="counter-area tp-counter-wrap mb-90">
-         <div class="container">
-            <div class="tp-counter-bg wow fadeInUp" data-wow-delay=".3s" data-background="assets/img/bg/counter-bg.jpg">
-               <div class="row">
-                  <div class="col-lg-3 col-md-6">
-                     <div class="tp-counter-item text-center">
-                        <h3 class="tp-counter-count mb-10">
-                           <span data-purecounter-duration="1" data-purecounter-end="10" class="purecounter">10</span>k
-                        </h3>
-                        <p>Students</p>
-                     </div>
-                  </div>
-                  <div class="col-lg-3 col-md-6">
-                     <div class="tp-counter-item text-center">
-                        <h3 class="tp-counter-count mb-10">
-                           <span data-purecounter-duration="1" data-purecounter-end="300" class="purecounter">300</span>
-                        </h3>
-                        <p>Professors</p>
-                     </div>
-                  </div>
-                  <div class="col-lg-3 col-md-6">
-                     <div class="tp-counter-item text-center">
-                        <h3 class="tp-counter-count mb-10">
-                           <span data-purecounter-duration="1" data-purecounter-end="48" class="purecounter">48</span>k
-                        </h3>
-                        <p>Programs</p>
-                     </div>
-                  </div>
-                  <div class="col-lg-3 col-md-6">
-                     <div class="tp-counter-item item-end text-center">
-                        <h3 class="tp-counter-count mb-10">
-                           <span data-purecounter-duration="1" data-purecounter-end="2" class="purecounter">2</span>k
-                        </h3>
-                        <p>Research</p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- counter-area-end -->
-
-
-      <!-- program-area-start -->
-      <section class="program-area mb-75">
-         <div class="container">
-            <div class="row justify-content-center">
-               <div class="col-lg-8">
-                  <div class="tp-program-wrap wow fadeInUp" data-wow-delay=".3s">
-                     <div class="tp-section text-center mb-55">
-                        <h3 class="tp-section-title"><span> Academic <img class="tp-underline-shape-2 wow bounceIn" data-wow-duration="1.5s" data-wow-delay=".4s" src="assets/img/unlerline/program-1-svg-1.svg" alt=""></span> Programs</h3>
-                        <p>Focusing on high education with the best quality.</p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-lg-12">
-                  <div class="swiper tp-program-active wow fadeInUp" data-wow-delay=".6s">
-                     <div class="swiper-wrapper">
-                        <div class="swiper-slide tp-program-item grey-bg mb-50">
-                           <div class="tp-program-thumb fix">
-                              <a href="university-application-form.html"><img src="assets/img/program/program-thumb-1.jpg" alt="program-thumb"></a>
-                           </div>
-                           <div class="tp-program-content">
-                              <h3 class="tp-program-title"><a href="university-application-form.html">Major in Economics</a></h3>
-                              <p>The Economics Major can be combined <br> with a Major in another subject in order Double Major Degree.</p>
-                              <div class="tp-program-tag">
-                                 <p><span><img src="assets/img/icon/program-tag-1.svg" alt="program-icon"></span>Economics</p>
-                              </div>
-                           </div>
-                           <div class="tp-program-btn">
-                              <a href="university-application-form.html">Apply Now</a>
-                           </div>
-                        </div>
-                        <div class="swiper-slide tp-program-item grey-bg mb-50">
-                           <div class="tp-program-thumb fix">
-                              <a href="university-application-form.html"><img src="assets/img/program/program-thumb-2.jpg" alt="program-thumb"></a>
-                           </div>
-                           <div class="tp-program-content">
-                              <h3 class="tp-program-title"><a href="university-application-form.html">Business Media</a></h3>
-                              <p>The Economics Major can be combined <br> with a Major in another subject in order Double Major Degree.</p>
-                              <div class="tp-program-tag">
-                                 <p><span><img src="assets/img/icon/program-tag-1.svg" alt="program-icon"></span>Business & Administration</p>
-                              </div>
-                           </div>
-                           <div class="tp-program-btn">
-                              <a href="university-application-form.html">Apply Now</a>
-                           </div>
-                        </div>
-                        <div class="swiper-slide tp-program-item grey-bg mb-50">
-                           <div class="tp-program-thumb fix">
-                              <a href="university-application-form.html"><img src="assets/img/program/program-thumb-3.jpg" alt="program-thumb"></a>
-                           </div>
-                           <div class="tp-program-content">
-                              <h3 class="tp-program-title"><a href="university-application-form.html">Major in Economics</a></h3>
-                              <p>The Economics Major can be combined <br> with a Major in another subject in order Double Major Degree.</p>
-                              <div class="tp-program-tag">
-                                 <p><span><img src="assets/img/icon/program-tag-1.svg" alt="program-icon"></span>Sciences</p>
-                              </div>
-                           </div>
-                           <div class="tp-program-btn">
-                              <a href="university-application-form.html">Apply Now</a>
-                           </div>
-                        </div>
-                        <div class="swiper-slide tp-program-item grey-bg mb-50">
-                           <div class="tp-program-thumb fix">
-                              <a href="university-application-form.html"><img src="assets/img/program/program-thumb-1.jpg" alt="program-thumb"></a>
-                           </div>
-                           <div class="tp-program-content">
-                              <h3 class="tp-program-title"><a href="university-application-form.html">Major in Economics</a></h3>
-                              <p>The Economics Major can be combined <br> with a Major in another subject in order Double Major Degree.</p>
-                              <div class="tp-program-tag">
-                                 <p><span><img src="assets/img/icon/program-tag-1.svg" alt="program-icon"></span>Economics</p>
-                              </div>
-                           </div>
-                           <div class="tp-program-btn">
-                              <a href="university-application-form.html">Apply Now</a>
-                           </div>
-                        </div>
-                        <div class="swiper-slide tp-program-item grey-bg mb-50">
-                           <div class="tp-program-thumb fix">
-                              <a href="university-application-form.html"><img src="assets/img/program/program-thumb-2.jpg" alt="program-thumb"></a>
-                           </div>
-                           <div class="tp-program-content">
-                              <h3 class="tp-program-title"><a href="university-application-form.html">Business Media</a></h3>
-                              <p>The Economics Major can be combined <br> with a Major in another subject in order Double Major Degree.</p>
-                              <div class="tp-program-tag">
-                                 <p><span><img src="assets/img/icon/program-tag-1.svg" alt="program-icon"></span>Business & Administration</p>
-                              </div>
-                           </div>
-                           <div class="tp-program-btn">
-                              <a href="university-application-form.html">Apply Now</a>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-12">
-                  <div class="tp-program-dot text-center"></div>
-               </div>
-               <div class="col-12">
-                  <div class="tp-program-all text-center">
-                     <p>Explore the most appropriate promgram.​​ <a href="university-program.html">View all Programs <span>
-                              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path d="M1 6H11" stroke="#AB0C2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                 <path d="M6 1L11 6L6 11" stroke="#AB0C2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                              </svg>
-                           </span></a></p>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- program-area-end -->
-
-
-      <!-- event-area -->
-      <section class="event-area grey-bg pt-85 pb-110">
-         <div class="container">
-            <div class="row align-items-end">
-               <div class="col-xl-5 col-md-8">
-                  <div class="tp-event-section mb-60 wow fadeInUp" data-wow-delay=".2s">
-                     <div class="tp-section">
-                        <h3 class="tp-section-2-title">Recent & Upcoming
-                           <span> Events <img class="tp-underline-shape-3 wow bounceIn" data-wow-duration="1.5s" data-wow-delay=".4s" src="assets/img/unlerline/event-1-svg-1.svg" alt="">
-                           </span>
-                        </h3>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-xl-7 col-md-4">
-                  <div class="tp-event-btn text-md-end mb-70">
-                     <a class="tp-btn" href="event.html">See More Events
-                        <span>
-                           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M1 7H13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                              <path d="M7 1L13 7L7 13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                           </svg>
-                        </span>
-                     </a>
-                  </div>
-               </div>
-            </div>
-            <div class="tp-event-wrap wow fadeInUp" data-wow-delay=".3s">
-               <div class="tp-event-item">
-                  <div class="row align-items-center">
-                     <div class="col-md-2">
-                        <div class="tp-event-list">
-                           <h4 class="tp-event-list-count">08</h4>
-                           <span>Des, 2024</span>
-                        </div>
-                     </div>
-                     <div class="col-md-9">
-                        <div class="tp-event-content">
-                           <h3 class="tp-event-title"><a class="tp-img-reveal tp-img-reveal-item" href="event-details.html" data-img="assets/img/event/event-thumb-1.jpg" data-fx="1">Street Performance: Call for Artist</a></h3>
-                           <div class="tp-event-info">
-                              <span><i class="fa-sharp fa-light fa-clock"></i>8:00AM - 10:00AM</span>
-                              <span><i class="fa-sharp fa-light fa-location-dot"></i>United States</span>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-1">
-                        <div class="tp-event-arrow text-lg-end">
-                           <a href="event-details.html">
-                              <span>
-                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 10H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M10 1L19 10L10 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg>
-                              </span>
-                           </a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="tp-event-item">
-                  <div class="row align-items-center">
-                     <div class="col-md-2">
-                        <div class="tp-event-list">
-                           <h4 class="tp-event-list-count">12</h4>
-                           <span>Aug, 2024</span>
-                        </div>
-                     </div>
-                     <div class="col-md-9">
-                        <div class="tp-event-content">
-                           <h3 class="tp-event-title"><a class="tp-img-reveal tp-img-reveal-item" href="event-details.html" data-img="assets/img/event/event-thumb-2.jpg" data-fx="1">The Middle East in the Twentieth Century</a></h3>
-                           <div class="tp-event-info">
-                              <span><i class="fa-sharp fa-light fa-clock"></i>8:00AM - 10:00AM</span>
-                              <span><i class="fa-sharp fa-light fa-location-dot"></i>United States</span>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-1">
-                        <div class="tp-event-arrow text-lg-end">
-                           <a href="event-details.html">
-                              <span>
-                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 10H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M10 1L19 10L10 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg>
-                              </span>
-                           </a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="tp-event-item">
-                  <div class="row align-items-center">
-                     <div class="col-md-2">
-                        <div class="tp-event-list">
-                           <h4 class="tp-event-list-count">03</h4>
-                           <span>Sept, 2024</span>
-                        </div>
-                     </div>
-                     <div class="col-md-9">
-                        <div class="tp-event-content">
-                           <h3 class="tp-event-title"><a class="tp-img-reveal tp-img-reveal-item" href="event-details.html" data-img="assets/img/event/event-thumb-3.jpg" data-fx="1">Global Education Fall Meeting for Everyone</a></h3>
-                           <div class="tp-event-info">
-                              <span><i class="fa-sharp fa-light fa-clock"></i>8:00AM - 10:00AM</span>
-                              <span><i class="fa-sharp fa-light fa-location-dot"></i>United States</span>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-1">
-                        <div class="tp-event-arrow text-lg-end">
-                           <a href="event-details.html">
-                              <span>
-                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 10H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M10 1L19 10L10 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg>
-                              </span>
-                           </a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="tp-event-item">
-                  <div class="row align-items-center">
-                     <div class="col-md-2">
-                        <div class="tp-event-list">
-                           <h4 class="tp-event-list-count">20</h4>
-                           <span>jun, 2024</span>
-                        </div>
-                     </div>
-                     <div class="col-md-9">
-                        <div class="tp-event-content">
-                           <h3 class="tp-event-title"><a class="tp-img-reveal tp-img-reveal-item" href="event-details.html" data-img="assets/img/event/event-thumb-4.jpg" data-fx="1">Painting Art Contest 2020</a></h3>
-                           <div class="tp-event-info">
-                              <span><i class="fa-sharp fa-light fa-clock"></i>8:00AM - 10:00AM</span>
-                              <span><i class="fa-sharp fa-light fa-location-dot"></i>United States</span>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-1">
-                        <div class="tp-event-arrow text-lg-end">
-                           <a href="event-details.html">
-                              <span>
-                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 10H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M10 1L19 10L10 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg>
-                              </span>
-                           </a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- event-area-end -->
-
-
-      <!-- testimonial-area-start -->
-      <section class="testimonial-area tp-testimonial-bg fix p-relative" data-background="assets/img/bg/testimonial-bg-2.jpg">
-         <div class="tp-testimonial-themebg">
-            <span></span>
-            <div class="tp-testimonial-themebg-shape">
-               <svg xmlns="http://www.w3.org/2000/svg" width="535" height="589" viewBox="0 0 535 589" fill="none">
-                  <path opacity="0.7" d="M672.795 521.502C795.919 462.123 941.766 315.053 575.585 407.022C209.405 498.991 663.448 296.262 821.272 155.066C984.981 8.6419 29.9011 198.484 51.0545 348.604C72.2078 498.724 448.9 347.441 415.406 56.2717" stroke="#B91A3D" stroke-width="100" stroke-linecap="square" />
-               </svg>
-            </div>
-         </div>
-         <div class="container">
-            <div class="row align-items-center">
-               <div class="col-lg-6">
-                  <div class="tp-video-wrap d-flex">
-                     <div class="tp-video-icon text-center">
-                        <a class="video-border-animation popup-video" href="https://www.youtube.com/watch?v=LlCwHnp3kL4">
-                           <span>
-                              <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path d="M0 1.83167C0 1.0405 0.875246 0.562658 1.54076 0.990487L14.6915 9.44454C15.3038 9.83817 15.3038 10.7333 14.6915 11.1269L1.54076 19.5809C0.875246 20.0088 0 19.5309 0 18.7398V1.83167Z" fill="currentColor" />
-                              </svg>
-                           </span>
-                        </a>
-                        <p>Video Tour in logo</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-6">
-                  <div class="tp-testimonial-wrapper wow fadeInRight" data-wow-delay=".3s">
-                     <div class="tp-section mb-40">
-                        <h5 class="tp-section-subtitle">Testimonial</h5>
-                        <h3 class="tp-section-title">What Students Says</h3>
-                     </div>
-                     <div class="tp-testimonial-shape">
-                        <div class="tp-testimonial-shape-1">
-                           <img src="assets/img/testimonial/testimonial-shape-1.png" alt="testimonial-shape">
-                        </div>
-                        <div class="tp-testimonial-shape-2">
-                           <img src="assets/img/testimonial/testimonial-shape-2.png" alt="testimonial-shape">
-                        </div>
-                        <div class="tp-testimonial-shape-3 wow bounceIn" data-wow-duration="1.5s" data-wow-delay=".4s">
-                           <img src="assets/img/testimonial/testimonial-shape-3.svg" alt="testimonial-shape">
-                        </div>
-                     </div>
-                     <div class="swiper tp-testimonial-active">
-                        <div class="swiper-wrapper">
-                           <div class="swiper-slide tp-testimonial-item">
-                              <div class="tp-testimonial-avatar">
-                                 <img src="assets/img/testimonial/testimonial-avatar-1.png" alt="testimonial-avatar">
-                              </div>
-                              <div class="tp-testimonial-content">
-                                 <p>“Sollicitudin venenatis risus dolor in dictumst faucibus egestas.
-                                    Justo at nibh odio lectus malesuada. Enim cras vitae libero nibh
-                                    tincidunt justo scelerisque. In adipiscing quis eros.”</p>
-                              </div>
-                              <div class="tp-testimonial-avatar-info">
-                                 <h4 class="tp-testimonial-avatar-title">William Smith</h4>
-                                 <span>Alumnus</span>
-                              </div>
-                           </div>
-                           <div class="swiper-slide tp-testimonial-item">
-                              <div class="tp-testimonial-avatar">
-                                 <img src="assets/img/testimonial/test-2-avatar-4.png" alt="testimonial-avatar">
-                              </div>
-                              <div class="tp-testimonial-content">
-                                 <p>“Sollicitudin venenatis risus dolor in dictumst faucibus egestas.
-                                    Justo at nibh odio lectus malesuada. Enim cras vitae libero nibh
-                                    tincidunt justo scelerisque. In adipiscing quis eros.”</p>
-                              </div>
-                              <div class="tp-testimonial-avatar-info">
-                                 <h4 class="tp-testimonial-avatar-title">Sakil Khan</h4>
-                                 <span>Alumnus</span>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="tp-testimonial-arrow text-md-end">
-                        <div class="tp-testimonial-prev">
-                           <span>
-                              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path d="M11 6H1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                 <path d="M6 1L1 6L6 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                              </svg>
-                           </span>
-                        </div>
-                        <div class="tp-testimonial-next">
-                           <span>
-                              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path d="M1 6H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                 <path d="M6 1L11 6L6 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                              </svg>
-                           </span>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- testimonial-area-end -->
-
-
-      <!-- blog-area-start -->
-      <section class="blog-area grey-bg pt-110 pb-95">
-         <div class="container">
-            <div class="row justify-content-center">
-               <div class="col-lg-8">
-                  <div class="tp-event-section text-center mb-60 wow fadeInUp" data-wow-delay=".2s">
-                     <div class="tp-section">
-                        <h5 class="tp-section-subtitle">BLOG UPDATES</h5>
-                        <h3 class="tp-section-2-title">Lates News &
-                           <span>
-                              Articles.
-                              <svg class="tp-underline-shape-4 wow bounceIn" data-wow-duration="1.5s" data-wow-delay=".4s" width="150" height="11" viewBox="0 0 150 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M144.302 10.313C80.9865 -3.18683 25.5413 4.73166 6.10412 10.2128C4.42012 10.6877 2.02954 10.5601 0.764608 9.92793C-0.500322 9.29573 -0.160598 8.39826 1.5234 7.92339C22.9523 1.88063 81.6684 -6.33434 148.069 7.82319C149.901 8.21367 150.542 9.08758 149.502 9.77512C148.462 10.4627 146.134 10.7035 144.302 10.313Z" fill="#161613" />
-                              </svg>
-                           </span>
-                        </h3>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-lg-6">
-                  <div class="tp-blog-item text-center mb-40 wow fadeInLeft" data-wow-delay=".4s">
-                     <div class="tp-blog-thumb fix">
-                        <a href="blog-details.html"><img src="assets/img/blog/blog-thumb-1.jpg" alt="blog-thumb"></a>
-                     </div>
-                     <div class="tp-blog-content">
-                        <span class="tp-blog-tag">Video & Tips</span>
-                        <h4 class="tp-blog-title">
-                           <a href="blog-details.html">The Importance Of Intrinsic Motivation for Students</a>
-                        </h4>
-                        <div class="tp-blog-meta">
-                           <span>
-                              <span>
-                                 <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M13 14.5V13C13 12.2044 12.6839 11.4413 12.1213 10.8787C11.5587 10.3161 10.7956 10 10 10H4C3.20435 10 2.44129 10.3161 1.87868 10.8787C1.31607 11.4413 1 12.2044 1 13V14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M7 7C8.65685 7 10 5.65685 10 4C10 2.34315 8.65685 1 7 1C5.34315 1 4 2.34315 4 4C4 5.65685 5.34315 7 7 7Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg>
-                                 Owen Christ
-                              </span>
-                           </span>
-                           <span>
-                              <span>
-                                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7.5 14C11.0899 14 14 11.0899 14 7.5C14 3.91015 11.0899 1 7.5 1C3.91015 1 1 3.91015 1 7.5C1 11.0899 3.91015 14 7.5 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M7.5 3.6001V7.5001L10.1 8.8001" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg>
-                                 Jan 25, 2021
-                              </span>
-                           </span>
-                        </div>
-                        <div class="tp-blog-btn">
-                           <a href="blog-details.html">
-                              <span class="tp-blog-btn-bg blog-btn-bg"></span>
-                              <span class="tp-blog-btn-border blog-btn-border"></span>
-                              <span class="icon">
-                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M6 1L11 6L6 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg>
-                              </span>
-                           </a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-6">
-                  <div class="tp-blog-item text-center mb-40 wow fadeInRight" data-wow-delay=".4s">
-                     <div class="tp-blog-thumb fix">
-                        <a href="blog-details.html">
-                           <img src="assets/img/blog/blog-thumb-2.jpg" alt="blog-thumb">
-                        </a>
-                     </div>
-                     <div class="tp-blog-content">
-                        <span class="tp-blog-tag">Video & Tips</span>
-                        <h4 class="tp-blog-title">
-                           <a href="blog-details.html">Those Other College Expenses You Aren`t Thinking About</a>
-                        </h4>
-                        <div class="tp-blog-meta">
-                           <span>
-                              <span>
-                                 <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M13 14.5V13C13 12.2044 12.6839 11.4413 12.1213 10.8787C11.5587 10.3161 10.7956 10 10 10H4C3.20435 10 2.44129 10.3161 1.87868 10.8787C1.31607 11.4413 1 12.2044 1 13V14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M7 7C8.65685 7 10 5.65685 10 4C10 2.34315 8.65685 1 7 1C5.34315 1 4 2.34315 4 4C4 5.65685 5.34315 7 7 7Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg>
-                                 Owen Christ
-                              </span>
-                           </span>
-                           <span>
-                              <span>
-                                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7.5 14C11.0899 14 14 11.0899 14 7.5C14 3.91015 11.0899 1 7.5 1C3.91015 1 1 3.91015 1 7.5C1 11.0899 3.91015 14 7.5 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M7.5 3.6001V7.5001L10.1 8.8001" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg>
-                                 Jan 25, 2021
-                              </span>
-                           </span>
-                        </div>
-                        <div class="tp-blog-btn">
-                           <a href="blog-details.html">
-                              <span class="tp-blog-btn-bg blog-btn-bg"></span>
-                              <span class="tp-blog-btn-border blog-btn-border"></span>
-                              <span class="icon">
-                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M6 1L11 6L6 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                 </svg>
-                              </span>
-                           </a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- blog-area-end -->
-
-
-      <!-- instagram-area-start -->
-      <div class="instagram-area tp-instagram-wrapper grey-bg pb-20">
-         <div class="swiper tp-instagram-active">
-            <div class="swiper-wrapper wow fadeInUp" data-wow-delay=".2s">
-               <div class="swiper-slide tp-instagram-item">
-                  <a class="popup-image" href="assets/img/instagram/instagram-thumb-1.jpg">
-                     <img src="assets/img/instagram/instagram-thumb-1.jpg" alt=""></a>
-                  <div class="tp-instagram-shape">
-                     <img src="assets/img/instagram/instagram-shape.svg" alt="">
-                  </div>
-               </div>
-               <div class="swiper-slide tp-instagram-item">
-                  <a class="popup-image" href="assets/img/instagram/instagram-thumb-2.jpg">
-                     <img src="assets/img/instagram/instagram-thumb-2.jpg" alt=""></a>
-                  <div class="tp-instagram-shape">
-                     <img src="assets/img/instagram/instagram-shape.svg" alt="">
-                  </div>
-               </div>
-               <div class="swiper-slide tp-instagram-item">
-                  <a class="popup-image" href="assets/img/instagram/instagram-thumb-3.jpg">
-                     <img src="assets/img/instagram/instagram-thumb-3.jpg" alt=""></a>
-                  <div class="tp-instagram-shape">
-                     <img src="assets/img/instagram/instagram-shape.svg" alt="">
-                  </div>
-               </div>
-               <div class="swiper-slide tp-instagram-item">
-                  <a class="popup-image" href="assets/img/instagram/instagram-thumb-4.jpg">
-                     <img src="assets/img/instagram/instagram-thumb-4.jpg" alt=""></a>
-                  <div class="tp-instagram-shape">
-                     <img src="assets/img/instagram/instagram-shape.svg" alt="">
-                  </div>
-               </div>
-               <div class="swiper-slide tp-instagram-item">
-                  <a class="popup-image" href="assets/img/instagram/instagram-thumb-5.jpg">
-                     <img src="assets/img/instagram/instagram-thumb-5.jpg" alt=""></a>
-                  <div class="tp-instagram-shape">
-                     <img src="assets/img/instagram/instagram-shape.svg" alt="">
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- instagram-area-end -->
-
-
-      <!-- cta-area-start -->
-      <section class="cta-area tp-cta-bg grey-bg" data-background="assets/img/cta/cta-bg-1.jpg">
-         <div class="container">
-            <div class="row align-items-center wow fadeInUp" data-wow-delay=".2s">
-               <div class="col-xxl-10 col-lg-9">
-                  <div class="tp-cta-wrapper d-flex align-items-center">
-                     <div class="tp-cta-logo">
-                        <a href="index.html"><img src="assets/img/cta/cta-logo-1.png" alt=""></a>
-                     </div>
-                     <div class="tp-cta-content">
-                        <span>COURSES FOR FREE, REGISTER NOW</span>
-                        <h3 class="tp-cta-title">CREATIVE IN RESEARCH AND TEACHING.</h3>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-xxl-2 col-lg-3">
-                  <div class="tp-cta-btn-wrap">
-                     <div class="tp-cta-btn text-lg-end">
-                        <a class="tp-btn" href="university-apply.html">Apply Now <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path d="M1 7H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                 <path d="M7 1L13 7L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                              </svg></span>
-                        </a>
-                     </div>
-                     <div class="tp-cta-shape-1">
-                        <img src="assets/img/cta/cta-shape-1.png" alt="">
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- cta-area-end -->
-
-   </main>
-
-   <!-- footer-area-start -->
-   <footer>
-      <div class="tp-footer-main grey-bg pt-80 pb-55">
-         <div class="container">
-            <div class="row">
-               <div class="col-xl-4 col-lg-3 col-sm-6">
-                  <div class="tp-footer-widget tp-footer-col-1 mb-30">
-                     <div class="tp-footer-widget-logo mb-20 tp-header-logo">
-                        <a href="index.html"><img src="assets/img/logo/logo-red.png" alt=""></a>
-                     </div>
-                     <div class="tp-footer-widget-content">
-                        <p>Lorem ipsum dolor sit amet, consectetur <br> adipisc ing elit.</p>
-                     </div>
-                     <div class="tp-footer-contact">
-                        <span>Got Questions? Call us</span>
-                        <a href="tel:012345678">+670 413 90 762</a>
-                     </div>
-                     <div class="tp-footer-contact-mail">
-                        <a href="mailto:acadia@gmail.com">
-                           <span>
-                              <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path d="M1 5C1 2.2 2.6 1 5 1H13C15.4 1 17 2.2 17 5V10.6C17 13.4 15.4 14.6 13 14.6H5" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                 <path d="M13 5.40039L10.496 7.40015C9.672 8.05607 8.32 8.05607 7.496 7.40015L5 5.40039" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                 <path d="M1 11.4004H5.8" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                 <path d="M1 8.19922H3.4" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                              </svg>
-                           </span>
-                           acadia@gmail.com</a>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-xl-2 col-lg-3 col-sm-6">
-                  <div class="tp-footer-widget tp-footer-col-2 mb-30">
-                     <h4 class="tp-footer-widget-title mb-20">About</h4>
-                     <div class="tp-footer-widget-link">
-                        <ul>
-                           <li><a href="about.html">About Us</a></li>
-                           <li><a href="#">Courses</a></li>
-                           <li><a href="#">News & Blogs</a></li>
-                           <li><a href="#">Become a Teacher</a></li>
-                           <li><a href="#">Events</a></li>
-                           <li><a href="#">Contact</a></li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-xl-2 col-lg-2 col-sm-4">
-                  <div class="tp-footer-widget tp-footer-col-3 mb-30">
-                     <h4 class="tp-footer-widget-title mb-20">Quick links</h4>
-                     <div class="tp-footer-widget-link">
-                        <ul>
-                           <li><a href="#">Students</a></li>
-                           <li><a href="#">Addmition</a></li>
-                           <li><a href="#">Faculty & Staffs</a></li>
-                           <li><a href="#">Media Relations</a></li>
-                           <li><a href="#">Alumni</a></li>
-                           <li><a href="#">Visit</a></li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-xl-4 col-lg-4 col-sm-8">
-                  <div class="p-footer-widget tp-footer-col-4 mb-30">
-                     <h4 class="tp-footer-widget-title mb-20">Our Newsletter</h4>
-                     <div class="tp-footer-newsletter-wrap">
-                        <p>Enter your email and we'll send you <br> more information</p>
-                        <form action="#">
-                           <div class="tp-footer-newsletter-wrapper mb-30">
-                              <div class="tp-footer-newsletter-input">
-                                 <input type="email" placeholder="Your email">
-                              </div>
-                              <div class="tp-footer-newsletter-submit">
-                                 <button class="tp-btn">Subscribe</button>
-                              </div>
-                           </div>
-                        </form>
-                        <div class="tp-footer-newsletter-social">
-                           <a class="social-fb" href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                           <a class="social-twit" href="#"><i class="fa-brands fa-twitter"></i></a>
-                           <a class="social-lnkd" href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                           <a class="social-yout" href="#"><i class="fa-brands fa-youtube"></i></a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <div class="tp-footer-bottom">
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-12">
-                  <div class="tp-footer-copyright text-center">
-                     <span>© 2024 <a href="#">Acadia</a>. All rights reserved.</span>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </footer>
-   <!-- footer-area-end -->
-
-   <!-- JS here -->
-   <script src="assets/js/vendor/jquery.js"></script>
-   <script src="assets/js/vendor/waypoints.js"></script>
-   <script src="assets/js/bootstrap-bundle.js"></script>
-   <script src="assets/js/swiper-bundle.js"></script>
-   <script src="assets/js/slick.js"></script>
-   <script src="assets/js/magnific-popup.js"></script>
-   <script src="assets/js/nice-select.js"></script>
-   <script src="assets/js/purecounter.js"></script>
-   <script src="assets/js/wow.js"></script>
-   <script src="assets/js/isotope-pkgd.js"></script>
-   <script src="assets/js/hover-reveal.js"></script>
-   <script src="assets/js/tween-max.js"></script>
-   <script src="assets/js/imagesloaded-pkgd.js"></script>
-   <script src="assets/js/flatpickr.js"></script>
-   <script src="assets/js/ajax-form.js"></script>
-   <script src="assets/js/main.js"></script>
+    <!-- Theme Switcher (REMOVE ON YOUR PRODUCTION SITE) -->
+    <script type="text/javascript" src="{{ asset('assets/js/demo/theme-switcher.js') }}"></script>
 
 
 </body>
 
-
-<!-- Mirrored from html.hixstudio.net/acadia-prev/acadia-rtl/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Sep 2024 12:07:51 GMT -->
+<!-- Mirrored from themes.3rdwavemedia.com/college-green/bs5/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Oct 2024 07:58:11 GMT -->
 
 </html>
