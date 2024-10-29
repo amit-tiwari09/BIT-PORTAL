@@ -17,6 +17,11 @@ class CarouselSlideController extends Controller
         return view('carousel.index', compact('slides'));
     }
 
+
+    public function index2(){
+        $slides = CarouselSlide::all();
+        return view('carousel.index2',compact('slides'));
+    }
     // Show form for creating a new slide
     public function create()
     {

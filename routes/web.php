@@ -8,6 +8,7 @@ use App\SiteSetting;
 use App\SocialMediaLink;
 use App\NavLink; 
 use App\CarouselSlide;
+use App\Promo;
 Route::get('/', function () {
     // Retrieve site settings
     $settings = SiteSetting::getSettings();
@@ -17,10 +18,11 @@ Route::get('/', function () {
 
     // Retrieve all navigation links
     $navLinks = NavLink::all(); 
-    $CarouselSlide = CarouselSlide::all();
+    $slides = CarouselSlide::all();
+    $promos = Promo::all();
 
     // Pass settings, social media links, and navigation links to the view
-    return view('frontend.homepage.index', compact('settings', 'socialMediaLinks', 'navLinks','CarouselSlide'));
+    return view('frontend.homepage.index', compact('settings', 'socialMediaLinks', 'navLinks','slides','promos'));
 })->name('home');
 
 
@@ -85,6 +87,25 @@ Route::post('carousel', 'CarouselSlideController@store')->name('carousel.store')
 Route::get('carousel/{id}/edit', 'CarouselSlideController@edit')->name('carousel.edit');
 Route::put('carousel/{id}', 'CarouselSlideController@update')->name('carousel.update');
 Route::delete('carousel/{id}', 'CarouselSlideController@destroy')->name('carousel.destroy');
+
+Route::get('demo',"CarouselSlideController@index2");
+
+// Promos 
+
+Route::resource('admin/promos', 'PromoController');
+
+
+
+Route::get('blog','blogController@index')->name('blog.index');
+Route::get('blog/create','blogController@create')->name('blog.create');
+Route::post('blog/store','blogController@store')->name('blog.store');
+Route::get('/blog/{id}/edit', 'blogController@edit')->name('blog.edit');
+Route::delete('/blog/{id}', 'blogController@destroy')->name('blog.destroy');
+Route::post('blog/{id}', 'BlogController@update')->name('blog.update'); // Route for updating a post
+
+
+Route::get('blog/show/{id}','blogController@show')->name('blog.show');
+
 
 
 
