@@ -1,3 +1,5 @@
+@extends('setting.index')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,6 +81,7 @@
     </style>
 </head>
 <body>
+    @section('carousel')
     <div class="container">
         <h1>Carousel Slides</h1>
         <a href="{{ route('carousel.create') }}">Add New Slide</a>
@@ -108,5 +111,7 @@
             @endforeach
         </ul>
     </div>
+
+    @endsection
 </body>
 </html>

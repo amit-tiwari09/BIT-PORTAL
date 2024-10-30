@@ -1,3 +1,5 @@
+@extends('backend.StaffDashboard.index')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +8,7 @@
     <title>Create New Post</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/c9cb99f12f.js" crossorigin="anonymous"></script>
     <style>
         body {
             background-color: #f8f9fa;
@@ -138,10 +141,19 @@
     </style>
 </head>
 <body>
+
+@section('blog')
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="form-container">
+                    <div class="d-flex justify-content-start mb-4">
+                        <a href="{{ url()->previous() }}" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Back
+                        </a>
+                    </div>
+
                     @if ($errors->any())
                     <div class="error">
                         <ul>
@@ -153,6 +165,7 @@
                     @endif
 
                     <h1 class="page-title">Create New Post</h1>
+                    
 
                     <form id="postForm" action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -209,6 +222,8 @@
         </div>
     </div>
 
+    @endsection
+
     <script>
         function addNewCategory() {
             document.getElementById('categoryDiv').innerHTML = `
@@ -251,6 +266,6 @@
         }
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm /bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

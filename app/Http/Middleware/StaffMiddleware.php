@@ -22,6 +22,11 @@ class StaffMiddleware
             return redirect()->route('login');
         }
 
+
+        if ($request->routeIs('staffdashboard')) {
+            return redirect()->route('blog.index');
+        }
+
         // Proceed with the request if authenticated
         return $next($request);
     }

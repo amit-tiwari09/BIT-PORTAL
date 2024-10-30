@@ -25,7 +25,7 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center">Edit Promo</h1>
-
+        <a href="{{ route('promos.index') }}" class="btn btn-secondary mb-3">Go Back</a>
         <form action="{{ route('promos.update', $promo->id) }}" method="POST">
             @csrf
             @method('PUT')

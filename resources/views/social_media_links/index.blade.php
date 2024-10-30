@@ -1,4 +1,5 @@
 <!-- resources/views/social_media_links/index.blade.php -->
+ @extends('setting.index')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,6 +71,7 @@
     </style>
 </head>
 <body>
+    @section('social')
     <div class="container">
         <h1>Social Media Links</h1>
         <div class="add-link">
@@ -92,5 +94,7 @@
             @endforeach
         </ul>
     </div>
+
+    @endsection
 </body>
 </html>

@@ -58,7 +58,7 @@
 <body>
     <div class="container">
         <h1>Add Navigation Link</h1>
-        <form action="{{ route('nav_links.store') }}" method="POST">
+        <form action="{{ route('nav.store') }}" method="POST">
             @csrf
             <label for="key">Link Name:</label>
             <input type="text" name="key" required>
@@ -67,7 +67,7 @@
             <button type="submit">Add Link</button>
         </form>
         <div class="back-link">
-            <a href="{{ route('nav_links.index') }}">Back to List</a>
+            <a href="{{ route('nav.index') }}">Back to List</a>
         </div>
     </div>
 </body>

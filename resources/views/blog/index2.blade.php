@@ -1,4 +1,4 @@
-@extends('backend.StaffDashboard.index')
+
 
 
 <!DOCTYPE html>
@@ -234,19 +234,22 @@
 
 <body>
 
-@section('blog')
+
     @if (session('success'))
     <div class="success-message">
         {{ session('success') }}
     </div>
     @endif
 
+    <div class="text-center">
+            <a href="{{ route('home') }}" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to home
+            </a>
+        </div>   
+
     <h1 class="page-header">Blog Posts</h1>
 
-    <a href="{{ route('blog.create') }}" class="create-post-btn">
-        <i class="fas fa-plus-circle"></i> Create New Post
-    </a>
-
+    
     <div class="posts-grid">
         @foreach($posts as $post)
         <div class="post-card">
@@ -272,18 +275,7 @@
                     </div>
                 </div>
 
-                <div class="post-actions">
-                    <a href="{{ route('blog.edit', $post->id) }}" class="edit-btn">
-                        <i class="fas fa-edit"></i> Edit
-                    </a>
-                    <form action="{{ route('blog.destroy', $post->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this post?');">
-                            <i class="fas fa-trash-alt"></i> Delete
-                        </button>
-                    </form>
-                </div>
+                
 
                 <a href="{{ route('blog.show', $post->id) }}" class="read-more-btn">
                     Read More <i class="fas fa-arrow-right ms-1"></i>
@@ -292,7 +284,7 @@
         </div>
         @endforeach
     </div>
-    @endsection
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -252,11 +254,24 @@
             {!! nl2br(e($blog->body)) !!}
         </div>
 
+
+        @if (!auth()->guard('staff')->check() && !auth()->guard('student')->check())
         <div class="text-center">
-            <a href="{{ route('blog.index') }}" class="back-btn">
+            <a href="{{ route('blog.index2') }}" class="back-btn">
                 <i class="fas fa-arrow-left"></i> Back to Blog
             </a>
-        </div>
+        </div>          
+        @endif
+
+        @if (auth()->guard('staff')->check() || auth()->guard('student')->check())
+        <div class="text-center">
+            <a href="{{ route('blog.index') }}" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Blog1
+            </a>
+        </div>          
+        @endif
+
+        
     </div>
 
     <script>

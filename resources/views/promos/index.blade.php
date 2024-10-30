@@ -1,3 +1,6 @@
+@extends('setting.index')
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,7 +43,10 @@
     </style>
 </head>
 <body>
+
+@section('promo')
     <div class="container mt-5">
+   
         <h1 class="text-center">Manage Promos</h1>
         <div class="text-center mb-4">
             <a href="{{ route('promos.create') }}" class="btn btn-primary">Create New Promo</a>
@@ -76,7 +82,7 @@
             </table>
         </div>
     </div>
-
+@endsection
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

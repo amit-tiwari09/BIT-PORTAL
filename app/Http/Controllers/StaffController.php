@@ -164,6 +164,7 @@ class StaffController extends Controller
 
     public function logout(Request $request)
     {
+        
 
         Auth::guard('staff')->logout();
 

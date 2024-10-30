@@ -16,6 +16,11 @@ class BlogController extends Controller
         return view('blog.index', compact('posts'));
     }
 
+    public function index2(){
+        $posts = blog::all();
+        return view('blog.index2', compact('posts'));
+    }
+
     // Method to show the create post form
     public function create()
     {

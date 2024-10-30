@@ -58,35 +58,40 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-white " href="">
+          <a id="dashboardLink" class="nav-link text-white" href="{{ route('staffdashboard') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
             <span class="nav-link-text ms-1">Dashboard1</span>
           </a>
+
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-primary" href="{{route('site-settings.edit')}}">
+          <a class="nav-link text-white {{ request()->routeIs('site-settings.edit') ? 'active bg-gradient-primary' : '' }}" href="{{ route('site-settings.edit') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">table_view</i>
             </div>
-            <span class="nav-link-text ms-1">SiteSetting</span>
+            <span class="nav-link-text ms-1">Site Setting</span>
           </a>
+
         </li>
+
+        <!-- admin.view -->
         <li class="nav-item">
-          <a class="nav-link text-white " href="billing.html">
+          <a class="nav-link text-white {{ request()->routeIs('admin.view') ? 'active bg-gradient-primary' : '' }}  {{ request()->routeIs('applicants.details') ? 'active bg-gradient-primary' : '' }} " href="{{route('applicants.details')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
             </div>
-            <span class="nav-link-text ms-1">Billing</span>
+            <span class="nav-link-text ms-1">Applicant</span>
+
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="virtual-reality.html">
+          <a class="nav-link text-white {{ request()->routeIs('events.index') ? 'active bg-gradient-primary' : '' }}  {{ request()->routeIs('events.create') ? 'active bg-gradient-primary' : '' }} {{ request()->routeIs('events.show') ? 'active bg-gradient-primary' : '' }} {{ request()->routeIs('events.edit') ? 'active bg-gradient-primary' : '' }} " href="{{route('events.index')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">view_in_ar</i>
             </div>
-            <span class="nav-link-text ms-1">Virtual Reality</span>
+            <span class="nav-link-text ms-1">Events</span>
           </a>
         </li>
         <li class="nav-item">
@@ -134,12 +139,12 @@
 
         <ul class="navbar-nav  justify-content-end">
           <li class="nav-item d-flex align-items-center">
-            <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder?ref=navbar-material-dashboard">Blog editor</a>
+            <a class="btn btn-outline-primary btn-sm mb-0 me-3 {{ request()->routeIs('blog.index') ? 'active bg-gradient-primary' : '' }}" href="{{route('blog.index')}}">Blog editor</a>
           </li>
 
 
           <li class="nav-item px-3 d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-body p-0">
+            <a href="{{route('settings')}}" class="nav-link text-body p-0">
               <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
             </a>
           </li>
@@ -150,11 +155,15 @@
 
           </li>
           <li class="nav-item d-flex align-items-center">
-            <a href="sign-in.html" class="nav-link text-body font-weight-bold px-0">
-              <i class="fa fa-user me-sm-1"></i>
-              <span class="d-sm-inline d-none">logout</span>
-            </a>
+            <form action="{{ route('logout') }}" method="POST" id="logout-form">
+              @csrf <!-- Include the CSRF token -->
+              <button style="border: none; outline:none;" type="submit" class="nav-link text-body font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">Logout</span>
+              </button>
+            </form>
           </li>
+
         </ul>
       </div>
       </div>
@@ -164,22 +173,33 @@
 
 
     <div class="container-fluid py-4">
-    @yield('content')
+
+
+
+      @yield('content')
+      @yield('blog')
+      @yield('applicants')
+      @yield('applicantsview')
+      @yield('settings')
+      @yield('events')
+      @yield('createevent')
+      @yield('editevent')
+      @yield('showevent')
     </div>
   </main
 
 
 
-    <script src="../assets/js/core/popper.min.js">
+    <script src="{{asset('assets/js/core/popper.min.js')}}">
   </script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="{{asset('assets/js/core/bootstrap.min.js')}}"></script>
+  <script src="{{asset('assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
+  <script src="{{asset('assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
 
 
 
 
-  <script src="../assets/js/material-dashboard.mine63c.js?v=3.1.0"></script>
+  <script src="{{asset('assets/js/material-dashboard.mine63c.js?v=3.1.0')}}"></script>
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8d525cd31cda9e7a","version":"2024.10.1","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"1b7cbb72744b40c580f8633c6b62637e","b":1}' crossorigin="anonymous"></script>
 </body>
 

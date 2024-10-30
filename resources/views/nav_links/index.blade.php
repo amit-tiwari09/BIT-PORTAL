@@ -1,3 +1,5 @@
+@extends('setting.index')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,18 +53,20 @@
     </style>
 </head>
 <body>
+
+@section('nav')
     <div class="container">
         <h1>Navigation Links</h1>
         <div class="add-link">
-            <a href="{{ route('nav_links.create') }}">Add New Link <i class="fas fa-plus"></i></a>
+            <a href="{{ route('nav.create') }}">Add New Link <i class="fas fa-plus"></i></a>
         </div>
         <ul>
             @foreach($links as $link)
                 <li>
                     <span>{{ $link->key }}</span>
                     <div>
-                        <a href="{{ route('nav_links.edit', $link->id) }}">Edit</a>
-                        <form action="{{ route('nav_links.destroy', $link->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('nav.edit', $link->id) }}">Edit</a>
+                        <form action="{{ route('nav.destroy', $link->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit">Delete</button>
@@ -72,5 +76,7 @@
             @endforeach
         </ul>
     </div>
+
+    @endsection
 </body>
 </html>

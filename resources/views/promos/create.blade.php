@@ -24,6 +24,7 @@
 </head>
 <body>
     <div class="container mt-5">
+    <a href="{{ route('promos.index') }}" class="btn btn-secondary mb-3">Go Back</a>
         <h1 class="text-center">Create Promo</h1>
 
         <form action="{{ route('promos.store') }}" method="POST">

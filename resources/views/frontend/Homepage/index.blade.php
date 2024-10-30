@@ -29,47 +29,53 @@
 
     <style>
         .carousel-controls {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        z-index: 2;
-        display: flex;
-    }
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 2;
+            display: flex;
+        }
 
-    .carousel-control-prev-promo,
-    .carousel-control-next-promo {
-        position: relative;
-        width: 25px;
-        height: 25px;
-        background-color: rgba(255, 255, 255, 0.5);
-        border: none;
-        border-radius: 0;
-        opacity: 2;
-        top:17px;
-    }
+        .carousel-control-prev-promo,
+        .carousel-control-next-promo {
+            position: relative;
+            width: 25px;
+            height: 25px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius: 0;
+            opacity: 2;
+            top: 17px;
+        }
 
-    .carousel-control-prev-promo {
-        margin-right: 5px;
-    }
+        .carousel-control-prev-promo {
+            margin-right: 5px;
+        }
 
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
-        width: 10px;
-        height: 10px;
-        background-size: 100% 100%;
-    }
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            width: 10px;
+            height: 10px;
+            background-size: 100% 100%;
+        }
 
-    .carousel-control-prev-icon {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3e%3c/svg%3e");
-    }
+        .carousel-control-prev-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3e%3c/svg%3e");
+        }
 
-    .carousel-control-next-icon {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3e%3c/svg%3e");
-    }
+        .carousel-control-next-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3e%3c/svg%3e");
+        }
 
-    .carousel-item {
-        position: relative;
-    }
+        .carousel-item {
+            position: relative;
+        }
+
+        .thumb {
+            height: 90px;
+            width: 90px;
+            border-radius: 50%;
+        }
     </style>
 </head>
 
@@ -289,162 +295,69 @@
             <a class="prev" href="#news-carousel" data-bs-slide="prev"><i class="fas fa-caret-left"></i></a>
             <a class="next" href="#news-carousel" data-bs-slide="next"><i class="fas fa-caret-right"></i></a>
         </div><!--//carousel-controls-->
-        <div class="section-content ">
+        <div class="section-content">
             <div id="news-carousel" class="news-carousel carousel slide">
                 <div class="carousel-inner">
-                    <div class="item carousel-item active">
+                    @foreach ($newsItems->chunk(3) as $chunk)
+                    <div class="item carousel-item {{ $loop->first ? 'active' : '' }}">
                         <div class="row">
+                            @foreach ($chunk as $newsItem)
                             <div class="col-lg-4 col-12 news-item">
-                                <h2 class="title"><a href="news-single.html">Phasellus scelerisque metus</a></h2>
-                                <img class="thumb" src="assets/images/news/news-thumb-1.jpg" alt="" />
-                                <p>Suspendisse purus felis, porttitor quis sollicitudin sit amet, elementum et tortor. Praesent lacinia magna in malesuada vestibulum. Pellentesque urna libero.</p>
-                                <a class="read-more" href="news-single.html">Read more<i class="fas fa-chevron-right"></i></a>
+                                <img class="thumb" src="{{ asset($newsItem->image_path) }}" alt="" />
+                                <div class="news-content">
+                                    <h2 class="title"><a href="{{ route('blog.show', $newsItem->id) }}">{{ $newsItem->title }}</a></h2>
+                                    <p class="author">By {{ $newsItem->Author }}</p>
+                                    <p class="excerpt">{{ $newsItem->excerpt }}</p>
+                                    <a class="btn btn-primary read-more" style="color: #98ABBB; " href="{{ route('blog.show', $newsItem->id) }}">Read<i class="fas fa-chevron-right"></i></a>
+                                </div>
                             </div><!--//news-item-->
-                            <div class="col-lg-4 col-12 news-item">
-                                <h2 class="title"><a href="news-single.html">Morbi at vestibulum turpis</a></h2>
-                                <p>Nam feugiat erat vel neque mollis, non vulputate erat aliquet. Maecenas ac leo porttitor, semper risus condimentum, cursus elit. Vivamus vitae libero tellus.</p>
-                                <a class="read-more" href="news-single.html">Read more<i class="fas fa-chevron-right"></i></a>
-                                <img class="thumb" src="assets/images/news/news-thumb-2.jpg" alt="" />
-                            </div><!--//news-item-->
-                            <div class="col-lg-4 col-12 news-item">
-                                <h2 class="title"><a href="news-single.html">Aliquam id iaculis urna</a></h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam bibendum mauris eget sapien consectetur pellentesque. Proin elementum tristique euismod. </p>
-                                <a class="read-more" href="news-single.html">Read more<i class="fas fa-chevron-right"></i></a>
-                                <img class="thumb" src="assets/images/news/news-thumb-3.jpg" alt="" />
-                            </div><!--//news-item-->
+                            @endforeach
                         </div><!--//row-->
                     </div><!--//item-->
-                    <div class="item carousel-item">
-                        <div class="row">
-                            <div class="col-lg-4 col-12 news-item">
-                                <h2 class="title"><a href="news-single.html">Phasellus scelerisque metus</a></h2>
-                                <img class="thumb" src="assets/images/news/news-thumb-4.jpg" alt="" />
-                                <p>Suspendisse purus felis, porttitor quis sollicitudin sit amet, elementum et tortor. Praesent lacinia magna in malesuada vestibulum. Pellentesque urna libero.</p>
-                                <a class="read-more" href="news-single.html">Read more<i class="fas fa-chevron-right"></i></a>
-                            </div><!--//news-item-->
-                            <div class="col-lg-4 col-12 news-item">
-                                <h2 class="title"><a href="news-single.html">Morbi at vestibulum turpis</a></h2>
-                                <p>Nam feugiat erat vel neque mollis, non vulputate erat aliquet. Maecenas ac leo porttitor, semper risus condimentum, cursus elit. Vivamus vitae libero tellus.</p>
-                                <a class="read-more" href="news-single.html">Read more<i class="fas fa-chevron-right"></i></a>
-                                <img class="thumb" src="assets/images/news/news-thumb-5.jpg" alt="" />
-                            </div><!--//news-item-->
-                            <div class="col-lg-4 col-12 news-item">
-                                <h2 class="title"><a href="news-single.html">Aliquam id iaculis urna</a></h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam bibendum mauris eget sapien consectetur pellentesque. Proin elementum tristique euismod. </p>
-                                <a class="read-more" href="news-single.html">Read more<i class="fas fa-chevron-right"></i></a>
-                                <img class="thumb" src="assets/images/news/news-thumb-6.jpg" alt="" />
-                            </div><!--//news-item-->
-                        </div><!--//row-->
-                    </div><!--//item-->
-                </div><!--//carousel-inner-->
+                    @endforeach
+                </div><!--//carousel-inner-->>
             </div><!--//news-carousel-->
         </div><!--//section-content-->
     </section><!--//news-->
+
+
+
     <div class="row cols-wrapper">
         <div class="col-12 col-lg-6 col-xl-3">
             <section class="events">
+
                 <h1 class="section-heading text-highlight"><span class="line">Events</span></h1>
                 <div class="section-content">
+
+                    @foreach($events as $event)
                     <div class="event-item">
                         <p class="date-label">
-                            <span class="month">FEB</span>
-                            <span class="date-number">18</span>
+                            <span class="month">{{ \Carbon\Carbon::parse($event->date)->format('M') }}</span>
+                            <span class="date-number">{{ \Carbon\Carbon::parse($event->date)->format('d') }}</span>
                         </p>
                         <div class="details">
-                            <h2 class="title">Open Day</h2>
-                            <p class="time"><i class="far fa-clock"></i>10:00am - 18:00pm</p>
-                            <p class="location"><i class="fas fa-map-marker-alt"></i>East Campus</p>
+                            <h2 class="title">{{ $event->title }}</h2>
+                            <p class="time">
+                                <i class="far fa-clock"></i>{{ \Carbon\Carbon::parse($event->start_time)->format('h:i A') }} - {{ \Carbon\Carbon::parse($event->end_time)->format('h:i A') }}
+                            </p>
+                            <p class="location">
+                                <i class="fas fa-map-marker-alt"></i>{{ $event->location }}
+                            </p>
+
                         </div><!--//details-->
-                    </div><!--event-item-->
-                    <div class="event-item">
-                        <p class="date-label">
-                            <span class="month">SEP</span>
-                            <span class="date-number">06</span>
-                        </p>
-                        <div class="details">
-                            <h2 class="title">E-learning at College Green</h2>
-                            <p class="time"><i class="far fa-clock"></i>10:00am - 16:00pm</p>
-                            <p class="location"><i class="fas fa-map-marker-alt"></i>Learning Center</p>
-                        </div><!--//details-->
-                    </div><!--event-item-->
-                    <div class="event-item">
-                        <p class="date-label">
-                            <span class="month">JUN</span>
-                            <span class="date-number">23</span>
-                        </p>
-                        <div class="details">
-                            <h2 class="title">Career Fair</h2>
-                            <p class="time"><i class="far fa-clock"></i>09:45am - 16:00pm</p>
-                            <p class="location"><i class="fas fa-map-marker-alt"></i>Library</p>
-                        </div><!--//details-->
-                    </div><!--event-item-->
-                    <div class="event-item">
-                        <p class="date-label">
-                            <span class="month">May</span>
-                            <span class="date-number">17</span>
-                        </p>
-                        <div class="details">
-                            <h2 class="title">Science Seminar</h2>
-                            <p class="time"><i class="far fa-clock"></i>14:00pm - 18:00pm</p>
-                            <p class="location"><i class="fas fa-map-marker-alt"></i>Library</p>
-                        </div><!--//details-->
-                    </div><!--event-item-->
-                    <div class="event-item">
-                        <p class="date-label">
-                            <span class="month">Apr</span>
-                            <span class="date-number">26</span>
-                        </p>
-                        <div class="details">
-                            <h2 class="title">PTA Meeting</h2>
-                            <p class="time"><i class="far fa-clock"></i>15:30pm - 16:30pm</p>
-                            <p class="location"><i class="fas fa-map-marker-alt"></i>Library</p>
-                        </div><!--//details-->
-                    </div><!--event-item-->
-                    <a class="read-more" href="events.html">All events<i class="fas fa-chevron-right"></i></a>
+                    </div>
+                    @endforeach
+
+
+                    <a class="read-more" href="{{route('frontevents.index')}}">All events<i class="fas fa-chevron-right"></i></a>
                 </div><!--//section-content-->
             </section><!--//events-->
         </div><!--//col-->
+
+
+
         <div class="col-12 col-lg-6 col-xl-6">
-            <section class="course-finder">
-                <h1 class="section-heading text-highlight"><span class="line">Course Finder</span></h1>
-                <div class="section-content">
-                    <form class="course-finder-form" action="#" method="get">
-                        <div class="row gx-0 gx-lg-2">
-                            <div class="col-12 col-xl-auto col-subject mb-3">
-                                <select class="form-select subject">
-                                    <option>Choose a subject area</option>
-                                    <option>Accounting & Finance</option>
-                                    <option>Biological Sciences</option>
-                                    <option>Business Studies</option>
-                                    <option>Computer Science</option>
-                                    <option>Creative Arts & Media</option>
-                                    <option>Drama</option>
-                                    <option>Education</option>
-                                    <option>Engineering</option>
-                                    <option>Film Studies</option>
-                                    <option>Fitness Training</option>
-                                    <option>Hospitality</option>
-                                    <option>History</option>
-                                    <option>International Relations</option>
-                                    <option>Law</option>
-                                    <option>Mathematics</option>
-                                    <option>Music</option>
-                                    <option>Physics</option>
-                                    <option>Religion</option>
-                                    <option>Social Science</option>
-                                </select>
-                            </div>
-                            <div class="col-10 col-xl-auto col-keywords mb-3">
-                                <input class="form-control" type="text" placeholder="Search keywords" />
-                            </div>
-                            <div class="col-auto col-submit-btn mb-3">
-                                <button type="submit" class="btn btn-theme"><i class="fas fa-search m-0"></i></button>
-                            </div>
-                        </div>
-                    </form><!--//course-finder-form-->
-                    <a class="read-more" href="courses.html">View all our courses<i class="fas fa-chevron-right"></i></a>
-                </div><!--//section-content-->
-            </section><!--//course-finder-->
+            
             <section class="video">
                 <h1 class="section-heading text-highlight"><span class="line">Video Tour</span></h1>
                 <div class="carousel-controls">

@@ -1,3 +1,5 @@
+
+@extends('backend.StaffDashboard.index')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -142,6 +144,13 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="form-container">
+
+                <div class="d-flex justify-content-start mb-4">
+                        <a href="{{ url()->previous() }}" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Back
+                        </a>
+                    </div>
+                    
                     @if ($errors->any())
                     <div class="error">
                         <ul>
