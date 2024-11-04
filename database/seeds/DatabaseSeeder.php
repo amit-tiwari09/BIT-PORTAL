@@ -16,5 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(staffSeeder::class);
         $this->call(SiteSettingsSeeder::class);
         $this->call(NavLinkSeeder::class);
+        
+        
     }
 }

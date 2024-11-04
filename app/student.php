@@ -10,4 +10,11 @@ class Student extends Authenticatable
 {
     protected $guarded = ["id"];
     protected $table = 'students';
+
+
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

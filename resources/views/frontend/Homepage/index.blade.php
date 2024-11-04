@@ -24,10 +24,117 @@
 
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="{{ asset('assets/css/theme-1.css') }}">
+    <script src="https://kit.fontawesome.com/c9cb99f12f.js" crossorigin="anonymous"></script>
 
 
 
     <style>
+        .carousel-caption {
+            position: absolute;
+            bottom: 20px;
+            /* Position the caption at the bottom */
+            left: 20px;
+            /* Add some padding from the left */
+            right: 20px;
+            /* Add some padding from the right */
+            color: white;
+            /* Text color */
+            background-color: rgba(51, 51, 51, 0.5);
+            /* background-color: rgba(0, 0, 0, 0.7); */
+            /* Semi-transparent black background */
+            padding: 15px;
+            /* Padding around the caption */
+            border-radius: 10px;
+            /* Rounded corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            /* Shadow for depth */
+            display: flex;
+            /* Use flexbox for alignment */
+            justify-content: space-between;
+            /* Space between caption and button */
+            align-items: center;
+            /* Center items vertically */
+        }
+
+        .caption {
+            flex: 1;
+            /* Allow caption to take available space */
+            margin-right: 15px;
+            /* Space between caption and button */
+        }
+
+        .caption p {
+            margin: 5px 0;
+            /* Space between paragraphs */
+            font-size: 1rem;
+            color: whitesmoke;
+            /* Font size for description */
+        }
+
+        strong {
+            color: whitesmoke;
+        }
+
+        .btn-attractive {
+            background-color: #007bff;
+            /* Bootstrap primary color */
+            border: none;
+            /* No border */
+            padding: 10px 15px;
+            /* Padding for the button */
+            border-radius: 25px;
+            /* Rounded corners for the button */
+            font-size: 1rem;
+            /* Font size for the button */
+            font-weight: bold;
+            /* Bold button text */
+            transition: background-color 0.3s, transform 0.3s;
+            /* Smooth transition for hover effect */
+            display: inline-flex;
+            /* Flexbox for icon and text alignment */
+            align-items: center;
+            /* Center icon and text vertically */
+        }
+
+        .btn-attractive i {
+            margin-right: 5px;
+            /* Space between icon and text */
+        }
+
+        .btn-attractive:hover {
+            background-color: #0056b3;
+            /* Darker blue on hover */
+            transform: scale(1.05);
+            /* Slightly enlarge button on hover */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .carousel-caption {
+                flex-direction: column;
+                /* Stack items vertically on small screens */
+                align-items: flex-start;
+                /* Align items to the start */
+            }
+
+            .caption {
+                margin-right: 0;
+                /* Remove right margin on small screens */
+                margin-bottom: 10px;
+                /* Space below caption */
+            }
+
+            .btn-attractive {
+                width: 100%;
+                /* Full width button on small screens */
+                text-align: center;
+                /* Center text in button */
+            }
+        }
+
+
+
+
         .carousel-controls {
             position: absolute;
             top: 10px;
@@ -357,9 +464,9 @@
 
 
         <div class="col-12 col-lg-6 col-xl-6">
-            
+
             <section class="video">
-                <h1 class="section-heading text-highlight"><span class="line">Video Tour</span></h1>
+                <h1 class="section-heading text-highlight"><span class="line">Gallery</span></h1>
                 <div class="carousel-controls">
                     <a class="prev" href="#videos-carousel" data-bs-slide="prev"><i class="fas fa-caret-left"></i></a>
                     <a class="next" href="#videos-carousel" data-bs-slide="next"><i class="fas fa-caret-right"></i></a>
@@ -367,83 +474,96 @@
                 <div class="section-content">
                     <div id="videos-carousel" class="videos-carousel carousel slide">
                         <div class="carousel-inner">
-                            <div class="carousel-item item active">
-                                <div class="ratio ratio-16x9 mb-3">
-                                    <iframe class="embed-responsive-item" src="http://www.youtube.com/embed/r9LelXa3U_I?rel=0&amp;wmode=transparent" frameborder="0" allowfullscreen=""></iframe>
+                            @foreach($galleries as $index => $image)
+                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                <div class="ratio ratio-16x9 mb-3 galleryimg">
+                                    <img src="{{ asset($image->image_path) }}" class="embed-responsive-item galleryimg" alt="Image">
+                                </div>
+                                <div class="carousel-caption">
+                                    <div class="caption">
+                                        <p><strong>Category:</strong> {{ $image->category ? $image->category->name : 'Uncategorized' }}</p>
+                                        <p>{{ $image->description }}</p>
+                                        <p>Uploaded by: <strong>{{ $image->uploader_name ?: 'Unknown' }}</strong></p>
+                                        <p>Uploaded on: <strong>{{ $image->created_at->format('Y-m-d H:i') }}</strong></p>
+                                    </div>
+                                    <a href="{{ route('frontgallery')}}" class="btn btn-attractive">
+                                        <i class="fas fa-eye"></i> Visit Gallery
+                                    </a>
                                 </div>
                             </div><!--//item-->
-                            <div class="carousel-item item">
-                                <div class="ratio ratio-16x9 mb-3">
-                                    <iframe class="embed-responsive-item" src="http://www.youtube.com/embed/RcGyVTAoXEU?rel=0&amp;wmode=transparent" frameborder="0" allowfullscreen=""></iframe>
-                                </div>
-                            </div><!--//item-->
-                            <div class="carousel-item item">
-                                <div class="ratio ratio-16x9 mb-3">
-                                    <iframe class="embed-responsive-item" src="http://www.youtube.com/embed/Ks-_Mh1QhMc?rel=0&amp;wmode=transparent" frameborder="0" allowfullscreen=""></iframe>
-                                </div>
-                            </div><!--//item-->
+                            @endforeach
                         </div><!--//carousel-inner-->
-                    </div><!--//videos-carousel-->
-                    <p class="description">Video desc goes here aenean feugiat a diam tempus sodales. Quisque lorem nulla, ultrices imperdiet malesuada at, suscipit vel lorem.</p>
-                </div><!--//section-content-->
-            </section><!--//video-->
-        </div><!--//col-->
-        <div class="col-12 col-xl-3">
-            <section class="links">
-                <h1 class="section-heading text-highlight"><span class="line">Quick Links</span></h1>
-                <div class="section-content">
-                    <ul class="custom-list-style ps-0 mb-0">
-                        <li><a href="#"><i class="fas fa-caret-right"></i>E-learning Portal</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i>Gallery</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i>Job Vacancies</a></li>
-                        <li class="mb-0"><a href="#"><i class="fas fa-caret-right"></i>Contact</a></li>
-                    </ul>
-                </div><!--//section-content-->
-            </section><!--//links-->
-            <section class="testimonials">
-                <h1 class="section-heading text-highlight"><span class="line"> Testimonials</span></h1>
-                <div class="carousel-controls">
-                    <a class="prev" href="#testimonials-carousel" data-bs-slide="prev"><i class="fas fa-caret-left"></i></a>
-                    <a class="next" href="#testimonials-carousel" data-bs-slide="next"><i class="fas fa-caret-right"></i></a>
-                </div><!--//carousel-controls-->
-                <div class="section-content">
-                    <div id="testimonials-carousel" class="testimonials-carousel carousel slide">
-                        <div class="carousel-inner">
-                            <div class="carousel-item item active">
-                                <blockquote class="quote">
-                                    <p><i class="fas fa-quote-left"></i>I’m very happy interdum eget ipsum. Nunc pulvinar ut nulla eget sollicitudin. In hac habitasse platea dictumst. Integer mattis varius ipsum, posuere posuere est porta vel. Integer metus ligula, blandit ut fermentum a, rhoncus in ligula. Duis luctus.</p>
-                                </blockquote>
-                                <div class="source">
-                                    <p class="people"><span class="name">Marissa Spencer</span><br /><span class="title">Curabitur commodo</span></p>
-                                    <img class="profile" src="assets/images/testimonials/profile-1.png" alt="" />
-                                </div>
-                            </div><!--//item-->
-                            <div class="carousel-item item">
-                                <blockquote class="quote">
-                                    <p><i class="fas fa-quote-left"></i>
-                                        I'm very pleased commodo gravida ultrices. Sed massa leo, aliquet non velit eu, volutpat vulputate odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse porttitor metus eros, ut fringilla nulla auctor a.</p>
-                                </blockquote>
-                                <div class="source">
-                                    <p class="people"><span class="name">Marco Antonio</span><br /><span class="title"> Gravida ultrices</span></p>
-                                    <img class="profile" src="assets/images/testimonials/profile-2.png" alt="" />
-                                </div>
-                            </div><!--//item-->
-                            <div class="carousel-item item">
-                                <blockquote class="quote">
-                                    <p><i class="fas fa-quote-left"></i>
-                                        I'm delighted commodo gravida ultrices. Sed massa leo, aliquet non velit eu, volutpat vulputate odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse porttitor metus eros, ut fringilla nulla auctor a.</p>
-                                </blockquote>
-                                <div class="source">
-                                    <p class="people"><span class="name">Kate White</span><br /><span class="title"> Gravida ultrices</span></p>
-                                    <img class="profile" src="assets/images/testimonials/profile-3.png" alt="" />
-                                </div>
-                            </div><!--//item-->
 
-                        </div><!--//carousel-inner-->
-                    </div><!--//testimonials-carousel-->
-                </div><!--//section-content-->
-            </section><!--//testimonials-->
-        </div><!--//col-->
+                    </div><!--//carousel-inner-->
+                </div><!--//videos-carousel-->
+
+        </div><!--//section-content-->
+        </section><!--//video-->
+
+
+        <div class="col-12 col-xl-3">
+        <section class="links">
+            <h1 class="section-heading text-highlight"><span class="line">Quick Links</span></h1>
+            <div class="section-content">
+                <ul class="custom-list-style ps-0 mb-0">
+                    <li><a href="#"><i class="fas fa-caret-right"></i>E-learning Portal</a></li>
+                    <li><a href="#"><i class="fas fa-caret-right"></i>Gallery</a></li>
+                    <li><a href="#"><i class="fas fa-caret-right"></i>Job Vacancies</a></li>
+                    <li class="mb-0"><a href="#"><i class="fas fa-caret-right"></i>Contact</a></li>
+                </ul>
+            </div><!--//section-content-->
+        </section><!--//links-->
+        <section class="testimonials">
+            <h1 class="section-heading text-highlight"><span class="line"> Testimonials</span></h1>
+            <div class="carousel-controls">
+                <a class="prev" href="#testimonials-carousel" data-bs-slide="prev"><i class="fas fa-caret-left"></i></a>
+                <a class="next" href="#testimonials-carousel" data-bs-slide="next"><i class="fas fa-caret-right"></i></a>
+            </div><!--//carousel-controls-->
+            <div class="section-content">
+                <div id="testimonials-carousel" class="testimonials-carousel carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item item active">
+                            <blockquote class="quote">
+                                <p><i class="fas fa-quote-left"></i>I’m very happy interdum eget ipsum. Nunc pulvinar ut nulla eget sollicitudin. In hac habitasse platea dictumst. Integer mattis varius ipsum, posuere posuere est porta vel. Integer metus ligula, blandit ut fermentum a, rhoncus in ligula. Duis luctus.</p>
+                            </blockquote>
+                            <div class="source">
+                                <p class="people"><span class="name">Marissa Spencer</span><br /><span class="title">Curabitur commodo</span></p>
+                                <img class="profile" src="assets/images/testimonials/profile-1.png" alt="" />
+                            </div>
+                        </div><!--//item-->
+                        <div class="carousel-item item">
+                            <blockquote class="quote">
+                                <p><i class="fas fa-quote-left"></i>
+                                    I'm very pleased commodo gravida ultrices. Sed massa leo, aliquet non velit eu, volutpat vulputate odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse porttitor metus eros, ut fringilla nulla auctor a.</p>
+                            </blockquote>
+                            <div class="source">
+                                <p class="people"><span class="name">Marco Antonio</span><br /><span class="title"> Gravida ultrices</span></p>
+                                <img class="profile" src="assets/images/testimonials/profile-2.png" alt="" />
+                            </div>
+                        </div><!--//item-->
+                        <div class="carousel-item item">
+                            <blockquote class="quote">
+                                <p><i class="fas fa-quote-left"></i>
+                                    I'm delighted commodo gravida ultrices. Sed massa leo, aliquet non velit eu, volutpat vulputate odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse porttitor metus eros, ut fringilla nulla auctor a.</p>
+                            </blockquote>
+                            <div class="source">
+                                <p class="people"><span class="name">Kate White</span><br /><span class="title"> Gravida ultrices</span></p>
+                                <img class="profile" src="assets/images/testimonials/profile-3.png" alt="" />
+                            </div>
+                        </div><!--//item-->
+
+                    </div><!--//carousel-inner-->
+                </div><!--//testimonials-carousel-->
+            </div><!--//section-content-->
+        </section><!--//testimonials-->
+    </div><!--//col-->
+
+
+
+    </div><!--//col-->
+    
+
+
     </div><!--//cols-wrapper-->
     <section class="awards">
         <div id="awards-carousel" class="awards-carousel carousel slide" data-bs-ride="carousel" data-bs-interval="10000">

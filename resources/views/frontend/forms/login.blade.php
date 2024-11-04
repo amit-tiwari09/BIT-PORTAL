@@ -1,3 +1,5 @@
+@if (!auth()->guard('staff')->check() && !auth()->guard('student')->check())
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +27,9 @@
     }
   </style>
 
+
+  <a href="{{route('home')}}"><img src="{{ asset('pictures/' . $settings['logo']) }}" alt="Logo" style="width: 50px; height: 50px;"></a>
+
   <div class="wrapper">
     <div class="title-text">
       <div class="title login">Login as Staff</div>
@@ -41,7 +46,7 @@
       </div>
       <div class="form-inner">
 
-        <!--------- Staff login form -------------> 
+        <!--------- Staff login form ------------->
         <form action="{{route('staff.login')}}" method="POST" class="login">
           @csrf
           <div class="field mrgn">
@@ -132,7 +137,7 @@
       </div>
     </div>
   </div>
-  
+
   <script src="{{asset('js/login.js')}}"></script>
 
   <style>
@@ -145,3 +150,5 @@
 </body>
 
 </html>
+
+@endif

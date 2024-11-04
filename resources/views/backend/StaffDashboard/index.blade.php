@@ -1,3 +1,5 @@
+@if(Auth::guard('staff')->check())
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,19 +97,19 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="rtl.html">
+          <a class="nav-link text-white {{ request()->routeIs('gallery.index') ? 'active bg-gradient-primary' : '' }}  {{ request()->routeIs('gallery.create') ? 'active bg-gradient-primary' : '' }}  {{ request()->routeIs('gallery.edit') ? 'active bg-gradient-primary' : '' }}   {{ request()->routeIs('category.create') ? 'active bg-gradient-primary' : '' }}" href="{{route('gallery.index')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
             </div>
-            <span class="nav-link-text ms-1">RTL</span>
+            <span class="nav-link-text ms-1">Gallery</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="notifications.html">
+          <a class="nav-link text-white   {{ request()->routeIs('studentpayment.status') ? 'active bg-gradient-primary' : '' }}" href="{{route('studentpayment.status')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">notifications</i>
+              <i class="material-icons opacity-10">payment</i>
             </div>
-            <span class="nav-link-text ms-1">Notifications</span>
+            <span class="nav-link-text ms-1">Payments & Fees</span>
           </a>
         </li>
         <li class="nav-item mt-3">
@@ -185,6 +187,14 @@
       @yield('createevent')
       @yield('editevent')
       @yield('showevent')
+      @yield('gallery')
+      @yield('studentPayment')
+      @yield('feestructure')
+      @yield('feeedit');
+      @yield('feecreate');
+      @yield('editgallery');
+      @yield('galleryCategory');
+      @yield('createsec');
     </div>
   </main
 
@@ -204,3 +214,5 @@
 </body>
 
 </html>
+
+@endif
