@@ -11,22 +11,22 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #eef2f3; /* Light gray background */
+            background-color: #eef2f3;
         }
 
         .applicant-card {
-            background-color: #ffffff; /* White background for cards */
+            background-color: #ffffff;
             padding: 20px;
             margin: 20px 0;
-            border: 1px solid #d1d1d1; /* Light gray border */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            border: 1px solid #d1d1d1;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .applicant-card:hover {
-            transform: translateY(-5px); /* Lift effect */
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
         }
 
         .applicant-card p {
@@ -34,7 +34,7 @@
         }
 
         .applicant-button {
-            background-color: #007bff; /* Bootstrap primary color */
+            background-color: #007bff;
             color: #fff;
             padding: 10px 20px;
             border: none;
@@ -44,7 +44,22 @@
         }
 
         .applicant-button:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #0056b3;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
         }
 
         @media (max-width: 768px) {
@@ -68,6 +83,7 @@
                     <p><strong>Email:</strong> {{ $applicant->email }}</p>
                     <!-- Add more fields as needed -->
                     <button class="applicant-button" onclick="window.location='{{ route('admin.view', $applicant->id) }}'">View</button>
+                    <button class="delete-button" onclick="confirmDeletion({{ $applicant->id }})">Delete</button>
                 </div>
             @endforeach
         @else
@@ -79,7 +95,21 @@
 
     @endsection
 
+    <form id="delete-form" method="POST" style="display: none;">
+        @csrf
+        @method('DELETE')
+    </form>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function confirmDeletion(applicantId) {
+            if (confirm('Are you sure you want to delete this applicant?')) {
+                const form = document.getElementById('delete-form');
+                form.action = `applicants/${applicantId}`;
+                form.submit();
+            }
+        }
+    </script>
 </body>
 
 </html>

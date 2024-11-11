@@ -61,6 +61,18 @@
 <body>
 
 @section('applicantsview')
+@if(session()->has('message1'))
+    <div class="alert alert-danger">
+        {{ session('message1') }}
+    </div>
+@endif
+
+
+@if(session()->has('message2'))
+    <div class="alert alert-danger">
+        {{ session('message2') }}
+    </div>
+@endif
 
     <div class="container mt-5">
         <a href="{{ route('applicants.details') }}" class="btn btn-secondary back-button">Back</a>
@@ -119,6 +131,7 @@
                 @csrf
                 <button class="apprvbtn" type="submit">Approve Applicant</button>
             </form>
+           
         </div>
     </div>
 

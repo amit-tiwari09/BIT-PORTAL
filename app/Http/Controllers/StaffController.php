@@ -15,7 +15,7 @@ use App\Helpers\RegistrationHelper;
 use App\Mail\ApprovedMail;
 
 
- 
+
 
 class StaffController extends Controller
 {
@@ -99,72 +99,84 @@ class StaffController extends Controller
         // resources\views\backend\StaffDashboard\applicantView.blade.php
         return view('backend.StaffDashboard.applicantView', compact('applicant'));
     }
-   
-    
+
+
     public function approveApplicant($id)
-{
-    // Fetch the applicant
-    $applicant = Applicant::findOrFail($id);
+    {
 
-    // Generate a random password
-    $password = Str::random(8);
+        $applicant = Applicant::findOrFail($id);
+        $password = Str::random(8);
 
-    if ($applicant->applicant_type === 'student') {
-        // Generate registration number using helper
-        $registrationNo = RegistrationHelper::generateRegistrationNumber($applicant->department);
+        if ($applicant->applicant_type === 'student') {
+            // Generate registration number using helper
+            $registrationNo = RegistrationHelper::generateRegistrationNumber($applicant->department);
 
-        // Move the data to the students table
-        Student::create([
-            'name' => $applicant->name,
-            'email' => $applicant->email,
-            'password' => Hash::make($password),
-            'phone_no' => $applicant->phone_no,
-            'address' => $applicant->address,
-            'dob' => $applicant->dob,
-            'department' => $applicant->department,
-            'previous_education' => $applicant->previous_education,
-            'marks' => $applicant->marks,
-            'graduation_year' => $applicant->graduation_year,
-            'registration_no' => $registrationNo,
-            'faculty' => $applicant->department,
-            'admission_date' => now(),
-            'certificate_path' => $applicant->certificate_path,
-            'tc_path' => $applicant->tc_path,
-            'cc_path' => $applicant->cc_path,
-            'image' => $applicant->image ?? null,
-            'marksheet_path' => $applicant->marksheet_path,
-        ]);
-    } elseif ($applicant->applicant_type === 'staff') {
-        // Move the data to the staff table
-        Staff::create([
-            'name' => $applicant->name,
-            'email' => $applicant->email,
-            'password' => Hash::make($password),
-            'phone_no' => $applicant->phone_no,
-            'address' => $applicant->address,
-            'dob' => $applicant->dob,
-            'subject' => $applicant->subject,
-            'experience' => $applicant->experience,
-            'resume_path' => $applicant->resume_path, // Resume path
-        ]);
+            try {
+
+                if (Student::where('email', $applicant->email)->exists()) {
+                    return redirect()->back()->with("message1", "Email already exists for a student.");
+                }
+                Student::create([
+                    'name' => $applicant->name,
+                    'email' => $applicant->email,
+                    'password' => Hash::make($password),
+                    'phone_no' => $applicant->phone_no,
+                    'address' => $applicant->address,
+                    'dob' => $applicant->dob,
+                    'department' => $applicant->department,
+                    'previous_education' => $applicant->previous_education,
+                    'marks' => $applicant->marks,
+                    'graduation_year' => $applicant->graduation_year,
+                    'registration_no' => $registrationNo,
+                    'faculty' => $applicant->department,
+                    'admission_date' => now(),
+                    'certificate_path' => $applicant->certificate_path,
+                    'tc_path' => $applicant->tc_path,
+                    'cc_path' => $applicant->cc_path,
+                    'image' => $applicant->image ?? null,
+                    'marksheet_path' => $applicant->marksheet_path,
+                ]);
+            } catch (\Exception $e) {
+                return redirect()->route('applicants.details')->with("message3", $e->getMessage());
+            }
+        } elseif ($applicant->applicant_type === 'staff') {
+            // Move the data to the staff table
+            try{
+                if (Staff::where('email', $applicant->email)->exists()) {
+                    return redirect()->back()->with("message2", "Email already exists for a staff member.");
+                }
+            
+            Staff::create([
+                'name' => $applicant->name,
+                'email' => $applicant->email,
+                'password' => Hash::make($password),
+                'phone_no' => $applicant->phone_no,
+                'address' => $applicant->address,
+                'dob' => $applicant->dob,
+                'subject' => $applicant->subject,
+                'experience' => $applicant->experience,
+                'resume_path' => $applicant->resume_path, // Resume path
+            ]);}catch(\Exception $e){
+                return redirect()->route('applicants.details')->with('message4',$e->getMessage());
+            }
+        }
+
+        // Delete the applicant from the applicants table
+        $applicant->delete();
+
+        // Send email with generated password using ApprovedMail Mailable
+        Mail::to($applicant->email)->send(new ApprovedMail($applicant->email, $password));
+
+        // Redirect back to the admin page with a success message
+        return redirect()->route('staffdashboard');
     }
 
-    // Delete the applicant from the applicants table
-    $applicant->delete();
 
-    // Send email with generated password using ApprovedMail Mailable
-    Mail::to($applicant->email)->send(new ApprovedMail($applicant->email, $password));
-
-    // Redirect back to the admin page with a success message
-    return redirect()->route('staffdashboard');
-}
-
-    
 
 
     public function logout(Request $request)
     {
-        
+
 
         Auth::guard('staff')->logout();
 
@@ -180,6 +192,12 @@ class StaffController extends Controller
 
 
 
+    public function deleteApplicant($id)
+{
+    $applicant = Applicant::findOrFail($id);
+    $applicant->delete();
 
-   
+    return redirect()->route('applicants.details')->with('success', 'Applicant deleted successfully.');
+}
+
 }

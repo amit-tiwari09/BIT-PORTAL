@@ -5,21 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pay Fees for Semester {{ $semester }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-top: 50px;
+            transition: transform 0.2s;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        h2 {
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #007bff;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #333;
+        }
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            transition: border-color 0.3s;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .spinner-border {
+            margin-left: 10px;
+        }
+        .alert {
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        #card-element {
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s;
+        }
+        #card-element:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        #card-errors {
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
 <div class="container mt-5">
-    <h2>Pay Fees for Semester {{ $semester }}</h2>
+    <h2 class="text-center">Pay Fees for Semester {{ $semester }}</h2>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     @if(session('success'))
         <div class="alert alert-success">
@@ -40,17 +110,18 @@
             <input type="hidden" name="semester" value="{{ $semester }}">
 
             <div class="form-group">
-                <label for="amount">Amount</label>
+                <label for="amount">Amount <i class="fas fa-dollar-sign"></i></label>
                 <input type="text" id="amount" name="amount" value="{{ $feeStructure->{'semester'.$semester.'_fee'} }}" readonly class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="card-element">Credit or debit card</label>
-                <div id="card-element" class="form-control"></div>
+                <label for="card-element">Credit or Debit Card <i class="fas fa-credit-card"></i></label>
+                <div id ="card-element" class="form-control"></div>
                 <div id="card-errors" role="alert" class="text-danger mt-2"></div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Pay</button>
+            <button type="submit" class="btn btn-primary btn-block" id="submit-button">Pay <i class="fas fa-arrow-right"></i></button>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;" id="loading-spinner"></span>
         </form>
     @else
         <div class="alert alert-warning">
@@ -85,6 +156,10 @@
     form.addEventListener('submit', function(event) {
         event.preventDefault();
 
+        // Show loading spinner
+        document.getElementById('loading-spinner').style.display = 'inline-block';
+        document.getElementById('submit-button').disabled = true; // Disable button to prevent multiple submissions
+
         stripe.createPaymentMethod({
             type: 'card',
             card: card,
@@ -93,6 +168,10 @@
                 // Inform the user if there was an error
                 var errorElement = document.getElementById('card-errors');
                 errorElement.textContent = result.error.message;
+
+                // Hide loading spinner and re-enable button
+                document.getElementById('loading-spinner').style.display = 'none ';
+                document.getElementById('submit-button').disabled = false;
             } else {
                 // Send the payment method ID to your server
                 var hiddenInput = document.createElement('input');

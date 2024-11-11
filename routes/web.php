@@ -48,7 +48,7 @@ Route::get("/login", function () {
     $settings = SiteSetting::getSettings();
     if (!auth()->guard('staff')->check() && !auth()->guard('student')->check()) {
         return view("frontend.forms.login", compact('settings'));
-    }else{
+    } else {
         return redirect()->back();
     }
 })->name('login');
@@ -69,6 +69,8 @@ Route::middleware("staff")->group(function () {
     Route::get("/dashboard", "StaffController@ShowProfile")->name("app.profile");
     Route::get("/applicants", "StaffController@apllicantsDetails")->name('applicants.details');
     Route::get('/applicant/view/{id}', 'StaffController@viewApplicant')->name('admin.view');
+    Route::delete('applicants/{id}', 'StaffController@deleteApplicant')->name('admin.delete');
+
     Route::post('/applicant/approve/{id}', 'StaffController@approveApplicant')->name('applicant.approve');
     Route::get('site-settings/edit', 'SiteSettingController@edit')->name('site-settings.edit');
     Route::put('site-settings/update/{key}', 'SiteSettingController@update')->name('site-settings.update');
@@ -160,12 +162,14 @@ Route::middleware("staff")->group(function () {
     Route::put('gallery/{id}', 'GalleryController@update')->name('gallery.update');
     Route::get('/gallery/my-media', 'GalleryController@myMedia')->name('gallery.myMedia');
     Route::delete('/category/{id}', 'CategoryController@destroy')->name('category.destroy');
-
 });
 
 
 Route::middleware("student")->group(function () {
-    Route::view('/studentdashboard', "backend.StudentDashboard.index")->name('StudentDashboard');  ///student dashboard
+    Route::get('/studentdashboard', function () {
+        $settings = SiteSetting::getSettings();
+        return view("backend.StudentDashboard.index", compact('settings'));
+    })->name('StudentDashboard');  ///student dashboard
 });
 
 

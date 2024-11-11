@@ -9,6 +9,8 @@ use Stripe\Stripe;
 use App\Student;
 use Stripe\PaymentIntent;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\PaymentReceiptMail;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -57,6 +59,19 @@ class PaymentController extends Controller
                 'transaction_id' => $paymentIntent->id,
                 'semester' => $semester,
             ]);
+
+
+            $student = Auth::guard('student')->user();
+            $paymentDetails = [
+                'student_name' => $student->name,
+                'student_id' => $request->student_id,
+                'amount' => $request->amount,
+                'semester' => $request->semester,
+                'payment_date' => now()->format('Y-m-d H:i:s'),
+                'transaction_id' => $paymentIntent->id,
+            ];
+
+            Mail::to($student->email)->send(new PaymentReceiptMail($paymentDetails));
 
             return redirect()->route('payments.status')->with('success', 'Payment successful!');
         } catch (\Stripe\Exception\CardException $e) {
