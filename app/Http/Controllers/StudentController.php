@@ -28,6 +28,7 @@ class StudentController extends Controller
                 if (Auth::guard('student')->attempt(['email' => $req->email, 'password' => $req->pass])) {
                     $student = Auth::guard('student')->user();
                     session(['student' => $student]);
+                    // dd(session('student')->name);
                     return redirect()->route('StudentDashboard');
                 } else {
                     // If unable to log in for some reason
@@ -57,7 +58,7 @@ class StudentController extends Controller
     public function update(Request $request)
     {
         // Fetch the authenticated staff member
-        $staff = Auth::guard('staff')->user();
+        $staff = Auth::guard('student')->user();
     
         // Validate the input
         $request->validate([
@@ -68,7 +69,7 @@ class StudentController extends Controller
             'address' => 'required|string',
             'dob' => 'required|date',
             'gender' => 'required|in:male,female,other',
-            'image' => 'nullable|image|max:2048', // Max 2MB image size
+            'image' => 'nullable', // Max 2MB image size
         ]);
     
         // Prepare data for update (excluding the password field unless it's provided)
@@ -104,6 +105,8 @@ class StudentController extends Controller
     
         // Store the updated staff data in session
         session(['staff' => $staff]);
+
+       
     
         // Redirect back to the profile edit page with success message
         return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.');

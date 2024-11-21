@@ -90,6 +90,19 @@ Route::middleware("staff")->group(function () {
         'destroy' => 'nav.destroy',
     ]);
 
+
+// expenditure
+
+
+Route::view('add/expenses','expenditures.create')->name('expenditures.create');
+Route::get('/expenditure/{id}','ExpenditureController@show')->name('expenditure.show');
+Route::get('/expenses/graph','graphController@showgraph')->name('dashboard.graph');
+
+
+
+Route::get('/staff/expenditures','ExpenditureController@index')->name('expenditures.index');
+Route::post('/staff/expenditures','ExpenditureController@store')->name('expenditures.store');
+
     // social media links
     Route::get('social_media_links', 'SocialMediaLinkController@index')->name('social_media_links.index');
     Route::get('social_media_links/create', 'SocialMediaLinkController@create')->name('social_media_links.create');
@@ -177,6 +190,12 @@ Route::middleware("student")->group(function () {
         $settings = SiteSetting::getSettings();
         return view("backend.StudentDashboard.index", compact('settings'));
     })->name('StudentDashboard');  ///student dashboard
+
+    Route::get('student/profile',function(){
+        $Student = Student::where('email', Auth::guard('student')->user()->email)->first();
+          return view('backend.StudentDashboard.profile',compact('Student'));
+         
+    })->name('student.profile');
 
 
     Route::get('profile/edit', 'StudentController@edit')->name('profile.edit');

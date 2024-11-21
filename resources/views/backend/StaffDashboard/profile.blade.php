@@ -1,4 +1,3 @@
-
 @extends('backend.StaffDashboard.index')
 <!DOCTYPE html>
 <html lang="en">
@@ -111,6 +110,27 @@
                     <div class="form-group">
                         <label for="gender">Gender:</label>
                         <p>{{ ucfirst($staff->gender) }}</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject:</label>
+                        <p>{{ $staff->subject }}</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="experience">Experience (in years):</label>
+                        <p>{{ $staff->experience }}</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="resume_path">Resume:</label>
+                        @if($staff->resume_path)
+                            <a href="{{ asset('documents/' . $staff->resume_path) }}" target="_blank" class="btn btn-link">
+                                <i class="fas fa-file-download"></i> Download Resume
+                            </a>
+                        @else
+                            <p>Not Available</p>
+                        @endif
                     </div>
 
                     <!-- Edit Profile Button -->

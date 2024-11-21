@@ -95,22 +95,32 @@
 
                 <li class="nav-item dropdown d-none d-lg-block user-dropdown">
                     <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img class="img-xs rounded-circle" src="{{asset('pictures/'.session('student')->image)}}" alt="Profile image"> </a>
-                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-                        <div class="dropdown-header text-center">
-                            <img class="img-md rounded-circle" style="height: 30px; width:30px" src="{{asset('pictures/'.session('student')->image)}}" alt="Profile image">
-                            <p class="mb-1 mt-3 font-weight-semibold">{{session('student')->name}}</p>
-                            <p class="fw-light text-muted mb-0">{{session('student')->email}}</p>
+                        @if(session('staff') && session('staff')->image)
+                        <img class="img-xs rounded-circle" src="{{ asset('pictures/' . session('staff')->image) }}" alt="Profile image">
+                        @else
+                        <p>No profile image available</p>
+                        @endif
+
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                            <div class="dropdown-header text-center">
+                                @if(session('staff') && session('staff')->image)
+                                <img class="img-xs rounded-circle" src="{{ asset('pictures/' . session('staff')->image) }}" alt="Profile image">
+                                @else
+                                <p>No profile image available</p>
+                                @endif
+
+                                <p class="mb-1 mt-3 font-weight-semibold">{{session('student')->name}}</p>
+                                <p class="fw-light text-muted mb-0">{{session('student')->email}}</p>
+                            </div>
+                            <a class="dropdown-item" href="{{route('profile.edit')}}"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> Edit Profile <span class="badge badge-pill badge-danger">1</span></a>
+                            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Messages</a>
+                            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i> Activity</a>
+                            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i> FAQ</a>
+                            <form action="{{route('logout.student')}}" method="POST">
+                                @csrf
+                                <button type="submit" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</button>
+                            </form>
                         </div>
-                        <a class="dropdown-item" href="{{route('profile.edit')}}"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> Edit Profile <span class="badge badge-pill badge-danger">1</span></a>
-                        <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Messages</a>
-                        <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i> Activity</a>
-                        <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i> FAQ</a>
-                        <form action="{{route('logout.student')}}" method="POST">
-                            @csrf
-                            <button type="submit" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</button>
-                        </form>
-                    </div>
                 </li>
             </ul>
 
@@ -162,7 +172,7 @@
                 <li class="nav-item">
                     <form class="nav-link" data-bs-toggle="collapse" action="{{route('blog.index3')}}">
 
-                    <i class="fa-solid fa-blog menu-icon"></i>
+                        <i class="fa-solid fa-blog menu-icon"></i>
                         <button type="submit" style="border: none; outline:none; background:transparent;" class="menu-title">Blogs</button>
                         <i class="menu-arrow"></i>
                     </form>
@@ -172,7 +182,7 @@
                 <li class="nav-item">
                     <form class="nav-link" data-bs-toggle="collapse" action="{{route('events.index3')}}">
 
-                    <i class="fa-regular fa-calendar-days menu-icon"></i>
+                        <i class="fa-regular fa-calendar-days menu-icon"></i>
                         <button type="submit" style="border: none; outline:none; background:transparent;" class="menu-title">events</button>
                         <i class="menu-arrow"></i>
                     </form>
@@ -182,9 +192,20 @@
                 <li class="nav-item">
                     <form class="nav-link" data-bs-toggle="collapse" action="{{route('gallery.student')}}">
 
-                    <i class="fas fa-images menu-icon"></i>
+                        <i class="fas fa-images menu-icon"></i>
 
                         <button type="submit" style="border: none; outline:none; background:transparent;" class="menu-title">Galleries</button>
+                        <i class="menu-arrow"></i>
+                    </form>
+
+                </li>
+                <li class="nav-item">
+                    <form class="nav-link" data-bs-toggle="collapse" action="{{route('student.profile')}}">
+
+                        <i class="fa-solid fa-user menu-icon"></i>
+
+
+                        <button type="submit" style="border: none; outline:none; background:transparent;" class="menu-title">Profile</button>
                         <i class="menu-arrow"></i>
                     </form>
 
@@ -208,6 +229,7 @@
                 @yield('event')
                 @yield('gallery')
                 @yield('paymentcrete')
+                @yield('studentprofile')
 
             </div>
             <!-- content-wrapper ends -->

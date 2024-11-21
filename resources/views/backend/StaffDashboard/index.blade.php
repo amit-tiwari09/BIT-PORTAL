@@ -39,6 +39,12 @@
     .async-hide {
       opacity: 0 !important
     }
+    .graph-container {
+            width: 100%;
+            max-width: 600px;
+            height: 300px; /* Set a fixed height */
+            margin: 20px auto;
+        }
   </style>
 
 </head>
@@ -60,7 +66,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a id="dashboardLink" class="nav-link text-white" href="{{ route('staffdashboard') }}">
+          <a id="dashboardLink" class="nav-link text-white {{ request()->routeIs('dashboard.graph') ? 'active bg-gradient-primary' : '' }}" href="{{ route('dashboard.graph') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
@@ -197,6 +203,13 @@
       @yield('createsec')
       @yield('showprofilestaff')
       @yield('staffedit')
+     
+            @yield('expenditure')
+            @yield('dashboard')
+            @yield('createexpense')
+            @yield('indexexpense')
+            @yield('showexpense')
+        
     </div>
   </main
 

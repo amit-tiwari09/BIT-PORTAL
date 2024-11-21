@@ -39,7 +39,7 @@
 
     <div class="container">
     <div class="form-group">
-    <a href="{{ route('StudentDashboard') }}" class="btn btn-secondary">
+    <a href="{{ route('student.profile') }}" class="btn btn-secondary">
         <i class="fas fa-arrow-left"></i> Back
     </a>
 </div>

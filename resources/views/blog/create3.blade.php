@@ -180,7 +180,7 @@
 
                         <div class="mb-4">
                             <label for="body" class="form-label">Content</label>
-                            <textarea class="form-control" id="body" name="body" rows="10" placeholder="Write your content here..." required></textarea>
+                            <textarea class="form-control " style="height: auto;" id="body" name="body" rows="10" placeholder="Write your content here..." required></textarea>
                         </div>
 
                         <div class="mb-4" id="categoryDiv">
