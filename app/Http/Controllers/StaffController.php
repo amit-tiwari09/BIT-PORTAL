@@ -73,7 +73,7 @@ class StaffController extends Controller
                                 'staff' => $staff
                             ];
                             session(['staffInfo' => $staffInfo]);
-                            return redirect()->route('staffdashboard');
+                            return redirect()->route('dashboard.graph');
 
 
                         case 'principal':
@@ -92,7 +92,7 @@ class StaffController extends Controller
                             // Store the array in the session
                             session(['staffInfo' => $staffInfo]);
 
-                            return redirect()->route('staffdashboard');
+                            return redirect()->route('dashboard.graph');
 
 
                         case 'teacher':
@@ -106,7 +106,7 @@ class StaffController extends Controller
 
                             // Store the array in the session
                             session(['staffInfo' => $staffInfo]);
-                            return redirect()->route('staffdashboard');
+                            return redirect()->route('dashboard.graph');
 
 
                         default:

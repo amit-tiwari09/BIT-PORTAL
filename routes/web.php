@@ -96,7 +96,7 @@ Route::middleware("staff")->group(function () {
 
 Route::view('add/expenses','expenditures.create')->name('expenditures.create');
 Route::get('/expenditure/{id}','ExpenditureController@show')->name('expenditure.show');
-Route::get('/expenses/graph','graphController@showgraph')->name('dashboard.graph');
+Route::get('/dashboard/graph','graphController@showgraph')->name('dashboard.graph');
 
 
 
@@ -251,23 +251,10 @@ Route::get('/home/gallery', 'GalleryController@index2')->name('frontgallery');
 
 
 // Fee Structure Routes
-// Route::get('fee_structures', 'FeeStructureController@index')->name('fee_structures.index');
-// Route::get('fee_structures/create', 'FeeStructureController@create')->name('fee_structures.create');
-// Route::post('fee_structures', 'FeeStructureController@store')->name('fee_structures.store');
-// Route::get('fee_structures/{id}', 'FeeStructureController@show')->name('fee_structures.show');
+;
 Route::get('/fee-structures/{id}/edit', 'FeeStructureController@edit')->name('fee_structures.edit');
 Route::put('/fee-structures/{id}', 'FeeStructureController@update')->name('fee_structures.update');
 
-// Route::delete('fee_structures/{id}', 'FeeStructureController@destroy')->name('fee_structures.destroy');
-
-// Payment Routes
-// Route::get('payments', 'PaymentController@index')->name('payments.index');
-// Route::get('payments/create', 'PaymentController@create')->name('payments.create');
-// Route::post('payments', 'PaymentController@store')->name('payments.store');
-// Route::get('payments/{id}', 'PaymentController@show')->name('payments.show');
-// Route::get('payments/{id}/edit', 'PaymentController@edit')->name('payments.edit');
-// Route::put('payments/{id}', 'PaymentController@update')->name('payments.update');
-// Route::delete('payments/{id}', 'PaymentController@destroy')->name('payments.destroy');
 
 
 
@@ -275,14 +262,7 @@ Route::put('/fee-structures/{id}', 'FeeStructureController@update')->name('fee_s
 
 
 
-// Route::post('/payments/{semester}', 'PaymentController@pay')->name('payments.pay');
 
-// Route::get('/payments/status', 'PaymentController@paymentStatus')->name('payments.status');
-// Route::get('/payments/status', 'PaymentController@status')->name('payments.status');
-
-
-// Route::get('/payments/create/{semester}', 'PaymentController@create')->name('payments.create');
-// Route::post('/payments/store', 'PaymentController@store')->name('payments.store');
 
 
 
@@ -290,3 +270,27 @@ Route::put('/fee-structures/{id}', 'FeeStructureController@update')->name('fee_s
 Route::get('payments/create/{semester}', 'PaymentController@create')->name('payments.create');
 Route::post('payments/store', 'PaymentController@store')->name('payments.store');
 Route::get('payments/status', 'PaymentController@status')->name('payments.status');
+
+
+
+// learning portal 
+Route::get('/videos/create', 'VideoController@create')->name('videos.create');
+Route::post('/videos/store', 'VideoController@store')->name('videos.store');
+Route::get('/videos', 'VideoController@index')->name('videos.index');
+
+Route::get('/videos/{id}', 'VideoController@show')->name('videos.show');
+Route::get('searched/videos/', 'VideoController@search')->name('videos.search');
+
+
+
+
+
+
+
+Route::get('videos/{id}/edit', 'VideoController@edit')->name('videos.edit');
+
+// Update a specific video
+Route::put('videos/{id}', 'VideoController@update')->name('videos.update');
+
+// Delete a specific video
+Route::delete('videos/{id}', 'VideoController@destroy')->name('videos.destroy');
