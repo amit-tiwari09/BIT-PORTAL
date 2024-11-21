@@ -1,246 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+<!-- Mirrored from demo.bootstrapdash.com/star-admin2-free/template/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 05:25:21 GMT -->
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #e9ecef;
-            color: #343a40;
-            height: 100vh; /* Full height for body */
-        }
-
-        .sidebar-heading {
-            margin: 30px 0;
-            font-weight: bold;
-            font-size: 1.5rem; /* Increased font size */
-            color: #007bff;
-        }
-
-        .card {
-            margin-bottom: 30px;
-            border-radius: 10px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .list-group-item {
-            font-size: 1.1rem; /* Adjusted font size */
-        }
-
-        .card-title {
-            font-size: 1.4rem; /* Increased font size */
-        }
-
-        .navbar {
-            background-color: #007bff;
-        }
-
-        .navbar-brand,
-        .nav-link {
-            color: #fff !important;
-        }
-
-        .nav-link {
-            color: #f8f9fa; /* Default color for nav links */
-        }
-
-        .nav-link:hover {
-            color: #ffc107 !important; /* Hover color */
-        }
-
-        .footer {
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-            padding: 15px 0;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-            font-size: 1rem; /* Adjusted font size */
-        }
-
-        .container-fluid {
-            height: calc(100vh - 56px); /* Full height minus navbar height */
-        }
-
-        .sidebar {
-            height: 100vh; /* Full height for sidebar */
-            position: fixed;
-            overflow-y: auto;
-            background-color: #f8f9fa; /* Sidebar background */
-        }
-
-        .main-content {
-            margin-left: 16.67%; /* Adjust according to sidebar width */
-            padding: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                position: relative;
-                height: auto; /* Reset height for mobile */
-            }
-
-            .main-content {
-                margin-left: 0; /* Reset margin for mobile */
-            }
-        }
-    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Student Dashboard </title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{{asset('vendors/feather/feather.css')}}">
+    <link rel="stylesheet" href="{{asset('vendors/mdi/css/materialdesignicons.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendors/ti-icons/css/themify-icons.css')}}">
+    <link rel="stylesheet" href="{{asset('vendors/typicons/typicons.css')}}">
+    <link rel="stylesheet" href="{{asset('vendors/simple-line-icons/css/simple-line-icons.css')}}">
+    <link rel="stylesheet" href="{{asset('vendors/css/vendor.bundle.base.css')}}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="{{asset('vendors/datatables.net-bs4/dataTables.bootstrap4.html')}}">
+    <link rel="stylesheet" href="{{asset('js/select.dataTables.min.css')}}">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{{asset('css/vertical-layout-light/style.css')}}">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="images/favicon.png" />
+    <script src="https://kit.fontawesome.com/c9cb99f12f.js" crossorigin="anonymous"></script>
 </head>
 
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="#">Student Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+            <div class="me-3">
+
+            </div>
+            <div>
+                <a class="navbar-brand brand-logo" href="{{route('home')}}">
+                    <span>BIT</span>
+                </a>
+
+            </div>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-top">
+            <ul class="navbar-nav">
+                <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
+                    <h1 class="welcome-text">Welcome, <span class="text-black fw-bold">{{session('student')->name}}</span></h1>
+
+
+
+
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+
+
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="icon-bell"></i>
+                        <span class="count"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="countDropdown">
+                        <a class="dropdown-item py-3">
+
+                            <span class="badge badge-pill badge-primary float-right">View all</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item preview-item">
+                            <div class="preview-thumbnail">
+                                <img src="images/faces/face10.jpg" alt="image" class="img-sm profile-pic">
+                            </div>
+                            <div class="preview-item-content flex-grow py-2">
+                                <p class="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
+                                <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
+                            </div>
+                        </a>
+                        <a class="dropdown-item preview-item">
+                            <div class="preview-thumbnail">
+                                <img src="images/faces/face12.jpg" alt="image" class="img-sm profile-pic">
+                            </div>
+                            <div class="preview-item-content flex-grow py-2">
+                                <p class="preview-subject ellipsis font-weight-medium text-dark">David Grey </p>
+                                <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
+                            </div>
+                        </a>
+
+                    </div>
+                </li>
+
+
+                <li class="nav-item dropdown d-none d-lg-block user-dropdown">
+                    <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img class="img-xs rounded-circle" src="{{asset('pictures/'.session('student')->image)}}" alt="Profile image"> </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                        <div class="dropdown-header text-center">
+                            <img class="img-md rounded-circle" style="height: 30px; width:30px" src="{{asset('pictures/'.session('student')->image)}}" alt="Profile image">
+                            <p class="mb-1 mt-3 font-weight-semibold">{{session('student')->name}}</p>
+                            <p class="fw-light text-muted mb-0">{{session('student')->email}}</p>
+                        </div>
+                        <a class="dropdown-item" href="{{route('profile.edit')}}"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> Edit Profile <span class="badge badge-pill badge-danger">1</span></a>
+                        <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Messages</a>
+                        <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i> Activity</a>
+                        <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i> FAQ</a>
+                        <form action="{{route('logout.student')}}" method="POST">
+                            @csrf
+                            <button type="submit" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+
+
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
+                <span class="mdi mdi-menu"></span>
+            </button>
+        </div>
     </nav>
 
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <nav class="col-md-2 d-none d-md-block sidebar">
-                <div class="sidebar-sticky">
-                    <h4 class="sidebar-heading">Navigation</h4>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">
-                                <i class="fas fa-tachometer-alt"></i> Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-book"></i> Courses
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-pencil-alt"></i> Assign ments
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-graduation-cap"></i> Grades
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-user"></i> Profile
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
 
-            <!-- Main content -->
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
-                <h2 class="mt-4">Dashboard Overview</h2>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card text-white bg-primary mb-3">
-                            <div class="card-header">Courses Enrolled</div>
-                            <div class="card-body">
-                                <h5 class="card-title">5 Courses</h5>
-                                <p class="card-text">View your enrolled courses.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card text-white bg-success mb-3">
-                            <div class="card-header">Assignments Due</div>
-                            <div class="card-body">
-                                <h5 class="card-title">3 Assignments</h5>
-                                <p class="card-text">Check your upcoming assignments.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card text-white bg-danger mb-3">
-                            <div class="card-header">Grades</div>
-                            <div class="card-body">
-                                <h5 class="card-title">Current GPA: 3.5</h5>
-                                <p class="card-text">View your grades.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
 
-                <h3>Recent Activity</h3>
-                <ul class="list-group mb-4">
-                    <li class="list-group-item">Submitted Assignment 1 - Math</li>
-                    <li class="list-group-item">Joined Course: Web Development</li>
-                    <li class="list-group-item">Received Grade: A - History</li>
-                </ul>
+        <div class="theme-setting-wrapper">
 
-                <h3>Upcoming Events</h3>
-                <ul class="list-group mb-4">
-                    <li class="list-group-item">Midterm Exam - March 15</li>
-                    <li class="list-group-item">Project Presentation - March 20</li>
-                    <li class="list-group-item">Career Fair - March 25</li>
-                </ul>
-
-                <h3>Calendar</h3>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">March 2023</h5>
-                        <ul class="list-group">
-                            <li class="list-group-item">15: Midterm Exam</li>
-                            <li class="list-group-item">20: Project Presentation</li>
-                            <li class="list-group-item">25: Career Fair</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <h3>Notifications</h3>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">New grades posted for Math.</li>
-                            <li class="list-group-item">Reminder: Assignment 2 due next week.</li>
-                            <li class="list-group-item">Course registration opens on March 30.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <h3>Recent Messages</h3>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">Message from Prof. Smith: "Great job on your last assignment!"</li>
-                            <li class="list-group-item">Message from Student Council: "Join us for the upcoming event!"</li>
-                            <li class="list-group-item">Message from Admin: "Please update your profile information."</li>
-                        </ul>
-                    </div>
-                </div>
-            </main>
         </div>
+
+
+
+
+        <!-- partial -->
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+
+
+
+
+                <li class="nav-item">
+                    <form class="nav-link" data-bs-toggle="collapse" action="{{route('payments.status')}}">
+
+                        <i class="fa-solid fa-gauge  menu-icon "></i>
+                        <button type="submit" style="border: none; outline:none; background:transparent;" class="menu-title">Dashboard</button>
+                        <i class="menu-arrow"></i>
+                    </form>
+                </li>
+
+                <li class="nav-item">
+                    <form class="nav-link" data-bs-toggle="collapse" action="{{route('payments.status')}}">
+
+                        <i class="fa-solid fa-money-check menu-icon"></i>
+                        <button type="submit" style="border: none; outline:none; background:transparent;" class="menu-title">payemnt</button>
+                        <i class="menu-arrow"></i>
+                    </form>
+
+                </li>
+                <li class="nav-item">
+                    <form class="nav-link" data-bs-toggle="collapse" action="{{route('blog.index3')}}">
+
+                    <i class="fa-solid fa-blog menu-icon"></i>
+                        <button type="submit" style="border: none; outline:none; background:transparent;" class="menu-title">Blogs</button>
+                        <i class="menu-arrow"></i>
+                    </form>
+
+                </li>
+
+                <li class="nav-item">
+                    <form class="nav-link" data-bs-toggle="collapse" action="{{route('events.index3')}}">
+
+                    <i class="fa-regular fa-calendar-days menu-icon"></i>
+                        <button type="submit" style="border: none; outline:none; background:transparent;" class="menu-title">events</button>
+                        <i class="menu-arrow"></i>
+                    </form>
+
+                </li>
+
+                <li class="nav-item">
+                    <form class="nav-link" data-bs-toggle="collapse" action="{{route('gallery.student')}}">
+
+                    <i class="fas fa-images menu-icon"></i>
+
+                        <button type="submit" style="border: none; outline:none; background:transparent;" class="menu-title">Galleries</button>
+                        <i class="menu-arrow"></i>
+                    </form>
+
+                </li>
+
+
+
+
+            </ul>
+        </nav>
+        <!-- partial -->
+
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+                @yield('paymentStats')
+                @yield('profiledit')
+                @yield('blog')
+                @yield('blogedit')
+                @yield('createblog')
+                @yield('event')
+                @yield('gallery')
+                @yield('paymentcrete')
+
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
     </div>
+    <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
 
-    <footer class="footer">
-        <div class="container">
-        <span>&copy; 2023 Student Dashboard. All rights reserved.</span>
-        </div>
-    </footer>
+    <!-- plugins:js -->
+    <script src="{{asset('vendors/js/vendor.bundle.base.js')}}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="{{asset('vendors/chart.js/Chart.min.js')}}"></script>
+    <script src="{{asset('vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('vendors/progressbar.js/progressbar.min.js')}}"></script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{{ asset('js/off-canvas.js') }}"></script>
+    <script src="{{ asset('js/hoverable-collapse.js') }}"></script>
+    <script src="{{ asset('js/template.js') }}"></script>
+    <script src="{{ asset('js/settings.js') }}"></script>
+    <script src="{{ asset('js/todolist.js') }}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="{{ asset('js/jquery.cookie.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+    <script src="{{ asset('js/Chart.roundedBarCharts.js') }}"></script>
+
+    <!-- End custom js for this page-->
 </body>
+
+
+<!-- Mirrored from demo.bootstrapdash.com/star-admin2-free/template/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 05:25:31 GMT -->
 
 </html>

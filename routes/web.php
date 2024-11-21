@@ -14,6 +14,7 @@ use App\Promo;
 use App\Event;
 use App\Gallery;
 use App\Category;
+use App\Student;
 
 
 Route::get('/', function () {
@@ -105,6 +106,11 @@ Route::middleware("staff")->group(function () {
     Route::put('carousel/{id}', 'CarouselSlideController@update')->name('carousel.update');
     Route::delete('carousel/{id}', 'CarouselSlideController@destroy')->name('carousel.destroy');
     Route::get('demo', "CarouselSlideController@index2");
+    //  Profile editing 
+    Route::get('staff/edit', 'StaffController@edit')->name('staff.edit');
+    Route::post('staff/update', 'StaffController@update')->name('staff.update');
+    Route::get('staff/show', 'StaffController@show')->name('staff.show');
+
 
     // Promos 
     Route::resource('promos', 'PromoController')->names([
@@ -125,7 +131,8 @@ Route::middleware("staff")->group(function () {
     Route::post('blog/store', 'blogController@store')->name('blog.store');
     Route::get('/blog/{id}/edit', 'blogController@edit')->name('blog.edit');
     Route::delete('/blog/{id}', 'blogController@destroy')->name('blog.destroy');
-    Route::post('blog/{id}', 'BlogController@update')->name('blog.update'); // Route for updating a post
+    Route::post('blog/{id}', 'BlogController@update')->name('blog.update');
+    // Route for updating a post
 
 
     // fee structure and payment details 
@@ -170,6 +177,15 @@ Route::middleware("student")->group(function () {
         $settings = SiteSetting::getSettings();
         return view("backend.StudentDashboard.index", compact('settings'));
     })->name('StudentDashboard');  ///student dashboard
+
+
+    Route::get('profile/edit', 'StudentController@edit')->name('profile.edit');
+    Route::post('profile/update', 'StudentController@update')->name('profile.update');
+
+
+    // Gallery
+
+    Route::get('/student/gallery','GalleryController@index3')->name('gallery.student');
 });
 
 
@@ -177,18 +193,27 @@ Route::middleware("student")->group(function () {
 // show a particular blog content 
 Route::get('blog/show/{id}', 'blogController@show')->name('blog.show');
 Route::get('blog', 'blogController@index2')->name('blog.index2');
+Route::get('/students/blog', 'blogController@index3')->name('blog.index3');
+Route::get('students/blog/create', 'blogController@create3')->name('blog.create3');
+Route::post('students/blog/store', 'blogController@store3')->name('blog.store3');
+Route::get('students/blog/{id}/edit', 'blogController@edit3')->name('blog.edit3');
+Route::delete('students/blog/{id}', 'blogController@destroy3')->name('blog.destroy3');
+Route::post('studentsblog/{id}', 'BlogController@update3')->name('blog.update3');
 
 // Event calendar
 
-Route::get('events/all', "EventController@indexfront")->name('frontevents.index');
-Route::get('/home/gallery', 'GalleryController@index2')->name('frontgallery');
 
+
+Route::get('/front/events',"EventController@index2")->name('events.index2');
+Route::get('/students/events',"EventController@index3")->name('events.index3');
 
 
 
 
 
 // Gallery
+Route::get('/home/gallery', 'GalleryController@index2')->name('frontgallery');
+
 
 
 

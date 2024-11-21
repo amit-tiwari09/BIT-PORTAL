@@ -63,6 +63,10 @@
             h2 {
                 font-size: 1.5rem;
             }
+
+            .table-responsive {
+                margin-bottom: 15px;
+            }
         }
 
         footer {
@@ -78,41 +82,60 @@
     <div class="container">
         <h2>Your Payment Status</h2>
 
-        <table class="table table-bordered table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Semester</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach(range(1, 6) as $semester)
-                <tr>
-                    <td>Semester {{ $semester }}</td>
-                    <td>
-                        @if ($payments->where('semester', $semester)->count())
-                        <span class="badge badge-success" data-toggle="tooltip" title="Payment received"><i class="fas fa-check-circle"></i> Paid</span>
-                        @else
-                        <span class="badge badge-danger" data-toggle="tooltip" title="Payment not received"><i class="fas fa-times-circle"></i> Unpaid</span>
-                        @endif
-                    </td>
-                    <td>
-                        @if (!$payments->where('semester', $semester)->count())
-                        <button class="btn btn-primary" onclick="paySemester({{ $semester }})">Pay
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
-                        </button>
-                        @endif
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Semester</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(range(1, 6) as $semester)
+                    <tr>
+                        <td>Semester {{ $semester }}</td>
+
+                        <!-- Display Fee Amount -->
+                        <td>
+                            @if ($feeStructure && isset($feeStructure->{'semester' . $semester . '_fee'}))
+                            {{ $feeStructure->{'semester' . $semester . '_fee'} }} <!-- Display fee amount for the semester -->
+                            @else
+                            N/A <!-- If fee not set, show N/A -->
+                            @endif
+                        </td>
+
+                        <!-- Payment Status -->
+                        <td>
+                            @if ($payments->where('semester', $semester)->count())
+                            <span class="badge badge-success" data-toggle="tooltip" title="Payment received">
+                                <i class="fas fa-check-circle"></i> Paid
+                            </span>
+                            @else
+                            <span class="badge badge-danger" data-toggle="tooltip" title="Payment not received">
+                                <i class="fas fa-times-circle"></i> Unpaid
+                            </span>
+                            @endif
+                        </td>
+
+                        <!-- Pay Button -->
+                        <td>
+                            @if (!$payments->where('semester', $semester)->count())
+                            <button class="btn btn-primary" onclick="paySemester({{ $semester }})">
+                                Pay
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                            </button>
+                            @endif
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+
+            </table>
+        </div>
     </div>
-
-   
-
-    
+    @endsection
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -120,6 +143,12 @@
     <script>
         $(function() {
             $('[data-toggle="tooltip"]').tooltip();
+
+            // Reset all spinners on page load
+            $('.spinner-border').hide();
+
+            // Re-enable all buttons on page load
+            $('.btn-primary').prop('disabled', false);
         });
 
         function paySemester(semester) {
@@ -127,16 +156,14 @@
             const button = event.target;
             const spinner = button.querySelector('.spinner-border');
             spinner.style.display = 'inline-block';
+            button.disabled = true; // Disable button to prevent multiple clicks
 
             // Redirect to the payment creation route with a slash before the semester
             const url = `{{ route('payments.create', ['semester' => '']) }}/${semester}`;
             window.location.href = url;
-
-            // Hide loading spinner (optional if you redirect immediately)
-            // spinner.style.display = 'none'; // This line won't be reached due to redirection
         }
     </script>
-    @endsection
+
 </body>
 
 </html>

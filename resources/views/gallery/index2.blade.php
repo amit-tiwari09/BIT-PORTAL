@@ -175,7 +175,6 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
-            /* Dark background */
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -187,30 +186,56 @@
             background: #fff;
             padding: 20px;
             border-radius: 10px;
-            max-width: 90%;
-            /* Limit width to 90% of viewport */
-            max-height: 90%;
-            /* Limit height to 90% of viewport */
+            max-width: 80%;
+            max-height: 80%;
             overflow: hidden;
-            /* Hide overflow */
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             animation: fadeIn 0.5s;
-            /* Animation for opening */
+            width: 50%;
+            /* Set width to 50% of the viewport */
+            height: auto;
+            /* Allow height to adjust automatically */
         }
 
-        .lightbox-content img {
-            width: 100%;
-            /* Make image take full width of lightbox */
-            height: auto;
-            /* Maintain aspect ratio */
-            max-height: 70vh;
-            /* Limit height to 70% of viewport height */
-            object-fit: contain;
-            /* Ensure the image fits within the bounds */
-            display: block;
-            /* Ensure no extra space below image */
-            border-radius: 10px;
+        #prev-button,
+        #next-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 10;
+            opacity: 0.8;
+            transition: opacity 0.3s;
         }
+
+        #prev-button:hover,
+        #next-button:hover {
+            opacity: 1;
+        }
+
+        #prev-button {
+            left: 10px;
+        }
+
+        #next-button {
+            right: 10px;
+        }
+
+
+        .lightbox-content img {
+    width: 100%;
+    height: auto;
+    max-height: 50vh; /* Limit height to 50% of the viewport height */
+    object-fit: contain;
+    display: block;
+    border-radius: 10px;
+}
 
         .lightbox-details {
             text-align: left;
@@ -234,25 +259,18 @@
         }
 
         .lightboxbtn {
-            display: flex;
-            /* Use flexbox to align items */
-            justify-content: flex-end;
-            /* Space between the buttons */
-            align-items: center;
-            gap: 9px;
-            /* Center items vertically */
-            width: 100%;
-            /* Full width of the lightbox */
-            position: absolute;
-            /* Positioning for better placement */
-            top: 15px;
-            right: 10px;
-            /* Distance from the top */
-            padding: 0 20px;
-            /* Horizontal padding */
-            z-index: 10;
-            /* Ensure it is above other content */
-        }
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    padding: 0 20px;
+    z-index: 10;
+}
+
 
 
 
@@ -402,6 +420,7 @@
 
 
 
+
     @if (session('error'))
     <div class="alert error">{{ session('error') }}</div>
     @endif
@@ -428,7 +447,7 @@
                 <p><strong>Uploaded By:</strong> {{ $image->uploader_name ?: 'Unknown' }}</p>
                 <p class="upload-date"><strong>Uploaded On:</strong> {{ $image->created_at->format('Y-m-d H:i') }}</p>
             </span>
-           
+
 
         </div>
 
@@ -440,10 +459,11 @@
 
 
     <!-- Lightbox Modal -->
+    <!-- Lightbox Modal -->
     <div id="lightbox" class="lightbox">
 
         <div class="lightboxbtn">
-            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <span class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-circle-xmark"></i></span>
             <span>
                 <a id="download-link" href="" download class="download-button">
                     <i class="fa-solid fa-download"></i>
@@ -452,16 +472,20 @@
         </div>
 
         <div class="lightbox-content">
+            <button id="prev-button" class="button" onclick="changeImage(-1)"><i class="fas fa-arrow-left"></i>
+            </button>
             <img id="lightbox-image" src="" alt="Selected Image">
+            <button id="next-button" class="button" onclick="changeImage(1)"><i class="fas fa-arrow-right"></i>
+            </button>
             <div class="lightbox-details">
                 <p><strong>Description:</strong> <span id="lightbox-description"></span></p>
                 <p><strong>Category:</strong> <span id="lightbox-category"></span></p>
                 <p><strong>Uploaded By:</strong> <span id="lightbox-uploader"></span></p>
                 <p><strong>Uploaded On:</strong> <span id="lightbox-date"></span></p>
-
             </div>
         </div>
     </div>
+
 
 
 
@@ -479,16 +503,51 @@
             });
         }
 
+        let currentIndex = 0; // To track the current image index
+        let galleryItems = []; // To store the list of gallery items
+
+        // Initialize the gallery items array
+        function initializeGallery() {
+            galleryItems = Array.from(document.querySelectorAll('.gallery-item')).map(item => ({
+                imagePath: item.querySelector('img').src,
+                description: item.querySelector('p:nth-child(2)').textContent.replace('Description: ', ''),
+                category: item.querySelector('p:nth-child(3)').textContent.replace('Category: ', ''),
+                uploader: item.querySelector('p:nth-child(4)').textContent.replace('Uploaded By: ', ''),
+                date: item.querySelector('.upload-date').textContent.replace('Uploaded On: ', ''),
+            }));
+        }
+
+        // Open the lightbox with a specific image
         function openLightbox(imagePath, description, category, uploader, date) {
-            document.getElementById('lightbox-image').src = imagePath;
-            document.getElementById('lightbox-description').textContent = description;
-            document.getElementById('lightbox-category').textContent = category;
-            document.getElementById('lightbox-uploader').textContent = uploader;
-            document.getElementById('lightbox-date').textContent = date;
-            document.getElementById('download-link').href = imagePath;
+            initializeGallery(); // Ensure gallery items are initialized
+            currentIndex = galleryItems.findIndex(item => item.imagePath === imagePath); // Find current image index
+            updateLightboxContent();
             document.getElementById('lightbox').style.display = 'flex';
         }
 
+        // Update lightbox content based on current index
+        function updateLightboxContent() {
+            const currentItem = galleryItems[currentIndex];
+            document.getElementById('lightbox-image').src = currentItem.imagePath;
+            document.getElementById('lightbox-description').textContent = currentItem.description;
+            document.getElementById('lightbox-category').textContent = currentItem.category;
+            document.getElementById('lightbox-uploader').textContent = currentItem.uploader;
+            document.getElementById('lightbox-date').textContent = currentItem.date;
+            document.getElementById('download-link').href = currentItem.imagePath;
+        }
+
+        // Change the image in the lightbox (next/previous)
+        function changeImage(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) {
+                currentIndex = galleryItems.length - 1; // Wrap around to the last image
+            } else if (currentIndex >= galleryItems.length) {
+                currentIndex = 0; // Wrap around to the first image
+            }
+            updateLightboxContent();
+        }
+
+        // Close the lightbox
         function closeLightbox() {
             document.getElementById('lightbox').style.display = 'none';
         }

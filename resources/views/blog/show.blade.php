@@ -263,12 +263,20 @@
         </div>          
         @endif
 
-        @if (auth()->guard('staff')->check() || auth()->guard('student')->check())
+        @if (auth()->guard('staff')->check() )
         <div class="text-center">
             <a href="{{ route('blog.index') }}" class="back-btn">
-                <i class="fas fa-arrow-left"></i> Back to Blog1
+                <i class="fas fa-arrow-left"></i> Back to Blog
             </a>
         </div>          
+        @endif
+
+        @if(auth()->guard('student')->check())
+        <div class="text-center">
+            <a href="{{ route('blog.index3') }}" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Blog
+            </a>
+        </div>  
         @endif
 
         

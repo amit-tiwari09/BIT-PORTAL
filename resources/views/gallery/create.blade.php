@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Images</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMl0bP3F7j6z5T4Q6+G7/8g6t5j4v9Q0K1T7y" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/c9cb99f12f.js" crossorigin="anonymous"></script>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -114,6 +116,9 @@
     @section('createsec')
 
     <h1>Upload Images</h1>
+    <a href="{{ route('gallery.index') }}" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back
+     </a>
 
     <div class="form-container">
         <form action="{{ route('gallery.store') }}" method="POST" enctype="multipart/form-data">

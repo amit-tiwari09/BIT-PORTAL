@@ -88,8 +88,10 @@ class PaymentController extends Controller
     // Display the payment status
     public function status()
     {
+        
         $payments = Payment::where('student_id', Auth::guard('student')->user()->id)->get();
-        return view('payments.status', compact('payments'));
+        $feeStructure = FeeStructure::where('department', Auth::guard('student')->user()->department)->first();
+        return view('payments.status', compact('payments','feeStructure'));
     }
 
     public function staffStatus()

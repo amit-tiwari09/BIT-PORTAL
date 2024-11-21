@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +20,7 @@
             background-color: #ffffff;
             border-radius: 15px;
             padding: 40px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
             margin-top: 50px;
             margin-bottom: 50px;
         }
@@ -38,7 +39,8 @@
             margin-bottom: 10px;
         }
 
-        .form-control, .form-select {
+        .form-control,
+        .form-select {
             border-radius: 8px;
             border: 2px solid #ced4da;
             padding: 12px;
@@ -46,9 +48,10 @@
             transition: all 0.3s ease;
         }
 
-        .form-control:focus, .form-select:focus {
+        .form-control:focus,
+        .form-select:focus {
             border-color: #80bdff;
-            box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25);
         }
 
         .btn {
@@ -140,17 +143,18 @@
         }
     </style>
 </head>
+
 <body>
 
-@section('blog')
+    @section('blog')
 
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="form-container">
                     <div class="d-flex justify-content-start mb-4">
-                        <a href="{{ url()->previous() }}" class="btn btn-secondary">
-                        <i class="fa-solid fa-arrow-left"></i> Back
+                        <a href="{{ route('blog.index') }}" class="btn btn-secondary">
+                            <i class="fa-solid fa-arrow-left"></i> Back
                         </a>
                     </div>
 
@@ -165,7 +169,7 @@
                     @endif
 
                     <h1 class="page-title">Create New Post</h1>
-                    
+
 
                     <form id="postForm" action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -208,8 +212,9 @@
 
                         <div class="mb-4">
                             <label for="author" class="form-label">Your name</label>
-                            <input type="text" class="form-control" id="author" name="Author" placeholder="Enter your name" required>
+                            <input type="text" class="form-control" id="author" value="{{ Auth::guard('staff')->check() ? Auth::guard('staff')->user()->name : (Auth::guard('student')->check() ? Auth::guard('student')->user()->name : '') }}" name="Author" placeholder="Enter your name" readonly required>
                         </div>
+
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">
@@ -268,4 +273,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm /bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

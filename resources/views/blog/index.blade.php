@@ -241,6 +241,13 @@
     </div>
     @endif
 
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+
     <h1 class="page-header">Blog Posts</h1>
 
     <a href="{{ route('blog.create') }}" class="create-post-btn">

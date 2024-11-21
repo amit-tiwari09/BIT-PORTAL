@@ -16,12 +16,29 @@ class EventController extends Controller
 
     public function indexfront()
     {
+        
         $events = Event::where('date', '>=', now()->toDateString())
             ->orderBy('date')
             ->orderBy('start_time')
             ->get();
 
         return view('events.index2', compact('events'));
+    }
+
+    public function index2(){
+        $events = Event::where('date', '>=', now()->toDateString())
+        ->orderBy('date')
+        ->orderBy('start_time')
+        ->get();
+        return view('events.index2', compact('events'));
+    }
+
+    public function index3(){
+        $events = Event::where('date', '>=', now()->toDateString())
+        ->orderBy('date')
+        ->orderBy('start_time')
+        ->get();
+        return view('events.index3', compact('events'));
     }
 
     // Show form to create a new event

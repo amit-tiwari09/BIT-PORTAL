@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Fee Structure</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMl0bP3F7j6z5T4Q6+G7/8g6t5j4v9Q0K1T7y" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/c9cb99f12f.js" crossorigin="anonymous"></script>
     <style>
         body {
             background-color: #f8f9fa; /* Light background */
@@ -47,6 +49,9 @@
 
 @section('feeedit')
     <div class="container">
+    <a href="{{ route('fee_structures.index') }}" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back
+     </a>
         <h1>Edit Fee Structure</h1>
 
         <form action="{{ route('fee_structures.update', $feeStructure->id) }}" method="POST">

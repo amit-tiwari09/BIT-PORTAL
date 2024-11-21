@@ -456,7 +456,7 @@
                     @endforeach
 
 
-                    <a class="read-more" href="{{route('frontevents.index')}}">All events<i class="fas fa-chevron-right"></i></a>
+                    <a class="read-more" href="{{route('events.index2')}}">All events<i class="fas fa-chevron-right"></i></a>
                 </div><!--//section-content-->
             </section><!--//events-->
         </div><!--//col-->

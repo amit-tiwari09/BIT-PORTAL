@@ -19,6 +19,30 @@ use App\Mail\ApprovedMail;
 
 class StaffController extends Controller
 {
+
+    public function login(Request $req)
+    {
+        $validation = $req->validate([
+            "email" => "required|email",
+            "pass" => "required|min:6",
+        ]);
+
+        $staff = Staff::where("email", $req->email)->first();
+        if ($staff && Hash::check($req->pass, $staff->password)) {
+            if (Auth::guard('staff')->attempt(['email' => $req->email, 'password' => $req->pass])) {
+                $req->session()->regenerate();
+                return redirect()->route('staffdashboard');
+            } else {
+                return back()->withErrors(['login' => 'Unable to log in.']);
+            }
+        } else {
+
+            return back()->withErrors(['login' => 'Invalid email or password.']);
+        }
+    }
+
+
+
     public function authenticate(Request $req)
     {
 
@@ -41,26 +65,49 @@ class StaffController extends Controller
                         case 'hod':
                             $staffcount = Staff::count();
                             $studentcount = Student::count();
-                            return redirect()->route('staffdashboard')
-                                ->with('staffcount', $staffcount)
-                                ->with('studentcount', $studentcount)
-                                ->with('dashname', "HOD ")
-                                ->with('staff', $staff);
+                            $staff = Auth::guard('staff')->user();
+                            $staffInfo = [
+                                'staffcount' => $staffcount,
+                                'studentcount' => $studentcount,
+                                'dashname' => "HOD",
+                                'staff' => $staff
+                            ];
+                            session(['staffInfo' => $staffInfo]);
+                            return redirect()->route('staffdashboard');
+
 
                         case 'principal':
                             $staffcount = Staff::count();
-
                             $studentcount = Student::count();
-                            return redirect()->route('staffdashboard')
-                                ->with('staffcount', $staffcount)
-                                ->with('studentcount', $studentcount)
-                                ->with('dashname', "Princiapl")
-                                ->with('staff', $staff);
+                            $staff = Auth::guard('staff')->user();  // Assuming you're getting the logged-in staff info
+
+                            // Create an array to hold all the data for Principal
+                            $staffInfo = [
+                                'staffcount' => $staffcount,
+                                'studentcount' => $studentcount,
+                                'dashname' => "Principal",  // Updated role name
+                                'staff' => $staff
+                            ];
+
+                            // Store the array in the session
+                            session(['staffInfo' => $staffInfo]);
+
+                            return redirect()->route('staffdashboard');
+
 
                         case 'teacher':
-                            return redirect()->route('staffdashboard')
-                                ->with('staff', $staff)
-                                - with('dashname', 'teacher');
+                            $staff = Auth::guard('staff')->user();  // Assuming you're getting the logged-in staff info
+
+                            // Create an array to hold all the data for teacher, principal, or HOD
+                            $staffInfo = [
+                                'dashname' => "Teacher",  // Changed role to "Teacher"
+                                'staff' => $staff
+                            ];
+
+                            // Store the array in the session
+                            session(['staffInfo' => $staffInfo]);
+                            return redirect()->route('staffdashboard');
+
 
                         default:
                             return redirect()->route('login')->withErrors('Unknown role');
@@ -79,12 +126,79 @@ class StaffController extends Controller
     }
 
 
-
-    public function ShowProfile($staff)
+    public function show()
     {
-        // return view("backend.StaffDashboard.AppProfile",compact('staff'));
-        dd(Auth::check());
+        $staff = Auth::guard('staff')->user();
+    
+        return view('backend.StaffDashboard.profile', compact('staff'));
+       
     }
+    
+
+
+    public function edit()
+    {
+        $staff = auth()->guard('staff')->user(); // Get the authenticated staff
+        return view('backend.StaffDashboard.edit', compact('staff'));
+    }
+
+
+    public function update(Request $request)
+    {
+        // Fetch the authenticated staff member
+        $staff = Auth::guard('staff')->user();
+
+        // Validate the input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:staffs,email,' . $staff->id,
+            'password' => 'nullable|min:6|confirmed', // Optional password update
+            'phone_no' => 'required|string|max:15',
+            'address' => 'required|string',
+            'dob' => 'required|date',
+            'gender' => 'required|in:male,female,other',
+            'image' => 'nullable', // Max 2MB image size
+        ]);
+
+        // Prepare data for update (excluding the password field unless it's provided)
+        $data = $request->only(['name', 'email', 'phone_no', 'address', 'dob', 'gender']);
+
+        // Handle password update if provided
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password); // Hash password
+        }
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Generate a unique name for the image
+            $imageName = time() . '-' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+
+            // Move the image to the 'public/pictures' directory
+            $path = $request->file('image')->move(public_path('pictures'), $imageName);
+
+            // Save the image name in the database
+            $data['image'] = $imageName;
+
+            // Optional: Delete the old image if it exists
+            if ($staff->image) {
+                $oldImagePath = public_path('pictures/' . $staff->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath); // Delete the old image from the 'public/pictures' directory
+                }
+            }
+        }
+
+        // Update the staff's information
+        $staff->update($data);
+
+        // Store the updated staff data in session
+        session(['staff' => $staff]);
+
+        // Redirect back to the profile edit page with success message
+        return redirect()->route('staff.edit')->with('success', 'Profile updated successfully.');
+    }
+
+
 
 
     public function apllicantsDetails()
@@ -141,23 +255,24 @@ class StaffController extends Controller
             }
         } elseif ($applicant->applicant_type === 'staff') {
             // Move the data to the staff table
-            try{
+            try {
                 if (Staff::where('email', $applicant->email)->exists()) {
                     return redirect()->back()->with("message2", "Email already exists for a staff member.");
                 }
-            
-            Staff::create([
-                'name' => $applicant->name,
-                'email' => $applicant->email,
-                'password' => Hash::make($password),
-                'phone_no' => $applicant->phone_no,
-                'address' => $applicant->address,
-                'dob' => $applicant->dob,
-                'subject' => $applicant->subject,
-                'experience' => $applicant->experience,
-                'resume_path' => $applicant->resume_path, // Resume path
-            ]);}catch(\Exception $e){
-                return redirect()->route('applicants.details')->with('message4',$e->getMessage());
+
+                Staff::create([
+                    'name' => $applicant->name,
+                    'email' => $applicant->email,
+                    'password' => Hash::make($password),
+                    'phone_no' => $applicant->phone_no,
+                    'address' => $applicant->address,
+                    'dob' => $applicant->dob,
+                    'subject' => $applicant->subject,
+                    'experience' => $applicant->experience,
+                    'resume_path' => $applicant->resume_path, // Resume path
+                ]);
+            } catch (\Exception $e) {
+                return redirect()->route('applicants.details')->with('message4', $e->getMessage());
             }
         }
 
@@ -185,6 +300,7 @@ class StaffController extends Controller
 
 
         $request->session()->regenerateToken();
+        session()->forget('staffInfo');
 
 
         return redirect()->route('login');
@@ -193,11 +309,10 @@ class StaffController extends Controller
 
 
     public function deleteApplicant($id)
-{
-    $applicant = Applicant::findOrFail($id);
-    $applicant->delete();
+    {
+        $applicant = Applicant::findOrFail($id);
+        $applicant->delete();
 
-    return redirect()->route('applicants.details')->with('success', 'Applicant deleted successfully.');
-}
-
+        return redirect()->route('applicants.details')->with('success', 'Applicant deleted successfully.');
+    }
 }

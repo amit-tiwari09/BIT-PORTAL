@@ -26,9 +26,9 @@ class StudentController extends Controller
             if (Hash::check($req->pass, $student->password)) {
                 // Attempt to log in the student using the 'student' guard
                 if (Auth::guard('student')->attempt(['email' => $req->email, 'password' => $req->pass])) {
-                    // Redirect to student dashboard on successful login
-                    return redirect()->route('StudentDashboard')
-                        ->with('student', $student);
+                    $student = Auth::guard('student')->user();
+                    session(['student' => $student]);
+                    return redirect()->route('StudentDashboard');
                 } else {
                     // If unable to log in for some reason
                     return "Unable to log in. Please try again.";
@@ -46,6 +46,71 @@ class StudentController extends Controller
     }
 
 
+    public function edit()
+    {
+        
+        $student = Auth::guard('student')->user(); // Assuming the user is authenticated
+        return view('backend.StudentDashboard.edit', compact('student'));
+    }
+
+
+    public function update(Request $request)
+    {
+        // Fetch the authenticated staff member
+        $staff = Auth::guard('staff')->user();
+    
+        // Validate the input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:staffs,email,' . $staff->id,
+            'password' => 'nullable|min:6|confirmed', // Optional password update
+            'phone_no' => 'required|string|max:15',
+            'address' => 'required|string',
+            'dob' => 'required|date',
+            'gender' => 'required|in:male,female,other',
+            'image' => 'nullable|image|max:2048', // Max 2MB image size
+        ]);
+    
+        // Prepare data for update (excluding the password field unless it's provided)
+        $data = $request->only(['name', 'email', 'phone_no', 'address', 'dob', 'gender']);
+    
+        // Handle password update if provided
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password); // Hash password
+        }
+    
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Generate a unique name for the image
+            $imageName = time() . '-' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+    
+            // Move the image to the 'public/pictures' directory
+            $path = $request->file('image')->move(public_path('pictures'), $imageName);
+    
+            // Save the image name in the database
+            $data['image'] = $imageName;
+    
+            // Optional: Delete the old image if it exists
+            if ($staff->image) {
+                $oldImagePath = public_path('pictures/' . $staff->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath); // Delete the old image from the 'public/pictures' directory
+                }
+            }
+        }
+    
+        // Update the staff's information
+        $staff->update($data);
+    
+        // Store the updated staff data in session
+        session(['staff' => $staff]);
+    
+        // Redirect back to the profile edit page with success message
+        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.');
+    }
+    
+
+
 
     public function logout(Request $request)
     {
@@ -57,6 +122,8 @@ class StudentController extends Controller
 
 
         $request->session()->regenerateToken();
+        session()->forget('student');
+
 
 
         return redirect()->route('login');

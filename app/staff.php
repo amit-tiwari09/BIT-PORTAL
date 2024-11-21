@@ -11,5 +11,8 @@ class Staff extends Authenticatable
 
     use Notifiable;
     protected $guarded = ["id"];
-    protected $table = 'staffs';
+   protected $table = 'staffs';
+   protected $fillable = [
+    'name', 'email', 'phone_no', 'address', 'dob', 'gender', 'image'
+];
 }

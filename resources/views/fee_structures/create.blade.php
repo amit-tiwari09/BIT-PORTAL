@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Fee Structure</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMl0bP3F7j6z5T4Q6+G7/8g6t5j4v9Q0K1T7y" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/c9cb99f12f.js" crossorigin="anonymous"></script>
     <style>
         body {
             background-color: #f8f9fa;
@@ -51,6 +53,9 @@
 <body>
     @section('feecreate')
     <div class="container">
+    <a href="{{ route('fee_structures.index') }}" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back
+     </a>
         <h1>Create Fee Structure</h1>
 
         @if ($errors->any())
@@ -66,9 +71,9 @@
         <form action="{{ route('fee_structures.store') }}" method="POST">
             @csrf
 
-            <div class="form-group">
-                <label for="department">Department</label>
-                <select name="department" id="department" class="form-control" required>
+            <div class="form-group" style="cursor: pointer;">
+                <label   for="department">Department</label>
+                <select style="cursor: pointer;" name="department" id="department" class="form-control" required>
                     <option value="" disabled selected>Select a department</option>
                     <option value="computer">Computer</option>
                     <option value="mechanical">Mechanical</option>

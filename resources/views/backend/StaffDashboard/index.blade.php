@@ -116,7 +116,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="profile.html">
+          <a class="nav-link text-white {{ request()->routeIs('staff.show') ? 'active bg-gradient-primary' : '' }} {{ request()->routeIs('staff.edit') ? 'active bg-gradient-primary' : '' }} " href="{{route('staff.show')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">person</i>
             </div>
@@ -190,11 +190,13 @@
       @yield('gallery')
       @yield('studentPayment')
       @yield('feestructure')
-      @yield('feeedit');
-      @yield('feecreate');
-      @yield('editgallery');
-      @yield('galleryCategory');
-      @yield('createsec');
+      @yield('feeedit')
+      @yield('feecreate')
+      @yield('editgallery')
+      @yield('galleryCategory')
+      @yield('createsec')
+      @yield('showprofilestaff')
+      @yield('staffedit')
     </div>
   </main
 

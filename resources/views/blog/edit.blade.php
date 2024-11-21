@@ -146,7 +146,7 @@
                 <div class="form-container">
 
                 <div class="d-flex justify-content-start mb-4">
-                        <a href="{{ url()->previous() }}" class="btn btn-secondary">
+                        <a href="{{ route('blog.index') }}" class="btn btn-secondary">
                         <i class="fa-solid fa-arrow-left"></i> Back
                         </a>
                     </div>
@@ -206,7 +206,7 @@
 
                         <div class="mb-4">
                             <label for="author" class="form-label">Your name</label>
-                            <input type="text" class="form-control" id="author" name="author" value="{{ old('author', $post->author) }}" placeholder="Enter your name" required> <!-- Added value for author -->
+                            <input type="text" class="form-control" id="author" value="{{ Auth::guard('staff')->check() ? Auth::guard('staff')->user()->name : (Auth::guard('student')->check() ? Auth::guard('student')->user()->name : '') }}" name="Author" placeholder="Enter your name" readonly required>
                         </div>
 
                         <div class="text-center">

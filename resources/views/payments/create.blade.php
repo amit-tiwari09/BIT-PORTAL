@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,6 +130,10 @@
         </div>
     @endif
 </div>
+
+<a class="btn btn-secondary mt-3" href="{{route('payments.status')}}">
+        <i class="fas fa-arrow-left"></i> Go Back
+    </a>
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>

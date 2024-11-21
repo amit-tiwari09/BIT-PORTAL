@@ -19,6 +19,15 @@ class GalleryController extends Controller
         return view('gallery.index', compact('galleries', 'categories'));
     }
 
+    public function index3()
+    {
+        $galleries = Gallery::with('category')->orderBy('created_at', 'desc')->get();
+        $categories = Category::all();
+
+        // Pass both galleries and categories to the view
+        return view('gallery.index3', compact('galleries', 'categories'));
+    }
+
     public function index2()
     {
         $galleries = Gallery::with('category')->orderBy('created_at', 'desc')->get();
