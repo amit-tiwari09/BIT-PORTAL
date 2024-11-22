@@ -99,11 +99,30 @@
                 width: 100%;
             }
         }
+
+        /* Loader Styles */
+        #loader {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #loader img {
+            width: 50px; /* Loader size */
+        }
     </style>
 </head>
 
 <body>
     <h1>Edit Video</h1>
+    <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Back</a>
 
     <div class="container">
         <!-- Display errors if any -->
@@ -115,7 +134,7 @@
             </ul>
         @endif
 
-        <form action="{{ route('videos.update', $video->id) }}" method="POST" enctype="multipart/form-data">
+        <form id="edit-video-form" action="{{ route('videos.update', $video->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT') <!-- This tells Laravel it's an update -->
 
@@ -129,7 +148,7 @@
             <input type="text" name="category" value="{{ old('category', $video->category) }}">
 
             <label for="author">Author:</label>
-            <input type="text" name="author" value="{{ old('author', $video->author) }}" required>
+            <input type="text" name="author" value="{{ old('author ', $video->author) }}" required>
 
             <!-- Thumbnail Upload -->
             <label for="thumbnail">Thumbnail (optional):</label>
@@ -174,6 +193,18 @@
             <button type="submit">Update Video</button>
         </form>
     </div>
+
+    <!-- Loader Element -->
+    <div id="loader">
+    <img src="{{ asset('utilities/loader.gif') }}" alt="Loading...">
+</div>
+
+
+    <script>
+        document.getElementById('edit-video-form').addEventListener('submit', function() {
+            document.getElementById('loader').style.display = 'flex'; // Show loader
+        });
+    </script>
 </body>
 
 </html>

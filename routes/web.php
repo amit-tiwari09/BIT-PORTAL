@@ -294,3 +294,18 @@ Route::put('videos/{id}', 'VideoController@update')->name('videos.update');
 
 // Delete a specific video
 Route::delete('videos/{id}', 'VideoController@destroy')->name('videos.destroy');
+
+
+
+// Notification 
+
+Route::get('/notification',function(){
+    return view('notifications.index');
+})->name('notifications');
+
+Route::get('/notification/create',function(){
+    return view('notifications.create');
+})->name('notifications.create');
+
+
+Route::post('/posts','NotificationController@store')->name('notifications.store');

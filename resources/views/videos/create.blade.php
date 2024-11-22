@@ -1,3 +1,5 @@
+@if (Auth::guard('staff')->check() || Auth::guard('student')->check())
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,7 +76,6 @@
             padding: 0;
         }
 
-        /* Preview section */
         .preview-section {
             margin-top: 20px;
             text-align: center;
@@ -103,6 +104,25 @@
                 font-size: 14px;
             }
         }
+
+        /* Loader Styles */
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 20px;
+            background-color: #3498db;
+            border-radius: 5px;
+            transition: width 0.4s;
+        }
+
+        .progress-text {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+        }
     </style>
 </head>
 
@@ -110,7 +130,6 @@
     <h1>Upload a Video</h1>
 
     <div class="container">
-        <!-- Display errors if any -->
         @if ($errors->any())
             <ul class="error-list">
                 @foreach ($errors->all() as $error)
@@ -118,56 +137,50 @@
                 @endforeach
             </ul>
         @endif
+        <a href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Back</a>
 
-        <!-- Video Upload Form -->
-        <form action="{{ route('videos.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('videos.store') }}" method="POST" enctype="multipart/form-data" id="video-upload-form">
             @csrf
-            <!-- Title Input -->
             <label for="title">Title:</label>
             <input type="text" name="title" id="title" value="{{ old('title') }}" required>
 
-            <!-- Description Textarea -->
             <label for="description">Description:</label>
             <textarea name="description" id="description" required>{{ old('description') }}</textarea>
 
-            <!-- Category Input -->
             <label for="category">Category:</label>
             <input type="text" name="category" id="category" value="{{ old('category') }}">
 
-            <!-- Author Input -->
             <label for="author">Author:</label>
             @php
                 $authorName = null;
                 if (Auth::guard('staff')->check()) {
-                    $authorName = Auth::guard('staff')->user()->name;  // Get the staff name
+                    $authorName = Auth::guard('staff')->user()->name;
                 } elseif (Auth::guard('student')->check()) {
-                    $authorName = Auth::guard('student')->user()->name;  // Get the student name
+                    $authorName = Auth::guard('student')->user()->name;
                 }
             @endphp
             <input type="text" name="author" id="author" value="{{ old('author', $authorName) }}" readonly>
 
-            <!-- Thumbnail Upload -->
             <label for="thumbnail">Thumbnail:</label>
             <input type="file" name="thumbnail" id="thumbnail" onchange="previewThumbnail(event)">
 
-            <!-- Video Upload -->
             <label for="video">Video File:</label>
             <input type="file" name="video" accept="video/*" id="video" onchange="previewVideo(event)" required>
 
-            <!-- Submit Button -->
-            <button type="submit">Upload</button>
+            <button type="submit" id="upload-btn">Upload</button>
         </form>
 
-        <!-- Preview Section -->
+        <div class="progress-container" id="progress-container" style="display: none;">
+            <div class="progress-bar" id="progress-bar"></div>
+            <div class="progress-text" id="progress-text">Uploading... 0%</div>
+        </div>
+
         <div class="preview-section" id="preview-section">
             <h3>Preview</h3>
-            <!-- Thumbnail Preview -->
             <div id="thumbnail-preview" style="display: none;">
                 <h4>Thumbnail:</h4>
                 <img id="thumbnail-img" src="" alt="Thumbnail Preview">
             </div>
-
-            <!-- Video Preview -->
             <div id="video-preview" style="display: none;">
                 <h4>Video:</h4>
                 <video id="video-player" controls>
@@ -179,42 +192,90 @@
     </div>
 
     <script>
-        // Function to preview the thumbnail image
-        function previewThumbnail(event) {
-            var thumbnailPreview = document.getElementById('thumbnail-preview');
-            var thumbnailImg = document.getElementById('thumbnail-img');
-            var file = event.target.files[0];
+    function previewThumbnail(event) {
+        const thumbnailPreview = document.getElementById('thumbnail-preview');
+        const thumbnailImg = document.getElementById('thumbnail-img');
+        const file = event.target.files[0];
 
-            // Check if file is an image
-            if (file && file.type.startsWith('image/')) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    thumbnailImg.src = e.target.result;
-                    thumbnailPreview.style.display = 'block'; // Show the thumbnail preview
-                };
-                reader.readAsDataURL(file);
-            } else {
-                thumbnailPreview.style.display = 'none'; // Hide the thumbnail preview if the file isn't an image
-            }
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                thumbnailImg.src = e.target.result;
+                thumbnailPreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            thumbnailPreview.style.display = 'none';
         }
+    }
 
-        // Function to preview the video
-        function previewVideo(event) {
-            var videoPreview = document.getElementById('video-preview');
-            var videoPlayer = document.getElementById('video-player');
-            var file = event.target.files[0];
+    function previewVideo(event) {
+        const videoPreview = document.getElementById('video-preview');
+        const videoPlayer = document.getElementById('video-player');
+        const file = event.target.files[0];
 
-            // Check if file is a video
-            if (file && file.type.startsWith('video/')) {
-                var videoSource = document.getElementById('video-source');
-                videoSource.src = URL.createObjectURL(file);
-                videoPlayer.load(); // Reload the video with the new source
-                videoPreview.style.display = 'block'; // Show the video preview
-            } else {
-                videoPreview.style.display = 'none'; // Hide the video preview if the file isn't a video
-            }
+        if (file && file.type.startsWith('video/')) {
+            const videoSource = document.getElementById('video-source');
+            videoSource.src = URL.createObjectURL(file);
+            videoPlayer.load();
+            videoPreview.style.display = 'block';
+        } else {
+            videoPreview.style.display = 'none';
         }
-    </script>
+    }
+
+    const form = document.getElementById('video-upload-form');
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.getElementById('progress-container');
+    const progressText = document.getElementById('progress-text');
+    const uploadButton = document.getElementById('upload-btn');
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const formData = new FormData(form);
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', form.action, true);
+
+        progressContainer.style.display = 'block';
+        uploadButton.disabled = true;
+
+        xhr.upload.addEventListener('progress', function (e) {
+            if (e.lengthComputable) {
+                const percentComplete = Math.round((e.loaded / e.total) * 100);
+                progressBar.style.width = percentComplete + '%';
+                progressText.textContent = `Uploading... ${percentComplete}%`;
+            }
+        });
+
+        xhr.addEventListener('load', function () {
+            if (xhr.status === 200) {
+                progressText.textContent = 'Upload Complete!';
+                uploadButton.disabled = false;
+
+                // Optionally reset the form after upload
+                form.reset();
+                progressBar.style.width = '0%';
+
+                // Redirect or show a success message
+                alert('Video uploaded successfully!');
+            } else {
+                progressText.textContent = 'Upload failed. Please try again.';
+                uploadButton.disabled = false;
+            }
+        });
+
+        xhr.addEventListener('error', function () {
+            progressText.textContent = 'An error occurred during the upload.';
+            uploadButton.disabled = false;
+        });
+
+        xhr.send(formData);
+    });
+</script>
+
 </body>
 
 </html>
+
+@endif
