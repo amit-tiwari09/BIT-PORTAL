@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-{{dd($month)}}
+{{ dd($month) }}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -96,6 +96,34 @@
             color: #333;
         }
 
+        /* Styling for the events container */
+        .events-container {
+            width: 100%;
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .event-card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .event-date,
+        .event-time,
+        .event-location {
+            font-size: 14px;
+            color: #555;
+        }
+
         @media (max-width: 768px) {
             .container {
                 width: 90%;
@@ -152,6 +180,24 @@
                     </div>
                 @endif
             </div>
+        </div>
+
+        <!-- Container for displaying events -->
+        <div class="events-container">
+            <h3>Upcoming Events</h3>
+
+            @if($events->isEmpty())
+                <p>No upcoming events found.</p>
+            @else
+                @foreach($events as $event)
+                    <div class="event-card">
+                        <div class="event-title">{{ $event->title }}</div>
+                        <div class="event-date">Date: {{ \Carbon\Carbon::parse($event->date)->format('F j, Y') }}</div>
+                        <div class="event-time">Time: {{ \Carbon\Carbon::parse($event->start_time)->format('g:i A') }} - {{ \Carbon\Carbon::parse($event->end_time)->format('g:i A') }}</div>
+                        <div class="event-location">Location: {{ $event->location }}</div>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
 

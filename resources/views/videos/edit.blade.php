@@ -1,3 +1,4 @@
+@if (Auth::guard('staff')->check() || Auth::guard('student')->check())
 <!DOCTYPE html>
 <html lang="en">
 
@@ -208,3 +209,5 @@
 </body>
 
 </html>
+
+@endif

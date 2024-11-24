@@ -212,6 +212,8 @@
                         </form>
 
 
+
+
                         @endif
 
                     </div><!--//row-->
@@ -228,6 +230,8 @@
                             @foreach($navLinks as $link)
                             <li><a href="{{ $link->value }}">{{ $link->key }}</a></li>
                             @endforeach
+
+
                         </ul><!--//menu-top-->
 
                         <div class="contact d-none d-lg-block">
@@ -502,129 +506,55 @@
 
 
         <div class="col-12 col-xl-3">
-        <section class="links">
-            <h1 class="section-heading text-highlight"><span class="line">Quick Links</span></h1>
-            <div class="section-content">
-                <ul class="custom-list-style ps-0 mb-0">
-                    <li><a href="#"><i class="fas fa-caret-right"></i>E-learning Portal</a></li>
-                    <li><a href="#"><i class="fas fa-caret-right"></i>Gallery</a></li>
-                    <li><a href="#"><i class="fas fa-caret-right"></i>Job Vacancies</a></li>
-                    <li class="mb-0"><a href="#"><i class="fas fa-caret-right"></i>Contact</a></li>
-                </ul>
-            </div><!--//section-content-->
-        </section><!--//links-->
-        <section class="testimonials">
-            <h1 class="section-heading text-highlight"><span class="line"> Testimonials</span></h1>
-            <div class="carousel-controls">
-                <a class="prev" href="#testimonials-carousel" data-bs-slide="prev"><i class="fas fa-caret-left"></i></a>
-                <a class="next" href="#testimonials-carousel" data-bs-slide="next"><i class="fas fa-caret-right"></i></a>
-            </div><!--//carousel-controls-->
-            <div class="section-content">
-                <div id="testimonials-carousel" class="testimonials-carousel carousel slide">
-                    <div class="carousel-inner">
-                        <div class="carousel-item item active">
-                            <blockquote class="quote">
-                                <p><i class="fas fa-quote-left"></i>I’m very happy interdum eget ipsum. Nunc pulvinar ut nulla eget sollicitudin. In hac habitasse platea dictumst. Integer mattis varius ipsum, posuere posuere est porta vel. Integer metus ligula, blandit ut fermentum a, rhoncus in ligula. Duis luctus.</p>
-                            </blockquote>
-                            <div class="source">
-                                <p class="people"><span class="name">Marissa Spencer</span><br /><span class="title">Curabitur commodo</span></p>
-                                <img class="profile" src="assets/images/testimonials/profile-1.png" alt="" />
-                            </div>
-                        </div><!--//item-->
-                        <div class="carousel-item item">
-                            <blockquote class="quote">
-                                <p><i class="fas fa-quote-left"></i>
-                                    I'm very pleased commodo gravida ultrices. Sed massa leo, aliquet non velit eu, volutpat vulputate odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse porttitor metus eros, ut fringilla nulla auctor a.</p>
-                            </blockquote>
-                            <div class="source">
-                                <p class="people"><span class="name">Marco Antonio</span><br /><span class="title"> Gravida ultrices</span></p>
-                                <img class="profile" src="assets/images/testimonials/profile-2.png" alt="" />
-                            </div>
-                        </div><!--//item-->
-                        <div class="carousel-item item">
-                            <blockquote class="quote">
-                                <p><i class="fas fa-quote-left"></i>
-                                    I'm delighted commodo gravida ultrices. Sed massa leo, aliquet non velit eu, volutpat vulputate odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse porttitor metus eros, ut fringilla nulla auctor a.</p>
-                            </blockquote>
-                            <div class="source">
-                                <p class="people"><span class="name">Kate White</span><br /><span class="title"> Gravida ultrices</span></p>
-                                <img class="profile" src="assets/images/testimonials/profile-3.png" alt="" />
-                            </div>
-                        </div><!--//item-->
+            <section class="links">
+                <h1 class="section-heading text-highlight"><span class="line">Quick Links</span></h1>
+                <div class="section-content">
+                    <ul class="custom-list-style ps-0 mb-0">
+                        <li><a href="{{route('videos.index')}}"><i class="fas fa-caret-right"></i>E-learning Portal</a></li>
+                        <li><a href="{{route('frontgallery')}}"><i class="fas fa-caret-right"></i>Gallery</a></li>
+                        <li><a href="{{route('job-vacancies.index')}}"><i class="fas fa-caret-right"></i>Job Vacancies</a></li>
+                        
+                    </ul>
+                </div><!--//section-content-->
+            </section><!--//links-->
+            <section class="testimonials">
+                <h1 class="section-heading text-highlight"><span class="line">Testimonials</span></h1>
+                <div class="carousel-controls">
+                    <a class="prev" href="#testimonials-carousel" data-bs-slide="prev"><i class="fas fa-caret-left"></i></a>
+                    <a class="next" href="#testimonials-carousel" data-bs-slide="next"><i class="fas fa-caret-right"></i></a>
+                </div><!--//carousel-controls-->
+                <div class="section-content">
+                    <div id="testimonials-carousel" class="testimonials-carousel carousel slide">
+                        <div class="carousel-inner">
+                            @foreach ($testimonials as $index => $testimonial)
+                            <div class="carousel-item item {{ $index === 0 ? 'active' : '' }}">
+                                <blockquote class="quote">
+                                    <p><i class="fas fa-quote-left"></i>{{ $testimonial->content }}</p>
+                                </blockquote>
+                                <div class="source">
+                                    <p class="people">
+                                        <span class="name">{{ $testimonial->name }}</span><br />
+                                        <span class="title">{{ $testimonial->title }}</span>
+                                    </p>
+                                    <img class="profile" src="{{ asset('pictures/' . $testimonial->image) }}" alt="{{ $testimonial->name }}" />
+                                </div>
+                            </div><!--//item-->
+                            @endforeach
+                        </div><!--//carousel-inner-->
+                    </div><!--//testimonials-carousel-->
+                </div><!--//section-content-->
+            </section><!--//testimonials-->
 
-                    </div><!--//carousel-inner-->
-                </div><!--//testimonials-carousel-->
-            </div><!--//section-content-->
-        </section><!--//testimonials-->
-    </div><!--//col-->
+        </div><!--//col-->
 
 
 
     </div><!--//col-->
-    
+
 
 
     </div><!--//cols-wrapper-->
-    <section class="awards">
-        <div id="awards-carousel" class="awards-carousel carousel slide" data-bs-ride="carousel" data-bs-interval="10000">
 
-            <div class="carousel-inner my-5">
-                <div class="carousel-item item active">
-                    <ul class="logos row">
-
-                        <li class="col-md-2 col-4">
-                            <a href="#"><img src="assets/images/awards/award1.png" alt="" /></a>
-                        </li>
-                        <li class="col-md-2 col-4">
-                            <a href="#"><img src="assets/images/awards/award2.png" alt="" /></a>
-                        </li>
-                        <li class="col-md-2 col-4">
-                            <a href="#"><img src="assets/images/awards/award3.png" alt="" /></a>
-                        </li>
-                        <li class="col-md-2 col-4">
-                            <a href="#"><img src="assets/images/awards/award4.png" alt="" /></a>
-                        </li>
-                        <li class="col-md-2 col-4">
-                            <a href="#"><img src="assets/images/awards/award5.png" alt="" /></a>
-                        </li>
-                        <li class="col-md-2 col-4">
-                            <a href="#"><img src="assets/images/awards/award6.png" alt="" /></a>
-                        </li>
-                    </ul><!--//slides-->
-                </div><!--//item-->
-
-                <div class="carousel-item item">
-                    <ul class="logos row">
-                        <li class="col-md-2 col-4">
-                            <img src="assets/images/awards/award7.png" alt="" />
-                        </li>
-                        <li class="col-md-2 col-4">
-                            <img src="assets/images/awards/award6.png" alt="" />
-                        </li>
-                        <li class="col-md-2 col-4">
-                            <img src="assets/images/awards/award5.png" alt="" />
-                        </li>
-                        <li class="col-md-2 col-4">
-                            <img src="assets/images/awards/award4.png" alt="" />
-                        </li>
-                        <li class="col-md-2 col-4">
-                            <img src="assets/images/awards/award3.png" alt="" />
-                        </li>
-                        <li class="col-md-2 col-4">
-                            <img src="assets/images/awards/award2.png" alt="" />
-                        </li>
-                    </ul><!--//slides-->
-                </div><!--//item-->
-            </div><!--//carousel-inner-->
-
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#awards-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#awards-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-
-            </div><!--//carousel-indicators-->
-
-        </div>
-    </section>
     </div>
     </div>
 
@@ -637,22 +567,20 @@
                         <div class="footer-col-inner">
                             <h3>About</h3>
                             <ul>
-                                <li><a href="about.html"><i class="fas fa-caret-right"></i>About us</a></li>
-                                <li><a href="contact.html"><i class="fas fa-caret-right"></i>Contact us</a></li>
-                                <li><a href="privacy.html"><i class="fas fa-caret-right"></i>Privacy policy</a></li>
-                                <li><a href="terms-and-conditions.html"><i class="fas fa-caret-right"></i>Terms & Conditions</a></li>
+                                @foreach($navLinks as $link)
+                                <li><a href="{{ $link->value }}">{{ $link->key }}</a></li>
+                                @endforeach
+
                             </ul>
                         </div><!--//footer-col-inner-->
                     </div><!--//foooter-col-->
                     <div class="footer-col col-lg-6 col-12 mt-4 mt-lg-0 newsletter">
                         <div class="footer-col-inner">
-                            <h3>Join our mailing list</h3>
-                            <p>Subscribe to get our weekly newsletter delivered directly to your inbox</p>
+                            <h3>Ready to Take the Next Step?</h3>
+                            <p>Click the button below to submit your application and start your journey with us.</p>
                             <form class="subscribe-form">
-                                <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Enter your email" />
-                                </div>
-                                <input class="btn btn-theme btn-subscribe" type="submit" value="Subscribe">
+
+                                <a href="{{route('Applicantsform')}}" class="btn btn-theme btn-subscribe">Apply Now</a>
                             </form>
 
                         </div><!--//footer-col-inner-->
@@ -664,14 +592,12 @@
                                 <p class="adr  col-lg-12 col-md-4 col-12">
                                     <i class="fas fa-map-marker-alt float-start"></i>
                                     <span class="adr-group float-start">
-                                        <span class="street-address">College Green</span><br>
-                                        <span class="region">56 College Green Road</span><br>
-                                        <span class="postal-code">12345-1234</span><br>
-                                        <span class="country-name">USA</span>
+                                        <span class="street-address">{{ $settings['address'] ?? '' }}</span><br>
+
                                     </span>
                                 </p>
-                                <p class="tel col-lg-12 col-md-4 col-12"><i class="fas fa-phone"></i>0800 123 4567</p>
-                                <p class="email col-lg-12 col-md-4 col-12"><i class="fas fa-envelope"></i><a href="#">enquires@website.com</a></p>
+                                <p class="tel col-lg-12 col-md-4 col-12"><i class="fas fa-phone"></i>{{ $settings['contact'] ?? '' }}</p>
+                                <p class="email col-lg-12 col-md-4 col-12"><i class="fas fa-envelope"></i><a href="#">{{ $settings['email'] ?? '' }}</a></p>
                             </div>
                         </div><!--//footer-col-inner-->
                     </div><!--//foooter-col-->
@@ -681,13 +607,15 @@
         <div class="bottom-bar">
             <div class="container">
                 <div class="row">
-                    <small class="copyright col-lg-6 col-12">Copyright @ <a href="#">yourwebsite.com</a></small>
+
                     <ul class="social float-end col-lg-6 col-12">
-                        <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
-                        <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                        <li class="row-end"><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                        @foreach($socialMediaLinks as $link)
+                        <li style="margin-right: 10px;">
+                            <a href="{{ $link->url }}">
+                                <img src="{{ asset('pictures/' . $link->image) }}" alt="{{ $link->name }}" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
+                            </a>
+                        </li>
+                        @endforeach
                     </ul><!--//social-->
                 </div><!--//row-->
             </div><!--//container-->
@@ -696,19 +624,6 @@
 
 
     <!-- *****CONFIGURE STYLE (REMOVE ON YOUR PRODUCTION SITE)****** -->
-    <div id="config-panel" class="config-panel config-panel-hide d-none d-lg-block">
-        <div class="panel-inner">
-            <a id="config-trigger" class="config-trigger" href="#"><i class="fas fa-cog mx-auto"></i></a>
-            <h5 class="panel-title">Choose Color</h5>
-            <ul id="color-options" class="list-unstyled list-inline">
-                <li class="theme-1 active list-inline-item"><a data-style="assets/css/theme-1.css" data-logo="assets/images/logo.png" href="#"></a></li>
-                <li class="theme-2 list-inline-item"><a data-style="assets/css/theme-2.css" data-logo="assets/images/logo-green.png" href="#"></a></li>
-                <li class="theme-3 list-inline-item"><a data-style="assets/css/theme-3.css" data-logo="assets/images/logo-purple.png" href="#"></a></li>
-                <li class="theme-4 list-inline-item"><a data-style="assets/css/theme-4.css" data-logo="assets/images/logo-red.png" href="#"></a></li>
-            </ul><!--//color-options-->
-            <a id="config-close" class="close" href="#"><i class="fas fa-times-circle"></i></a>
-        </div><!--//panel-inner-->
-    </div><!--//configure-panel-->
 
     <!-- Javascript -->
     <!-- Popper.js -->

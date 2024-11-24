@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Expenditure;
 use App\Student;
 use Carbon\Carbon;
+use App\Event;
 
 class graphController extends Controller
 {
@@ -59,9 +60,12 @@ class graphController extends Controller
     
         // Calculate the total number of students admitted this year
         $studentsThisYear = Student::whereYear('admission_date', Carbon::now()->year)->count();
-    
+        $events = Event::whereYear('date', $year)
+        ->whereMonth('date', $month)
+        ->orderBy('date')
+        ->get();
         // Pass the data to the view
-        return view('expenditures.graph', compact('year', 'month', 'totalAmount', 'noExpenditures', 'studentsPerYear', 'years', 'totalStudents', 'studentsThisYear'));
+        return view('expenditures.graph', compact('events','year', 'month', 'totalAmount', 'noExpenditures', 'studentsPerYear', 'years', 'totalStudents', 'studentsThisYear'));
     }
     
 

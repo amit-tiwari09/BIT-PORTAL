@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Approved</title>
+    <title>Interview Scheduled</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,17 +20,21 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        h1 {
-            color: #28a745; /* Green color for success */
-            text-align: center;
+        h2 {
+            color: #007bff;
             margin-bottom: 20px;
+            text-align: center;
+        }
+        h3 {
+            color: #333;
+            margin: 10px 0;
         }
         p {
             line-height: 1.6;
             margin: 10px 0;
         }
         strong {
-            color: #333;
+            color: #007bff;
         }
         footer {
             margin-top: 20px;
@@ -44,8 +48,11 @@
             .container {
                 padding: 15px;
             }
-            h1 {
+            h2 {
                 font-size: 1.5em; /* Adjust font size for smaller screens */
+            }
+            h3 {
+                font-size: 1.2em; /* Adjust font size for smaller screens */
             }
             p {
                 font-size: 0.9em; /* Adjust font size for smaller screens */
@@ -55,15 +62,22 @@
 </head>
 <body>
     <div class="container">
-        <h1>Congratulations!</h1>
-        <p>Your application has been approved.</p>
-        <p><strong>Email:</strong> {{ $email }}</p>
-        <p><strong>Password:</strong> {{ $password }}</p>
-        <p>Thank you for your patience.</p>
+        <h2>Interview Scheduled</h2>
+        <p>Dear {{ $application->student->name }},</p>
+
+        <p>We are pleased to inform you that an interview has been scheduled for the following position:</p>
+
+        <h3>Job Title: {{ $application->jobVacancy->title }}</h3>
+
+        <p><strong>Interview Date:</strong> {{ \Carbon\Carbon::parse($interviewDetails['date'])->format('d M, Y') }}</p>
+        <p><strong>Interview Time:</strong> {{ \Carbon\Carbon::parse($interviewDetails['time'])->format('h:i A') }}</p>
+        <p><strong>Interview Place:</strong> {{ $interviewDetails['place'] }}</p>
+
+        <p>Please let us know if you have any questions or need further clarification. We look forward to meeting you!</p>
 
         <footer>
             <p>Best regards,</p>
-            <p>The Team</p>
+            <p>BiT</p>
         </footer>
     </div>
 </body>

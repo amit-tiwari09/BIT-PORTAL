@@ -14,6 +14,8 @@ use App\Promo;
 use App\Event;
 use App\Gallery;
 use App\Category;
+use App\Payment;
+use App\Testimonial;
 use App\Student;
 
 
@@ -27,6 +29,7 @@ Route::get('/', function () {
     $newsItems = blog::all();
     $galleries = Gallery::with('category')->orderBy('created_at', 'desc')->get();
     $categories = Category::all();
+    $testimonials = Testimonial::all();
 
     $events = Event::where('date', '>=', now()->toDateString())
         ->orderBy('date') // First, order by event date
@@ -38,7 +41,7 @@ Route::get('/', function () {
 
 
 
-    return view('frontend.homepage.index', compact('settings', 'socialMediaLinks', 'navLinks', 'slides', 'promos', 'newsItems', 'events', 'galleries', 'categories'));
+    return view('frontend.homepage.index', compact('settings', 'socialMediaLinks', 'navLinks', 'slides', 'promos', 'newsItems', 'events', 'galleries', 'categories', 'testimonials'));
 })->name('home');
 
 
@@ -91,17 +94,17 @@ Route::middleware("staff")->group(function () {
     ]);
 
 
-// expenditure
+    // expenditure
 
 
-Route::view('add/expenses','expenditures.create')->name('expenditures.create');
-Route::get('/expenditure/{id}','ExpenditureController@show')->name('expenditure.show');
-Route::get('/dashboard/graph','graphController@showgraph')->name('dashboard.graph');
+    Route::view('add/expenses', 'expenditures.create')->name('expenditures.create');
+    Route::get('/expenditure/{id}', 'ExpenditureController@show')->name('expenditure.show');
+    Route::get('/dashboard/graph', 'graphController@showgraph')->name('dashboard.graph');
 
 
 
-Route::get('/staff/expenditures','ExpenditureController@index')->name('expenditures.index');
-Route::post('/staff/expenditures','ExpenditureController@store')->name('expenditures.store');
+    Route::get('/staff/expenditures', 'ExpenditureController@index')->name('expenditures.index');
+    Route::post('/staff/expenditures', 'ExpenditureController@store')->name('expenditures.store');
 
     // social media links
     Route::get('social_media_links', 'SocialMediaLinkController@index')->name('social_media_links.index');
@@ -154,6 +157,8 @@ Route::post('/staff/expenditures','ExpenditureController@store')->name('expendit
     Route::get('/fee-structures', 'FeeStructureController@index')->name('fee_structures.index');
     Route::get('students/payment', 'PaymentController@staffStatus')->name('studentpayment.status');
     Route::get('/student/search', 'PaymentController@search')->name('student.search');
+    Route::get('/fee-structures/{id}/edit', 'FeeStructureController@edit')->name('fee_structures.edit');
+    Route::put('/fee-structures/{id}', 'FeeStructureController@update')->name('fee_structures.update');
 
 
 
@@ -168,6 +173,28 @@ Route::post('/staff/expenditures','ExpenditureController@store')->name('expendit
     Route::delete('events/{event}', 'EventController@destroy')->name('events.destroy');
 
 
+    // Job vacancies
+
+    Route::get('job-vacancies/create', 'JobVacancyController@create')->name('job-vacancies.create');
+    Route::post('job-vacancies/store', 'JobVacancyController@store')->name('job-vacancies.store');
+
+    Route::get('job-applications', 'JobApplicationController@index')
+        ->name('job-applications.index');
+    // routes/web.php
+
+    Route::delete('job-vacancies/{id}', 'JobVacancyController@destroy')->name('job-vacancies.destroy');
+
+
+    Route::get('/interviews', 'InterviewInvitationController@index')->name('interviews.index');
+
+
+    Route::post('/schedule/{application_id}', 'ScheduleController@store')->name('schedule.store');
+
+
+
+    Route::get('job-applications/{application}', 'JobApplicationController@show')->name('job-applications.show');
+    Route::post('/interviews/approve/{id}', 'InterviewInvitationController@approve')->name('interviews.approve');
+    Route::post('/interviews/reject/{id}', 'InterviewInvitationController@reject')->name('interviews.reject');
 
     // gallery 
 
@@ -191,10 +218,9 @@ Route::middleware("student")->group(function () {
         return view("backend.StudentDashboard.index", compact('settings'));
     })->name('StudentDashboard');  ///student dashboard
 
-    Route::get('student/profile',function(){
+    Route::get('student/profile', function () {
         $Student = Student::where('email', Auth::guard('student')->user()->email)->first();
-          return view('backend.StudentDashboard.profile',compact('Student'));
-         
+        return view('backend.StudentDashboard.profile', compact('Student'));
     })->name('student.profile');
 
 
@@ -204,7 +230,33 @@ Route::middleware("student")->group(function () {
 
     // Gallery
 
-    Route::get('/student/gallery','GalleryController@index3')->name('gallery.student');
+    Route::get('/student/gallery', 'GalleryController@index3')->name('gallery.student');
+
+    //testimonial
+
+
+    Route::get('/testimonials', 'TestimonialController@show')->name('testimonials.show');
+
+    // Show the form to add a new testimonial
+    Route::get('/testimonials/create', 'TestimonialController@create')->name('testimonials.create');
+
+    // Store the new testimonial
+    Route::post('/testimonials', 'TestimonialController@store')->name('testimonials.store');
+
+    // Show the form to edit a testimonial
+    Route::get('/testimonials/{id}/edit', 'TestimonialController@edit')->name('testimonials.edit');
+
+    // Update the testimonial
+    Route::put('/testimonials/{id}', 'TestimonialController@update')->name('testimonials.update');
+
+    // Delete a testimonial
+    Route::delete('/testimonials/{id}', 'TestimonialController@destroy')->name('testimonials.destroy');
+
+    // Payment
+
+    Route::get('payments/create/{semester}', 'PaymentController@create')->name('payments.create');
+    Route::post('payments/store', 'PaymentController@store')->name('payments.store');
+    Route::get('payments/status', 'PaymentController@status')->name('payments.status');
 });
 
 
@@ -223,8 +275,8 @@ Route::post('studentsblog/{id}', 'BlogController@update3')->name('blog.update3')
 
 
 
-Route::get('/front/events',"EventController@index2")->name('events.index2');
-Route::get('/students/events',"EventController@index3")->name('events.index3');
+Route::get('/front/events', "EventController@index2")->name('events.index2');
+Route::get('/students/events', "EventController@index3")->name('events.index3');
 
 
 
@@ -236,24 +288,7 @@ Route::get('/home/gallery', 'GalleryController@index2')->name('frontgallery');
 
 
 
-
-
-
-
-
-
-
-
-
-// Fee structure and payment 
-
-
-
-
 // Fee Structure Routes
-;
-Route::get('/fee-structures/{id}/edit', 'FeeStructureController@edit')->name('fee_structures.edit');
-Route::put('/fee-structures/{id}', 'FeeStructureController@update')->name('fee_structures.update');
 
 
 
@@ -267,9 +302,9 @@ Route::put('/fee-structures/{id}', 'FeeStructureController@update')->name('fee_s
 
 
 
-Route::get('payments/create/{semester}', 'PaymentController@create')->name('payments.create');
-Route::post('payments/store', 'PaymentController@store')->name('payments.store');
-Route::get('payments/status', 'PaymentController@status')->name('payments.status');
+
+
+
 
 
 
@@ -296,16 +331,11 @@ Route::put('videos/{id}', 'VideoController@update')->name('videos.update');
 Route::delete('videos/{id}', 'VideoController@destroy')->name('videos.destroy');
 
 
-
-// Notification 
-
-Route::get('/notification',function(){
-    return view('notifications.index');
-})->name('notifications');
-
-Route::get('/notification/create',function(){
-    return view('notifications.create');
-})->name('notifications.create');
+// job vacancy 
 
 
-Route::post('/posts','NotificationController@store')->name('notifications.store');
+
+Route::get('job-vacancies', 'JobVacancyController@index')->name('job-vacancies.index');
+
+Route::get('job-vacancies/{job}', 'JobVacancyController@show')->name('job-vacancies.show');
+Route::post('job-vacancies/{job}/apply', 'JobApplicationController@store')->name('job-vacancies.apply');

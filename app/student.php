@@ -17,4 +17,15 @@ class Student extends Authenticatable
     {
         return $this->hasMany(Payment::class);
     }
+
+    // app/Student.php
+    public function jobApplications()
+    {
+        return $this->hasMany(JobApplication::class);
+    }
+
+    public function testimonial()
+    {
+        return $this->hasOne(Testimonial::class);
+    }
 }

@@ -59,38 +59,7 @@
 
 
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="icon-bell"></i>
-                        <span class="count"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="countDropdown">
-                        <a class="dropdown-item py-3">
 
-                            <span class="badge badge-pill badge-primary float-right">View all</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item preview-item">
-                            <div class="preview-thumbnail">
-                                <img src="images/faces/face10.jpg" alt="image" class="img-sm profile-pic">
-                            </div>
-                            <div class="preview-item-content flex-grow py-2">
-                                <p class="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
-                                <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
-                            </div>
-                        </a>
-                        <a class="dropdown-item preview-item">
-                            <div class="preview-thumbnail">
-                                <img src="images/faces/face12.jpg" alt="image" class="img-sm profile-pic">
-                            </div>
-                            <div class="preview-item-content flex-grow py-2">
-                                <p class="preview-subject ellipsis font-weight-medium text-dark">David Grey </p>
-                                <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
-                            </div>
-                        </a>
-
-                    </div>
-                </li>
 
 
                 <li class="nav-item dropdown d-none d-lg-block user-dropdown">
@@ -113,9 +82,7 @@
                                 <p class="fw-light text-muted mb-0">{{session('student')->email}}</p>
                             </div>
                             <a class="dropdown-item" href="{{route('profile.edit')}}"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> Edit Profile <span class="badge badge-pill badge-danger">1</span></a>
-                            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Messages</a>
-                            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i> Activity</a>
-                            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i> FAQ</a>
+
                             <form action="{{route('logout.student')}}" method="POST">
                                 @csrf
                                 <button type="submit" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</button>
@@ -211,6 +178,16 @@
 
                 </li>
 
+                <li class="nav-item">
+                    <form class="nav-link" data-bs-toggle="collapse" action="{{route('testimonials.show')}}">
+
+                        <i class="fas fa-star menu-icon"></i>
+                        <button type="submit" style="border: none; outline:none; background:transparent;" class="menu-title">My review</button>
+                        <i class="menu-arrow"></i>
+                    </form>
+
+                </li>
+
 
 
 
@@ -230,6 +207,9 @@
                 @yield('gallery')
                 @yield('paymentcrete')
                 @yield('studentprofile')
+                @yield('editreview')
+                @yield('createreview')
+                @yield('showreview')
 
             </div>
             <!-- content-wrapper ends -->

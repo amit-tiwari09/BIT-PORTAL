@@ -39,12 +39,14 @@
     .async-hide {
       opacity: 0 !important
     }
+
     .graph-container {
-            width: 100%;
-            max-width: 600px;
-            height: 300px; /* Set a fixed height */
-            margin: 20px auto;
-        }
+      width: 100%;
+      max-width: 600px;
+      height: 300px;
+      /* Set a fixed height */
+      margin: 20px auto;
+    }
   </style>
 
 </head>
@@ -156,12 +158,7 @@
               <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
             </a>
           </li>
-          <li class="nav-item dropdown pe-2 d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa fa-bell cursor-pointer"></i>
-            </a>
-
-          </li>
+          
           <li class="nav-item d-flex align-items-center">
             <form action="{{ route('logout') }}" method="POST" id="logout-form">
               @csrf <!-- Include the CSRF token -->
@@ -203,13 +200,15 @@
       @yield('createsec')
       @yield('showprofilestaff')
       @yield('staffedit')
-     
-            @yield('expenditure')
-            @yield('dashboard')
-            @yield('createexpense')
-            @yield('indexexpense')
-            @yield('showexpense')
-        
+
+      @yield('expenditure')
+      @yield('dashboard')
+      @yield('createexpense')
+      @yield('indexexpense')
+      @yield('showexpense')
+      @yield('jobVacancy')
+      
+
     </div>
   </main
 

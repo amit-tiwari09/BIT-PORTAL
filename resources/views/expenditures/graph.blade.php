@@ -27,14 +27,13 @@
             max-width: 1200px;
             margin: 0 auto;
             height: auto;
-            /* background-color: red; */
         }
 
         .graph-container {
-            flex: 1 1 calc(45% - 20px); /* Adjust width and spacing */
+            flex: 1 1 calc(45% - 20px);
             background-color: white;
             margin: 1em;
-            padding: 1.5em; /* Adjusted for responsiveness */
+            padding: 1.5em;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             display: flex;
@@ -56,18 +55,17 @@
             align-items: center;
             justify-content: center;
             margin-top: 1em;
-            gap: 0.5em; /* Adjusted for responsiveness */
+            gap: 0.5em;
         }
 
         .btn {
-            padding: 0.5em 1em; /* Use em for responsiveness */
+            padding: 0.5em 1em;
             background-color: #007BFF;
             color: white;
             border-radius: 4px;
             text-decoration: none;
             text-align: center;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            font-size: 1em; /* Use em for responsiveness */
         }
 
         .btn:hover {
@@ -80,7 +78,7 @@
         }
 
         input[type="month"] {
-            font-size: 0.9em; /* Use em for responsiveness */
+            font-size: 0.9em;
             padding: 0.5em;
             margin: 0;
             border: 1px solid #007BFF;
@@ -94,7 +92,7 @@
         }
 
         .no-expenditures {
-            font-size: 1em; /* Use em for responsiveness */
+            font-size: 1em;
             color: #d9534f;
             text-align: center;
         }
@@ -103,46 +101,94 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* margin-top: 1em; */
-            /* gap: 0.5em;  */
         }
 
         .info i {
-            font-size: 1.2em; /* Use em for responsiveness */
+            font-size: 1.2em;
             color: #007BFF;
-            margin-right: 0.3em; /* Adjusted for responsiveness */
+            margin-right: 0.3em;
             margin-bottom: 13px;
         }
 
         .info p {
-            font-size: 0.9em; /* Use em for responsiveness */
+            font-size: 0.9em;
             color: #333;
+        }
+
+        .events-container {
+            width: 100%;
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .event-card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .event-date,
+        .event-time,
+        .event-location {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2em;
+            gap: 10px;
+        }
+
+        .action-buttons .btn {
+            flex: 1;
+            padding: 1em;
+            text-align: center;
+            font-size: 1.1em;
+            background-color: #28a745;
+        }
+
+        .action-buttons .btn:hover {
+            background-color: #218838;
         }
 
         @media (max-width: 768px) {
             .graph-container {
-                flex: 1 1 100%; /* Full width on small screens */
+                flex: 1 1 100%;
             }
 
             .btn {
-                font-size: 0.9em; /* Use em for responsiveness */
-                padding: 0.4em 0.8em; /* Use em for responsiveness */
+                font-size: 0.9em;
+                padding: 0.4em 0.8em;
             }
 
             input[type="month"] {
-                font-size: 0.8em; /* Use em for responsiveness */
+                font-size: 0.8em;
             }
 
             .no-expenditures {
-                font-size: 0.9em; /* Use em for responsiveness */
+                font-size: 0.9em;
             }
 
             .info p {
-                font-size: 0.8em; /* Use em for responsiveness */
+                font-size: 0.8em;
             }
         }
     </style>
-</head <body>
+</head>
+
+<body>
     <div class="container">
         <!-- First Graph Container (Expenditure Graph, Calendar, Button, Expenditure Info) -->
         <div class="graph-container">
@@ -184,6 +230,30 @@
                 <p>Total Students Admitted This Year: <strong>{{ $studentsThisYear }}</strong></p>
             </div>
         </div>
+
+        <!-- Action Buttons for Learning Portal and Job Vacancy -->
+        <div class="action-buttons">
+            <a href="{{ route('videos.index') }}" class="btn">Learning Portal</a>
+            <a href="{{ route('job-vacancies.index') }}" class="btn">Job Vacancy</a>
+        </div>
+
+        <!-- Upcoming Events Section -->
+        <div class="events-container">
+            <h3>Upcoming Events</h3>
+
+            @if($events->isEmpty())
+                <p>No upcoming events found.</p>
+            @else
+                @foreach($events as $event)
+                    <div class="event-card">
+                        <div class="event-title">{{ $event->title }}</div>
+                        <div class="event-date">Date: {{ \Carbon\Carbon::parse($event->date)->format('F j, Y') }}</div>
+                        <div class="event-time">Time: {{ \Carbon\Carbon::parse($event->start_time)->format('g:i A') }} - {{ \Carbon\Carbon::parse($event->end_time)->format('g:i A') }}</div>
+                        <div class="event-location">Location: {{ $event->location }}</div>
+                    </div>
+                @endforeach
+            @endif
+        </div>
     </div>
 
     <script>
@@ -202,30 +272,22 @@
                         borderWidth: 2,
                         hoverBackgroundColor: 'rgba(54, 162, 235, 1)',
                         hoverBorderColor: 'rgba(54, 162, 235, 1)',
-                        borderRadius: 10,
-                        barPercentage: 0.5,
-                        categoryPercentage: 0.5
                     }]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false,
                     plugins: {
-                        legend: { display: false },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return '₹' + context.raw.toFixed(2);
+                                    return '₹' + context.raw.toLocaleString();
                                 }
                             }
                         }
                     },
                     scales: {
                         x: {
-                            ticks: {
-                                font: { size: 16, weight: 'bold' },
-                                color: '#333'
-                            },
+                            ticks: { font: { size: 16, weight: 'bold' }, color: '#333' },
                             grid: { display: false }
                         },
                         y: {
@@ -269,9 +331,7 @@
                     plugins: {
                         legend: {
                             position: 'top',
-                            labels: {
-                                font: { size: 16, weight: 'bold' }
-                            }
+                            labels: { font: { size: 16, weight: 'bold' } }
                         },
                         tooltip: {
                             callbacks: {
@@ -282,14 +342,8 @@
                         }
                     },
                     scales: {
-                        x: {
-                            ticks: { font: { size: 16 }, color: '#333' },
-                            grid: { display: false }
-                        },
-                        y: {
-                            ticks: { font: { size: 16 }, color: '#333' },
-                            grid: { drawBorder: false, color: 'rgba(200, 200, 200, 0.2)' }
-                        }
+                        x: { ticks: { font: { size: 16 }, color: '#333' }, grid: { display: false } },
+                        y: { ticks: { font: { size: 16 }, color: '#333' }, grid: { drawBorder: false, color: 'rgba(200, 200, 200, 0.2)' } }
                     },
                     animation: {
                         duration: 1500,
